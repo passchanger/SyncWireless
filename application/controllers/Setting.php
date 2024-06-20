@@ -7,12 +7,12 @@ class Setting extends CI_Controller
         $this->load->model('Setting_model');
         $this->load->library('form_validation');
     }
-    
+
     public function index()
     {
         $this->load->model('Setting_Model');
         $data['setting_details'] = $this->Setting_Model->getALLSettings();
-        $this->load->view('setting', $data);
+        $this->load->view('frontend/view-settings', $data);
         $this->load->library('form_validation');
     }
     public function addSetting()

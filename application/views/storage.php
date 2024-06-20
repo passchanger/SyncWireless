@@ -16,64 +16,10 @@
     <div class="container">
         <div class="clearfix">
             <h3 style="float:left;">All Storage</h3>
-            <a href="#" class="btn btn-primary" style="float:right;" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Storage</a>
+            <a href="#" class="btn btn-primary" style="float:right;" >Add Storage</a>
         </div>
         <table class="table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>name</th>
-                    <th>sorting</th>
-                    <th>status</th>
-                    <th>date_added</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($storage_details as $storage) : ?>
-                    <tr>
-                        <td><?php echo $storage->id; ?></td>
-                        <td><?php echo $storage->name; ?></td>
-                        <td><?php echo $storage->sorting; ?></td>
-                        <td><?php echo $storage->status; ?></td>
-                        <td><?php echo $storage->date_added; ?></td>
-                        <td>
-                            <a data-bs-toggle="modal" data-bs-target="#editStorageModal<?php echo $storage->id; ?>" class="btn btn-success" href="<?php echo base_url('edit-storage/' . $storage->id); ?>">Edit</a>
-                            <a class="btn btn-danger" href="<?php echo base_url('delete-storage/' . $storage->id); ?>">Delete</a>
-                        </td>
-                    </tr>
-
-                    <!-- Edit Storage Modal -->
-                    <div class="modal fade" id="editStorageModal<?php echo $storage->id; ?>" tabindex="-1" aria-labelledby="editStorageModalLabel<?php echo $storage->id; ?>" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <form action="<?php echo base_url('update-storage/' . $storage->id); ?>" method="POST">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="editStorageModalLabel<?php echo $storage->id; ?>">Edit Storage
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </h1>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="form-group mb-2">
-                                            <label for="name">Name</label>
-                                            <input type="text" name="name" placeholder="Enter Name" class="form-control" value="<?php echo $storage->name; ?>">
-                                        </div>
-                                        <div class="form-group mb-2">
-                                            <label for="sorting">Sorting</label>
-                                            <input type="text" name="sorting" placeholder="Enter Sorting" class="form-control" value="<?php echo $storage->sorting; ?>">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <input type="submit" name="insert" value="Update" class="btn btn-info">
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                <?php endforeach; ?>
-            </tbody>
+           
         </table>
     </div>
 

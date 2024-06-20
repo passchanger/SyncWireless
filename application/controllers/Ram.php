@@ -35,7 +35,7 @@ class Ram extends CI_Controller
             ]);
 
             if ($result) {
-                $this->session->set_flashdata('inserted', 'Your data has been inserted successfully');
+                $alert_message = 'Your data has been inserted successfully';
             }
         }
         redirect('Ram');
@@ -44,7 +44,7 @@ class Ram extends CI_Controller
     public function editram($id)
     {
         $data['singleram'] = $this->Ram_model->getSingleRam($id);
-        $data['ram_details'] = $this->Ram_model->getRam();  
+        $data['ram_details'] = $this->Ram_model->getRam();
         $this->load->view('ram', $data);
     }
 

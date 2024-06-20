@@ -54,6 +54,7 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 // $route['api/(:any)/(:any)'] = 'Api/index/$1/$1';
 
+$route['view-brands'] = "Brand/index";
 $route['add-Brand'] = "Brand/addBrand";
 $route['edit-Brand/(:any)'] = "Brand/editBrand/$1";
 $route['update-Brand/(:any)'] = "Brand/updateBrand/$1";
@@ -65,27 +66,31 @@ $route['edit-ram/(:any)'] = "Ram/editram/$1";
 $route['update-ram/(:any)'] = "Ram/updateram/$1";
 $route['delete-ram/(:any)'] = "Ram/deleteram/$1";
 
+$route['view-storages'] = "Storage/index";
 $route['add-storage'] = "Storage/addStorage";
 $route['edit-storage/(:any)'] = "Storage/editStorage/$1";
 $route['update-storage/(:any)'] = "Storage/updateStorage/$1";
 $route['delete-storage/(:any)'] = "Storage/deleteStorage/$1";
 
+$route['view-models'] = "Model/index";
 $route['add-model'] = "Model/addModel";
 $route['edit-model/(:any)'] = "Model/editModel/$1";
 $route['update-model/(:any)'] = "Model/updateModel/$1";
 $route['delete-model/(:any)'] = "Model/deleteModel/$1";
 
+$route['view-repairing-issues'] = "Repairing/index";
 $route['add-repair'] = "Repairing/addRepairing";
 $route['edit-repair/(:any)'] = "Repairing/editRepairing/$1";
 $route['update-repair/(:any)'] = "Repairing/updateRepairing/$1";
 $route['delete-repair/(:any)'] = "Repairing/deleteRepairing/$1";
 
+$route['view-service-centers'] = "Service/index";
 $route['add-service'] = "Service/addService/";
 $route['edit-service/(:any)'] = "Service/editService/$1";
 $route['delete-service/(:any)'] = "Service/deleteService/$1";
 $route['update-service/(:any)'] = "Service/updateService/$1";
 
-
+$route['view-settings'] = "Setting/index";
 $route['add-setting'] = "Setting/addSetting";
 $route['edit-setting/(:any)'] = "Setting/editSetting/$1";
 $route['update-setting/(:any)'] = "Setting/updateSetting/$1";

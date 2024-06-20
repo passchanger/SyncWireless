@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title><?php echo $title; ?></title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <?php include('includes/style.php'); ?>
+</head>
+
+<body>
+    <?php include("includes/header.php"); ?>
+
+    <?php include("includes/sidebar.php"); ?>
+
+    <main id="main" class="main">
+
+        <div class="pagetitle">
+            <h1>Ram</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item">Master Data</li>
+                    <li class="breadcrumb-item active">View-rams</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <h3 style="float:left;">All Repairing</h3>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Repairing-issue</a>
+                        </div>
+                        <div class="card-body">
+
+                            <?php if ($this->session->flashdata('error')) : ?>
+                                <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                                    <?php echo htmlspecialchars($this->session->flashdata('error')); ?>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($this->session->flashdata('inserted')) : ?>
+                                <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                                    <?php echo htmlspecialchars($this->session->flashdata('inserted')); ?>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($this->session->flashdata('updated')) : ?>
+                                <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                                    <?php echo htmlspecialchars($this->session->flashdata('updated')); ?>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($this->session->flashdata('deleted')) : ?>
+                                <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                                    <?php echo htmlspecialchars($this->session->flashdata('deleted')); ?>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            <?php endif; ?>
+                            <!-- Table with stripped rows -->
+                            <table class="table datatable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>ISSSUE</th>
+                                        <!-- <th>sorting</th> -->
+                                        <th>STATUS</th>
+                                        <th>DATE-ADDED</th>
+                                        <th>ACTIONS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($repairing_details as $repairing) : ?>
+                                        <tr>
+                                            <td><?php echo $repairing->id; ?></td>
+                                            <td><?php echo $repairing->issue; ?></td>
+                                            <td><?php echo $repairing->status; ?></td>
+                                            <td><?php echo $repairing->date_added; ?></td>
+                                            <td>
+                                                <a data-bs-toggle="modal" data-bs-target="#editRepairModal<?php echo $repairing->id; ?>" class="btn btn-primary" href="#">Edit</a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-danger" href="<?php echo base_url('delete-repair/' . $repairing->id); ?>">Delete</a>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Edit Repair Modal -->
+                                        <div class="modal fade" id="editRepairModal<?php echo $repairing->id; ?>" tabindex="-1" aria-labelledby="editRepairModalLabel<?php echo $repairing->id; ?>" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <form action="<?php echo base_url('update-repair/' . $repairing->id); ?>" method="POST">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="editRepairModalLabel<?php echo $repairing->id; ?>" style="margin-left: 280px;">Edit Repair Issue
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </h1>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="form-group mb-3">
+                                                                <label for="issue">Issue</label>
+                                                                <input type="text" name="issue" placeholder="Enter Issue" class="form-control" value="<?php echo $repairing->issue; ?>">
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="sorting">Sorting</label>
+                                                                <input type="text" name="sorting" placeholder="Enter Sorting no." class="form-control" value="<?php echo $repairing->sorting; ?>">
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                                                            <input type="submit" name="insert" value="Update" class="btn btn-primary btn-sm">
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                            <!-- End Table with stripped rows -->
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- Add Repair Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form action="<?php echo base_url('add-repair'); ?>" method="POST">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel" style="
+                            margin-left:280px">Add Repair Issue </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group mb-3">
+                                <label for="issue">Issue</label>
+                                <input type="text" name="issue" placeholder="Enter Issue" class="form-control">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="sorting">Sorting</label>
+                                <input type="text" name="sorting" placeholder="Enter Sorting no." class="form-control">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                            <input type="submit" name="insert" value="Add Model" class="btn btn-primary btn-sm">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Flash Messages -->
+
+    </main><!-- End #main -->
+
+    <?php include("includes/footer.php"); ?>
+</body>
+
+</html>

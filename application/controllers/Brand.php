@@ -11,12 +11,12 @@ class Brand extends CI_Controller
     public function index()
     {
         $data['product_details'] = $this->Brand_model->getALLProducts();
-        $this->load->view('brand', $data);
+        $this->load->view('frontend/view-brands', $data);
     }
 
     public function addBrand()
     {
-        
+
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('sorting', 'Sorting', 'trim|required');
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
@@ -28,7 +28,7 @@ class Brand extends CI_Controller
         } else {
             $currentDateTime = date("Y-m-d H:i:s");
 
-            $result = $this->Brand_Model->insert_Brand([
+            $result = $this->Brand_model->insert_Brand([
 
                 'name' => $this->input->post('name'),
                 'sorting' =>  $this->input->post('sorting'),
@@ -45,8 +45,8 @@ class Brand extends CI_Controller
     public function editBrand($id)
     {
 
-        $data['singleBrand'] = $this->Brand_Model->getSingleBrand($id);
-        $data['product_details'] = $this->Brand_Model->getALLProducts();
+        $data['singleBrand'] = $this->Brand_model->getSingleBrand($id);
+        $data['product_details'] = $this->Brand_model->getALLProducts();
         $this->load->view('brand', $data);
     }
     public function updateBrand($id)
@@ -62,7 +62,7 @@ class Brand extends CI_Controller
         } else {
             $currentDateTime = date("Y-m-d H:i:s");
 
-            $result = $this->Brand_Model->update_Brand([
+            $result = $this->Brand_model->update_Brand([
 
                 'name' => $this->input->post('name'),
                 'sorting' =>  $this->input->post('sorting'),
@@ -78,7 +78,7 @@ class Brand extends CI_Controller
     }
     public function deleteBrand($id)
     {
-        $result = $this->Brand_Model->deleteitems($id);
+        $result = $this->Brand_model->deleteitems($id);
         if ($result == true) {
             $this->session->set_flashdata('deleted', 'your data has been deleted successfully');
         }

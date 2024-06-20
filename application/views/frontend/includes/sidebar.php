@@ -43,7 +43,7 @@
           </a>
         </li>
         <li>
-          <a href="components-carousel.html">
+          <a href="view-settings">
             <i class="bi bi-circle"></i><span>Website Settings</span>
           </a>
         </li>

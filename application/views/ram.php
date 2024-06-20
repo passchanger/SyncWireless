@@ -15,7 +15,7 @@
     <div class="container">
         <div class="clearfix">
             <h3 style="float:left;">All Ram</h3>
-            <a href="#" class="btn btn-primary" style="float:right;" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Ram</a>
+            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRamModal">Add Ram</a>
         </div>
         <table class="table table-bordered" id="datatable" width="100%">
             <thead>
@@ -81,14 +81,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="addBrandForm" action="<?php echo base_url('add-ram'); ?>" method="POST">
+                    <form id="addRamForm" action="<?php echo base_url('add-ram'); ?>" method="POST">
                         <div class="mb-3">
-                            <label for="name" class="form-label">NAME</label>
-                            <input type="text" class="form-control" id="nname" name="name" placeholder="Enter your Name">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
                         </div>
                         <div class="mb-3">
-                            <label for="sorting" class="form-label">SORTING</label>
-                            <input type="number" class="form-control" id="ssorting" name="sorting" placeholder="Enter your Sorting">
+                            <label for="sorting" class="form-label">Sorting</label>
+                            <input type="number" class="form-control" id="sorting" name="sorting" placeholder="Enter Sorting">
                         </div>
                         <button type="submit" class="btn btn-warning mt-3">Save & Continue</button>
                     </form>
@@ -96,6 +96,7 @@
             </div>
         </div>
     </div>
+
 
     <?php if ($this->session->flashdata('error')) : ?>
         <div align="center" style="color: #FFF" class="bg-danger">

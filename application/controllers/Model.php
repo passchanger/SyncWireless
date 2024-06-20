@@ -12,7 +12,7 @@ class Model extends CI_Controller
     {
 
         $data['Model_details'] = $this->Model_model->getALLModels();
-        $this->load->view('model', $data);
+        $this->load->view('frontend/view-models', $data);
         $this->load->library('form_validation');
     }
     public function addModel()

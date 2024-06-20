@@ -11,7 +11,7 @@ class Repairing extends CI_Controller
     {
 
         $data['repairing_details'] = $this->Repairing_model->getRepair();
-        $this->load->view('Repairing.php', $data);
+        $this->load->view('frontend/view-Repairing-issues', $data);
         $this->load->library('form_validation');
     }
 

@@ -16,62 +16,10 @@
     <div class="container">
         <div class="clearfix">
             <h3 style="float:left;">All Repairing</h3>
-            <a href="#" class="btn btn-primary" style="float:right;" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Repairing Issue</a>
+            <a href="#" class="btn btn-primary" style="float:right;" >Add Repairing Issue</a>
         </div>
         <table class="table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>id</th>
-                    <th>Issue</th>
-                    <th>sorting</th>
-                    <th>status</th>
-                    <th>date_added</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($repairing_details as $repairing) : ?>
-                    <tr>
-                        <td><?php echo $repairing->id; ?></td>
-                        <td><?php echo $repairing->issue; ?></td>
-                        <td><?php echo $repairing->sorting; ?></td>
-                        <td><?php echo $repairing->status; ?></td>
-                        <td><?php echo $repairing->date_added; ?></td>
-                        <td><a data-bs-toggle="modal" data-bs-target="#editRepairModal<?php echo $repairing->id; ?>" class="btn btn-success" href="#">Edit</a></td>
-                        <td><a class="btn btn-danger" href="<?php echo base_url('delete-repair/' . $repairing->id); ?>">Delete</a></td>
-                    </tr>
-
-                    <!-- Edit Repair Modal -->
-                    <div class="modal fade" id="editRepairModal<?php echo $repairing->id; ?>" tabindex="-1" aria-labelledby="editRepairModalLabel<?php echo $repairing->id; ?>" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <form action="<?php echo base_url('update-repair/' . $repairing->id); ?>" method="POST">
-                                    <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="editRepairModalLabel<?php echo $repairing->id; ?>">Edit Repair Issue
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </h1>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="form-group mb-2">
-                                            <label for="issue">Issue</label>
-                                            <input type="text" name="issue" placeholder="Enter Issue" class="form-control" value="<?php echo $repairing->issue; ?>">
-                                        </div>
-                                        <div class="form-group mb-2">
-                                            <label for="sorting">Sorting</label>
-                                            <input type="text" name="sorting" placeholder="Enter Sorting no." class="form-control" value="<?php echo $repairing->sorting; ?>">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                        <input type="submit" name="insert" value="Update" class="btn btn-info">
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                <?php endforeach; ?>
-            </tbody>
+            
         </table>
     </div>
 

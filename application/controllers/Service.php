@@ -12,7 +12,7 @@ class Service extends CI_Controller
     {
 
         $data['service_details'] = $this->Service_model->getALLService();
-        $this->load->view('service', $data);
+        $this->load->view('frontend/view-service-centers', $data);
         $this->load->library('form_validation');
     }
     public function addService()

@@ -12,7 +12,7 @@ class Storage extends CI_Controller
     {
 
         $data['storage_details'] = $this->Storage_model->getStorage();
-        $this->load->view('storage.php', $data);
+        $this->load->view('frontend/view-storages', $data);
         $this->load->library('form_validation');
     }
     public function addStorage()
