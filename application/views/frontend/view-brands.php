@@ -38,7 +38,9 @@
                             <h3></h3>
                             <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Brand</a>
                         </div>
+
                         <div class="card-body">
+
                             <?php if ($this->session->flashdata('error')) : ?>
                                 <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('error')); ?>
@@ -87,8 +89,10 @@
                                             <td><?php echo htmlspecialchars($products->name); ?></td>
                                             <td><?php echo htmlspecialchars($products->description); ?></td>
                                             <td><?php echo htmlspecialchars($products->date_added); ?></td>
-                                            <td><a data-bs-toggle="modal" data-bs-target="#exampleModall" class="btn btn-primary" href="<?php echo base_url('edit-Brand/' . $products->id); ?>">Edit</a></td>
-                                            <td><a class="btn btn-danger" href="<?php echo base_url('delete-Brand/' . $products->id); ?>">Delete</a></td>
+                                            <td>
+                                                <a data-bs-toggle="modal" data-bs-target="#exampleModall" class="btn btn-primary btn-sm" href="<?php echo base_url('edit-Brand/' . $products->id); ?>">Edit</a>
+                                                <a class="btn btn-danger btn-sm" href="<?php echo base_url('delete-Brand/' . $products->id); ?>">Delete</a>
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                     <div class="modal fade" id="exampleModall" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -96,8 +100,8 @@
                                             <div class="modal-content">
                                                 <form action="<?php echo base_url('update-Brand/' . $products->id); ?>" method="POST">
                                                     <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="exampleModalLabel" style="margin-left:330px;">Edit Brand
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel" style="margin-left:330px;">Edit Brand</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="form-group mb-3">
@@ -105,15 +109,15 @@
                                                             <input type="text" name="name" placeholder="Enter your Name" class="form-control" value="<?php echo htmlspecialchars($products->name); ?>">
                                                         </div>
                                                         <div class="form-group mb-3">
-                                                            <label for="sorting">SORTING</label>
-                                                            <input type="number" name="sorting" placeholder="Enter your Sorting no." class="form-control" value="<?php echo htmlspecialchars($products->sorting); ?>">
-                                                        </div>
-                                                        <div class=" form-group mb-3">
                                                             <label for="description">DESCRIPTION</label>
                                                             <textarea name="description" placeholder="Enter your description" class="form-control"><?php echo htmlspecialchars($products->description); ?></textarea>
                                                         </div>
+                                                        <div class="form-group mb-3">
+                                                            <label for="sorting">SORTING</label>
+                                                            <input type="number" name="sorting" placeholder="Enter your Sorting no." class="form-control" value="<?php echo htmlspecialchars($products->sorting); ?>">
+                                                        </div>
                                                     </div>
-                                                    <div class=" modal-footer">
+                                                    <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
                                                         <input type="submit" name="insert" value="Update" class="btn btn-primary btn-sm">
                                                     </div>
@@ -121,6 +125,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </tbody>
                             </table>
 
@@ -142,24 +147,23 @@
                             margin-left:330px">Add Brand</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-
                         <div class="modal-body">
                             <div class="form-group mb-3">
                                 <label for="name">NAME</label>
                                 <input type="text" name="name" placeholder="Enter your Name" class="form-control">
                             </div>
                             <div class="form-group mb-3">
-                                <label for="sorting">SORTING</label>
-                                <input type="number" name="sorting" placeholder="Enter your Sorting no." class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
                                 <label for="description">DESCRIPTION</label>
                                 <textarea name="description" placeholder="Enter your description" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="sorting">SORTING</label>
+                                <input type="number" name="sorting" placeholder="Enter your Sorting no." class="form-control">
                             </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                            <input type="submit" name="insert" value="Add Model" class="btn btn-primary btn-sm">
+                            <input type="submit" name="insert" value="Add brand" class="btn btn-primary btn-sm">
                         </div>
                     </form>
                 </div>

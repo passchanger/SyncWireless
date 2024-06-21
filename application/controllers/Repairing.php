@@ -11,6 +11,7 @@ class Repairing extends CI_Controller
     {
 
         $data['repairing_details'] = $this->Repairing_model->getRepair();
+        $data['brands'] = $this->db->query("select * from brands where status = 'active'")->result_array();
         $this->load->view('frontend/view-Repairing-issues', $data);
         $this->load->library('form_validation');
     }
@@ -18,7 +19,8 @@ class Repairing extends CI_Controller
     public function addRepairing()
     {
 
-        $this->form_validation->set_rules('issue', 'Issue', 'trim|required');
+        $this->form_validation->set_rules('issue_name', 'Issue Name', 'trim|required');
+        $this->form_validation->set_rules('issue_price', 'Issue Price', 'trim|required');
         $this->form_validation->set_rules('sorting', ' Sorting', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
@@ -33,7 +35,8 @@ class Repairing extends CI_Controller
 
             $result = $this->Repairing_model->insert_issue([
 
-                'issue' => $this->input->post('issue'),
+                'issue_name' => $this->input->post('issue_name'),
+                'issue_price' => $this->input->post('issue_price'),
                 'sorting' => $this->input->post('sorting'),
                 'date_added' => $currentDateTime
             ]);
@@ -52,7 +55,8 @@ class Repairing extends CI_Controller
     public function updateRepairing($id)
     {
 
-        $this->form_validation->set_rules('issue', 'Issue', 'trim|required');
+        $this->form_validation->set_rules('issue_name', 'Issue Name', 'trim|required');
+        $this->form_validation->set_rules('issue_price', 'Issue Price', 'trim|required');
         $this->form_validation->set_rules('sorting', ' Sorting', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
@@ -67,7 +71,8 @@ class Repairing extends CI_Controller
 
             $result = $this->Repairing_model->update_issue([
 
-                'issue' => $this->input->post('issue'),
+                'issue_name' => $this->input->post('issue_name'),
+                'issue_price' => $this->input->post('issue_price'),
                 'sorting' => $this->input->post('sorting'),
                 'date_added' => $currentDateTime
             ], $id);

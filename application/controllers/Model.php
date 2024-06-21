@@ -12,9 +12,11 @@ class Model extends CI_Controller
     {
 
         $data['Model_details'] = $this->Model_model->getALLModels();
+        $data['brands'] = $this->db->query("select * from brands where status = 'active'")->result_array();
         $this->load->view('frontend/view-models', $data);
         $this->load->library('form_validation');
     }
+
     public function addModel()
     {
 

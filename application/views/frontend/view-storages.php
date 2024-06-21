@@ -85,8 +85,8 @@
                                             <td><?php echo $storage->status; ?></td>
                                             <td><?php echo $storage->date_added; ?></td>
                                             <td>
-                                                <a data-bs-toggle="modal" data-bs-target="#editStorageModal<?php echo $storage->id; ?>" class="btn btn-primary" href="<?php echo base_url('edit-storage/' . $storage->id); ?>">Edit</a>
-                                                <a class="btn btn-danger" href="<?php echo base_url('delete-storage/' . $storage->id); ?>">Delete</a>
+                                                <a data-bs-toggle="modal" data-bs-target="#editStorageModal<?php echo $storage->id; ?>" class="btn btn-primary btn-sm" href="<?php echo base_url('edit-storage/' . $storage->id); ?>">Edit</a>
+                                                <a class="btn btn-danger btn-sm" href="<?php echo base_url('delete-storage/' . $storage->id); ?>">Delete</a>
                                             </td>
                                         </tr>
 
@@ -103,11 +103,11 @@
                                                         <div class="modal-body">
                                                             <div class="form-group mb-3">
                                                                 <label for="name">Name</label>
-                                                                <input type="text" name="name" placeholder="Enter Name" class="form-control" value="<?php echo $storage->name; ?>">
+                                                                <input type="text" name="name" placeholder="Enter Name" class="form-control" value="<?php echo htmlspecialchars($storage->name); ?>">
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="sorting">Sorting</label>
-                                                                <input type="text" name="sorting" placeholder="Enter Sorting" class="form-control" value="<?php echo $storage->sorting; ?>">
+                                                                <input type="text" name="sorting" placeholder="Enter Sorting" class="form-control" value="<?php echo htmlspecialchars($storage->sorting); ?>">
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">

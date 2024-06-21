@@ -70,8 +70,8 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>ISSSUE</th>
-                                        <!-- <th>sorting</th> -->
+                                        <th>ISSSUE-NAME</th>
+                                        <th>ISSSUE-PRICE</th>
                                         <th>STATUS</th>
                                         <th>DATE-ADDED</th>
                                         <th>ACTIONS</th>
@@ -81,14 +81,13 @@
                                     <?php foreach ($repairing_details as $repairing) : ?>
                                         <tr>
                                             <td><?php echo $repairing->id; ?></td>
-                                            <td><?php echo $repairing->issue; ?></td>
+                                            <td><?php echo $repairing->issue_name; ?></td>
+                                            <td><?php echo $repairing->issue_price; ?></td>
                                             <td><?php echo $repairing->status; ?></td>
                                             <td><?php echo $repairing->date_added; ?></td>
                                             <td>
-                                                <a data-bs-toggle="modal" data-bs-target="#editRepairModal<?php echo $repairing->id; ?>" class="btn btn-primary" href="#">Edit</a>
-                                            </td>
-                                            <td>
-                                                <a class="btn btn-danger" href="<?php echo base_url('delete-repair/' . $repairing->id); ?>">Delete</a>
+                                                <a data-bs-toggle="modal" data-bs-target="#editRepairModal<?php echo $repairing->id; ?>" class="btn btn-primary btn-sm" href="#">Edit</a>
+                                                <a class="btn btn-danger btn-sm" href="<?php echo base_url('delete-repair/' . $repairing->id); ?>">Delete</a>
                                             </td>
                                         </tr>
 
@@ -104,12 +103,25 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="form-group mb-3">
-                                                                <label for="issue">Issue</label>
-                                                                <input type="text" name="issue" placeholder="Enter Issue" class="form-control" value="<?php echo $repairing->issue; ?>">
+                                                                <label for="brand_id" class="form-label">Select Brand </label>
+                                                                <select class="form-control" name="brand_id" required>
+                                                                    <option disabled selected>Select your Brand </option>
+                                                                    <?php foreach ($brands as $brand) { ?>
+                                                                        <option value="<?php echo htmlspecialchars($brand['id']); ?>"><?php echo htmlspecialchars($brand['name']); ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="issue">Issue Name</label>
+                                                                <input type="text" name="issue_name" placeholder="Enter your Issue" class="form-control" value="<?php echo htmlspecialchars($repairing->issue_name); ?>">
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="number">Issue Price</label>
+                                                                <input type="number" name="issue_price" placeholder="Enter your Issue Price" class="form-control" value="<?php echo htmlspecialchars($repairing->issue_price); ?>">
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="sorting">Sorting</label>
-                                                                <input type="text" name="sorting" placeholder="Enter Sorting no." class="form-control" value="<?php echo $repairing->sorting; ?>">
+                                                                <input type="text" name="sorting" placeholder="Enter Sorting no." class="form-control" value="<?php echo htmlspecialchars($repairing->sorting); ?>">
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
@@ -145,8 +157,21 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group mb-3">
-                                <label for="issue">Issue</label>
-                                <input type="text" name="issue" placeholder="Enter Issue" class="form-control">
+                                <label for="brand_id" class="form-label">Select Brand </label>
+                                <select class="form-control" name="brand_id" required>
+                                    <option disabled selected>Select your Brand </option>
+                                    <?php foreach ($brands as $brand) { ?>
+                                        <option value="<?php echo htmlspecialchars($brand['id']); ?>"><?php echo htmlspecialchars($brand['name']); ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="issue">Issue Name</label>
+                                <input type="text" name="issue_name" placeholder="Enter your Issue" class="form-control">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="number">Issue Price</label>
+                                <input type="number" name="issue_price" placeholder="Enter your Issue Price" class="form-control">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="sorting">Sorting</label>

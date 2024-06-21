@@ -22,6 +22,10 @@ class Service extends CI_Controller
         $this->form_validation->set_rules('address', 'Address', 'trim|required');
         $this->form_validation->set_rules('city', 'City', 'trim|required');
         $this->form_validation->set_rules('state', 'State', 'trim|required');
+        $this->form_validation->set_rules('pincode', 'Pincode', 'required');
+        $this->form_validation->set_rules('cp_name', 'CP-Name', 'trim|required');
+        $this->form_validation->set_rules('mobile', 'Mobile', 'required|min_length[10]|max_length[10]|is_unique[service_centres.mobile]');
+        $this->form_validation->set_rules('email', 'Email', 'required|is_unique[service_centres.email]');
         $this->form_validation->set_rules('latitude', 'Lattitude', 'required');
         $this->form_validation->set_rules('longitude', 'Longitude', 'required');
 
@@ -40,6 +44,10 @@ class Service extends CI_Controller
                 'address' =>  $this->input->post('address'),
                 'city' =>  $this->input->post('city'),
                 'state' =>  $this->input->post('state'),
+                'pincode' =>  $this->input->post('pincode'),
+                'cp_name' =>  $this->input->post('cp_name'),
+                'mobile' =>  $this->input->post('mobile'),
+                'email' =>  $this->input->post('email'),
                 'latitude' =>  $this->input->post('latitude'),
                 'longitude' =>  $this->input->post('longitude'),
                 'date_added' => $currentDateTime
@@ -62,6 +70,10 @@ class Service extends CI_Controller
         $this->form_validation->set_rules('address', 'Address', 'trim|required');
         $this->form_validation->set_rules('city', 'City', 'trim|required');
         $this->form_validation->set_rules('state', 'State', 'trim|required');
+        $this->form_validation->set_rules('pincode', 'Pincode', 'required');
+        $this->form_validation->set_rules('cp_name', 'CP-Name', 'trim|required');
+        $this->form_validation->set_rules('mobile', 'Mobile', 'required|min_length[10]|max_length[10]|is_unique[service_centres.mobile]');
+        $this->form_validation->set_rules('email', 'Email', 'required|is_unique[service_centres.email]');
         $this->form_validation->set_rules('latitude', 'Lattitude', 'required');
         $this->form_validation->set_rules('longitude', 'Longitude', 'required');
 
@@ -79,6 +91,10 @@ class Service extends CI_Controller
                 'address' =>  $this->input->post('address'),
                 'city' =>  $this->input->post('city'),
                 'state' =>  $this->input->post('state'),
+                'pincode' =>  $this->input->post('pincode'),
+                'cp_name' =>  $this->input->post('cp_name'),
+                'mobile' =>  $this->input->post('mobile'),
+                'email' =>  $this->input->post('email'),
                 'latitude' =>  $this->input->post('latitude'),
                 'longitude' =>  $this->input->post('longitude'),
                 'date_added' => $currentDateTime

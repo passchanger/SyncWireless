@@ -70,10 +70,9 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>NAME</th>
+                                        <th>Name</th>
+                                        <th>CP-DETAILS</th>
                                         <th>ADDRESS</th>
-                                        <th>CITY</th>
-                                        <th>STATE</th>
                                         <th>LATTITUDE</th>
                                         <th>LONGITUDE</th>
                                         <th>STATUS</th>
@@ -86,16 +85,17 @@
                                         <tr>
                                             <td><?php echo $service->id; ?></td>
                                             <td><?php echo $service->name; ?></td>
-                                            <td><?php echo $service->address; ?></td>
-                                            <td><?php echo $service->city; ?></td>
-                                            <td><?php echo $service->state; ?></td>
+                                            <td><?php echo $service->cp_name . "<br>" . $service->email . "<br>" . $service->mobile ?></td>
+                                            <td>
+                                                <?php echo $service->address . "<br>" . $service->city . "<br>" . $service->state . "<br>" . $service->pincode  ?>
+                                            </td>
                                             <td><?php echo $service->latitude; ?></td>
                                             <td><?php echo $service->longitude; ?></td>
                                             <td><?php echo $service->status; ?></td>
                                             <td><?php echo $service->date_added; ?></td>
                                             <td>
-                                                <a data-bs-toggle="modal" data-bs-target="#editServiceModal<?php echo $service->id; ?>" class="btn btn-primary" href="#">Edit</a>
-                                                <a class="btn btn-danger" href="<?php echo base_url('delete-service/' . $service->id); ?>">Delete</a>
+                                                <a data-bs-toggle="modal" data-bs-target="#editServiceModal<?php echo $service->id; ?>" class="btn btn-primary btn-sm" href="#">Edit</a>
+                                                <a class="btn btn-danger btn-sm" href="<?php echo base_url('delete-service/' . $service->id); ?>">Delete</a>
                                             </td>
                                         </tr>
 
@@ -112,27 +112,44 @@
                                                         <div class="modal-body">
                                                             <div class="form-group mb-3">
                                                                 <label for="name">Name</label>
-                                                                <input type="text" name="name" placeholder="Enter Name" class="form-control" value="<?php echo $service->name; ?>">
+                                                                <input type="text" name="name" placeholder="Enter your Name" class="form-control" value="<?php echo htmlspecialchars($service->name); ?>">
                                                             </div>
+
                                                             <div class="form-group mb-3">
                                                                 <label for="address">Address</label>
-                                                                <input type="text" name="address" placeholder="Enter Address" class="form-control" value="<?php echo $service->address; ?>">
+                                                                <input type="text" name="address" placeholder="Enter your Address" class="form-control" value="<?php echo htmlspecialchars($service->address); ?>">
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="city">City</label>
-                                                                <input type="text" name="city" placeholder="Enter City" class="form-control" value="<?php echo $service->city; ?>">
+                                                                <input type="text" name="city" placeholder="Enter your City" class="form-control" value="<?php echo htmlspecialchars($service->city); ?>">
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="state">State</label>
-                                                                <input type="text" name="state" placeholder="Enter State" class="form-control" value="<?php echo $service->state; ?>">
+                                                                <input type="text" name="state" placeholder="Enter your State" class="form-control" value="<?php echo htmlspecialchars($service->state); ?>">
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="pincode">Pincode</label>
+                                                                <input type="number" name="pincode" placeholder="Enter your Pincode" class="form-control" value="<?php echo htmlspecialchars($service->pincode); ?>">
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="name">Contact Person Name</label>
+                                                                <input type="text" name="cp_name" placeholder="Enter your CP-Name" class="form-control" value="<?php echo htmlspecialchars($service->cp_name); ?>">
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="mobile">Mobile</label>
+                                                                <input type="number" name="mobile" placeholder="Enter Mobile" class="form-control" value="<?php echo htmlspecialchars($service->mobile); ?>">
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="mail">Email</label>
+                                                                <input type="email" name="email" placeholder="Enter your Email" class="form-control" value="<?php echo htmlspecialchars($service->email); ?>">
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="latitude">Latitude</label>
-                                                                <input type="number" name="latitude" placeholder="Enter Latitude" class="form-control" value="<?php echo $service->latitude; ?>">
+                                                                <input type="number" name="latitude" placeholder="Enter your Latitude" class="form-control" value="<?php echo htmlspecialchars($service->latitude); ?>">
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="longitude">Longitude</label>
-                                                                <input type="number" name="longitude" placeholder="Enter Longitude" class="form-control" value="<?php echo $service->longitude; ?>">
+                                                                <input type="number" name="longitude" placeholder="Enter your Longitude" class="form-control" value="<?php echo htmlspecialchars($service->longitude); ?>">
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
@@ -168,27 +185,43 @@
                         <div class="modal-body">
                             <div class="form-group mb-3">
                                 <label for="name">Name</label>
-                                <input type="text" name="name" placeholder="Enter Name" class="form-control">
+                                <input type="text" name="name" placeholder="Enter your Name" class="form-control">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="address">Address</label>
-                                <input type="text" name="address" placeholder="Enter Address" class="form-control">
+                                <input type="text" name="address" placeholder="Enter your Address" class="form-control">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="city">City</label>
-                                <input type="text" name="city" placeholder="Enter City" class="form-control">
+                                <input type="text" name="city" placeholder="Enter your City" class="form-control">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="state">State</label>
-                                <input type="text" name="state" placeholder="Enter State" class="form-control">
+                                <input type="text" name="state" placeholder="Enter your State" class="form-control">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="pincode">Pincode</label>
+                                <input type="number" name="pincode" placeholder="Enter your Pincode" class="form-control">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="name">Contact Person Name</label>
+                                <input type="text" name="cp_name" placeholder="Enter your CP-Name" class="form-control">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="mobile">Mobile</label>
+                                <input type="number" name="mobile" placeholder="Enter Mobile" class="form-control">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="mail">Email</label>
+                                <input type="email" name="email" placeholder="Enter your Email" class="form-control">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="latitude">Latitude</label>
-                                <input type="number" name="latitude" placeholder="Enter Latitude" class="form-control">
+                                <input type="number" name="latitude" placeholder="Enter your Latitude" class="form-control">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="longitude">Longitude</label>
-                                <input type="number" name="longitude" placeholder="Enter Longitude" class="form-control">
+                                <input type="number" name="longitude" placeholder="Enter your Longitude" class="form-control">
                             </div>
                         </div>
                         <div class="modal-footer">

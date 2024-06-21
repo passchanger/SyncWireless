@@ -23,13 +23,8 @@
           </a>
         </li>
         <li>
-          <a href="view-rams">
-            <i class="bi bi-circle"></i><span>RAM</span>
-          </a>
-        </li>
-        <li>
-          <a href="view-storages">
-            <i class="bi bi-circle"></i><span>Storage</span>
+          <a href="view-repairing-issues">
+            <i class="bi bi-circle"></i><span>Repairing Issues</span>
           </a>
         </li>
         <li>
@@ -38,8 +33,13 @@
           </a>
         </li>
         <li>
-          <a href="view-repairing-issues">
-            <i class="bi bi-circle"></i><span>Repairing Issues</span>
+          <a href="view-rams">
+            <i class="bi bi-circle"></i><span>RAM</span>
+          </a>
+        </li>
+        <li>
+          <a href="view-storages">
+            <i class="bi bi-circle"></i><span>Storage</span>
           </a>
         </li>
         <li>

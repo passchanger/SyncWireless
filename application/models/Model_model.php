@@ -3,7 +3,10 @@ class Model_model extends CI_Model
 {
     public function getALLModels()
     {
-        $query = $this->db->get('model');
+        $this->db->select('model.*, brands.name AS brand_name');
+        $this->db->from('model');
+        $this->db->join('brands', 'model.brand_id = brands.id');
+        $query = $this->db->get();
         if ($query) {
             return $query->result();
         }

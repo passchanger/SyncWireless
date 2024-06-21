@@ -67,13 +67,13 @@
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
               <?php endif; ?>
+
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
                   <tr>
                     <th>ID</th>
                     <th>NAME</th>
-                    <!-- <th>Sorting</th> -->
                     <th>STATUS</th>
                     <th>DATE ADDED</th>
                     <th>ACTIONS</th>
@@ -87,10 +87,11 @@
                       <td><?php echo htmlspecialchars($ram->status); ?></td>
                       <td><?php echo htmlspecialchars($ram->date_added); ?></td>
                       <td>
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#editRamModal<?php echo htmlspecialchars($ram->id); ?>" class="btn btn-primary">Edit</a>
-                        <a href="<?php echo base_url('delete-ram/' . $ram->id); ?>" class="btn btn-danger">Delete</a>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#editRamModal<?php echo htmlspecialchars($ram->id); ?>" class="btn btn-primary btn-sm">Edit</a>
+                        <a href="<?php echo base_url('delete-ram/' . $ram->id); ?>" class="btn btn-danger btn-sm">Delete</a>
                       </td>
                     </tr>
+
                     <!-- Edit Ram Modal -->
                     <div class="modal fade" id="editRamModal<?php echo htmlspecialchars($ram->id); ?>" tabindex="-1" aria-labelledby="editRamModalLabel<?php echo htmlspecialchars($ram->id); ?>" aria-hidden="true">
                       <div class="modal-dialog">
@@ -118,6 +119,7 @@
                         </div>
                       </div>
                     </div>
+
                   <?php endforeach; ?>
                 </tbody>
               </table>
@@ -161,7 +163,7 @@
         <!-- End Modal Body -->
       </div>
     </div>
-    </div>
+
     <!-- End Modal for Adding RAM -->
   </main><!-- End #main -->
 

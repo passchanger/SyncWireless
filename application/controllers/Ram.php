@@ -33,7 +33,7 @@ class Ram extends CI_Controller
                 'sorting' => $this->input->post('sorting'),
                 'date_added' => $currentDateTime
             ]);
-
+          
             if ($result) {
                 $alert_message = 'Your data has been inserted successfully';
             }

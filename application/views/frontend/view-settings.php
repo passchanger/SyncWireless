@@ -64,8 +64,8 @@
                                             <td><?php echo $setting->ga_creds; ?></td>
                                             <td><?php echo $setting->tag_manager; ?></td>
                                             <td>
-                                                <a data-bs-toggle="modal" data-bs-target="#editSettingModal<?php echo $setting->id; ?>" class="btn btn-primary" href="<?php echo base_url('edit-setting/' . $setting->id); ?>">Edit</a>
-                                                <a class="btn btn-danger" href="<?php echo base_url('delete-setting/' . $setting->id); ?>">Delete</a>
+                                                <a data-bs-toggle="modal" data-bs-target="#editSettingModal<?php echo $setting->id; ?>" class="btn btn-primary btn-sm" href="<?php echo base_url('edit-setting/' . $setting->id); ?>">Edit</a>
+                                                <a class="btn btn-danger btn-sm" href="<?php echo base_url('delete-setting/' . $setting->id); ?>">Delete</a>
                                             </td>
                                         </tr>
 
@@ -82,27 +82,27 @@
                                                         <div class="modal-body">
                                                             <div class="form-group mb-3">
                                                                 <label for="name">Sitename</label>
-                                                                <input type="text" name="sitename" placeholder="Enter Sitename" class="form-control" value="<?php echo $setting->sitename; ?>">
+                                                                <input type="text" name="sitename" placeholder="Enter Sitename" class="form-control" value="<?php echo htmlspecialchars($setting->sitename); ?>" >
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="email">Siteemail</label>
-                                                                <input type="email" name="siteemail" placeholder="Enter Siteemail" class="form-control" value="<?php echo $setting->siteemail; ?>">
+                                                                <input type="email" name="siteemail" placeholder="Enter Siteemail" class="form-control"value="<?php echo htmlspecialchars($setting->siteemail); ?>" >
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="number">Sitemobile</label>
-                                                                <input type="number" name="sitemobile" placeholder="Enter Sitemobile" class="form-control" value="<?php echo $setting->sitemobile; ?>">
+                                                                <input type="number" name="sitemobile" placeholder="Enter Sitemobile" class="form-control" value="<?php echo htmlspecialchars($setting->sitemobile); ?>">
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="pg_creds">pg_creds</label>
-                                                                <input type="text" name="pg_creds" placeholder="Enter pg_creds" class="form-control" value="<?php echo $setting->pg_creds; ?>">
+                                                                <input type="text" name="pg_creds" placeholder="Enter pg_creds" class="form-control" value="<?php echo htmlspecialchars($setting->pg_creds); ?>">
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="ga_creds">ga_creds</label>
-                                                                <input type="text" name="ga_creds" placeholder="Enter ga_creds" class="form-control" value="<?php echo $setting->ga_creds; ?>">
+                                                                <input type="text" name="ga_creds" placeholder="Enter ga_creds" class="form-control" value="<?php echo htmlspecialchars($setting->ga_creds); ?>">
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="tag_manager">Tag_Manager</label>
-                                                                <input type="text" name="tag_manager" placeholder="Enter Tag_Manager" class="form-control" value="<?php echo $setting->tag_manager; ?>">
+                                                                <input type="text" name="tag_manager" placeholder="Enter Tag_Manager" class="form-control" value="<?php echo htmlspecialchars($setting->Tag_manager); ?>">
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
