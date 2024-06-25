@@ -17,6 +17,7 @@ class Ram extends CI_Controller
     public function addram()
     {
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
+        $this->form_validation->set_rules('feature', 'Feature', 'trim|required');
         $this->form_validation->set_rules('sorting', 'Sorting', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
@@ -33,7 +34,7 @@ class Ram extends CI_Controller
                 'sorting' => $this->input->post('sorting'),
                 'date_added' => $currentDateTime
             ]);
-          
+
             if ($result) {
                 $alert_message = 'Your data has been inserted successfully';
             }

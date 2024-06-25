@@ -77,6 +77,9 @@ $route['add-model'] = "Model/addModel";
 $route['edit-model/(:any)'] = "Model/editModel/$1";
 $route['update-model/(:any)'] = "Model/updateModel/$1";
 $route['delete-model/(:any)'] = "Model/deleteModel/$1";
+$route['model/select-id'] = "Model/getModelsByBrand";
+
+
 
 $route['view-repairing-issues'] = "Repairing/index";
 $route['add-repair'] = "Repairing/addRepairing";
@@ -98,3 +101,9 @@ $route['delete-setting/(:any)'] = "Setting/deleteSetting/$1";
 
 
 $route['dashboard'] = "Index/index";
+
+$route['view-users'] = "Users/index";
+$route['add-users'] = "Users/addUsers";
+$route['edit-users/(:any)'] = "Users/editUsers/$1";
+$route['update-users/(:any)'] = "Users/updateUsers/$1";
+$route['delete-users/(:any)'] = "Users/deleteUsers/$1";

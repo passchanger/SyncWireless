@@ -92,7 +92,7 @@
                                             <td><?php echo $service->latitude; ?></td>
                                             <td><?php echo $service->longitude; ?></td>
                                             <td><?php echo $service->status; ?></td>
-                                            <td><?php echo $service->date_added; ?></td>
+                                            <td><?php echo date("F j, Y", strtotime($service->date_added)); ?></td>
                                             <td>
                                                 <a data-bs-toggle="modal" data-bs-target="#editServiceModal<?php echo $service->id; ?>" class="btn btn-primary btn-sm" href="#">Edit</a>
                                                 <a class="btn btn-danger btn-sm" href="<?php echo base_url('delete-service/' . $service->id); ?>">Delete</a>

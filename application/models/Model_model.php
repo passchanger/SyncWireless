@@ -3,17 +3,26 @@ class Model_model extends CI_Model
 {
     public function getALLModels()
     {
-        $this->db->select('model.*, brands.name AS brand_name');
-        $this->db->from('model');
-        $this->db->join('brands', 'model.brand_id = brands.id');
+        $this->db->select('models.*, brands.name AS brand_name');
+        $this->db->from('models');
+        $this->db->join('brands', 'models.brand_id = brands.id');
         $query = $this->db->get();
         if ($query) {
             return $query->result();
         }
     }
+
+    public function getModelsByBrand($brand_id)
+    {
+        $this->db->where('brand_id', $brand_id);
+        $query = $this->db->get('models');
+        return $query->result_array();
+    }
+
+
     public function insert_Model($data)
     {
-        $query = $this->db->insert('model', $data);
+        $query = $this->db->insert('models', $data);
         if ($query) {
             return true;
         } else {
@@ -23,7 +32,7 @@ class Model_model extends CI_Model
     public function getSingleModel($id)
     {
         $this->db->where('id', $id);
-        $query = $this->db->get('model');
+        $query = $this->db->get('models');
         if ($query) {
             return $query->row();
         }
@@ -31,7 +40,7 @@ class Model_model extends CI_Model
     public function update_Model($data, $id)
     {
         $this->db->where('id', $id);
-        $query = $this->db->update('model', $data);
+        $query = $this->db->update('models', $data);
         if ($query) {
             return true;
         } else {
@@ -42,7 +51,7 @@ class Model_model extends CI_Model
     {
         $this->load->model('Model_model');
         $this->db->where('id', $id);
-        $query = $this->db->delete('model');
+        $query = $this->db->delete('models');
         if ($query) {
             return true;
         } else {

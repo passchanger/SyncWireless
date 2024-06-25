@@ -43,6 +43,11 @@
           </a>
         </li>
         <li>
+          <a href="view-users">
+            <i class="bi bi-circle"></i><span>Users</span>
+          </a>
+        </li>
+        <li>
           <a href="view-settings">
             <i class="bi bi-circle"></i><span>Website Settings</span>
           </a>

@@ -4,7 +4,7 @@ class Ram_model extends CI_Model
 
     public function getRam()
     {
-        $query = $this->db->get('ram');
+        $query = $this->db->get('rams');
         if ($query) {
             return $query->result();
         }
@@ -12,7 +12,7 @@ class Ram_model extends CI_Model
 
     public function insert_ram($data)
     {
-        $query = $this->db->insert('ram', $data);
+        $query = $this->db->insert('rams', $data);
         if ($query) {
             return true;
         } else {
@@ -23,7 +23,7 @@ class Ram_model extends CI_Model
     public function getSingleRam($id)
     {
         $this->db->where('id', $id);
-        $query =  $this->db->get('ram');
+        $query =  $this->db->get('rams');
         if ($query) {
             return $query->row();
         }
@@ -32,7 +32,7 @@ class Ram_model extends CI_Model
     public function update_ram($data, $id)
     {
         $this->db->where('id', $id);
-        $query = $this->db->update('ram', $data);
+        $query = $this->db->update('rams', $data);
         if ($query) {
             return true;
         } else {
@@ -43,7 +43,7 @@ class Ram_model extends CI_Model
     public function deleteitems($id)
     {
         $this->db->where('id', $id);
-        $query = $this->db->delete('ram');
+        $query = $this->db->delete('rams');
         if ($query) {
             return true;
         } else {

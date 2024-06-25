@@ -83,7 +83,7 @@
                                             <td><?php echo $storage->id; ?></td>
                                             <td><?php echo $storage->name; ?></td>
                                             <td><?php echo $storage->status; ?></td>
-                                            <td><?php echo $storage->date_added; ?></td>
+                                            <td><?php echo date("F j, Y", strtotime($storage->date_added)); ?></td>
                                             <td>
                                                 <a data-bs-toggle="modal" data-bs-target="#editStorageModal<?php echo $storage->id; ?>" class="btn btn-primary btn-sm" href="<?php echo base_url('edit-storage/' . $storage->id); ?>">Edit</a>
                                                 <a class="btn btn-danger btn-sm" href="<?php echo base_url('delete-storage/' . $storage->id); ?>">Delete</a>

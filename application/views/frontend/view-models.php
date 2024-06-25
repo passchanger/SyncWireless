@@ -27,6 +27,7 @@
             </nav>
         </div><!-- End Page Title -->
 
+
         <section class="section">
             <div class="row">
                 <div class="col-lg-12">
@@ -86,7 +87,7 @@
                                             <td><?php echo htmlspecialchars($models->brand_name); ?></td>
                                             <td><?php echo htmlspecialchars($models->name); ?></td>
                                             <td><?php echo htmlspecialchars($models->status); ?></td>
-                                            <td><?php echo htmlspecialchars($models->date_added); ?></td>
+                                            <td><?php echo date("F j, Y", strtotime($models->date_added)); ?></td>
                                             <td>
                                                 <a data-bs-toggle="modal" data-bs-target="#exampleModall" class="btn btn-primary btn-sm" href="<?php echo base_url('edit-model/' . $models->id); ?>">Edit</a>
                                                 <a class="btn btn-danger btn-sm" href="<?php echo base_url('delete-model/' . $models->id); ?>">Delete</a>
@@ -101,6 +102,7 @@
                                                         <div class="modal-header">
                                                             <h1 class="modal-title fs-5" id="exampleModalLabel" style="margin-left: 330px;">Edit Model
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </h1>
                                                         </div>
                                                         <div class="modal-body">
 
@@ -109,32 +111,27 @@
                                                                 <select class="form-control" name="brand_id" required>
                                                                     <option disabled selected>Select your Brand </option>
                                                                     <?php foreach ($brands as $brand) { ?>
-                                                                        <option value="<?php echo htmlspecialchars($brand['id']); ?>"><?php echo htmlspecialchars($brand['name']); ?></option>
+                                                                        <option value="<?php echo htmlspecialchars($brand['id']); ?>" <?php if ($brand['id'] == $models->brand_id) echo 'selected'; ?>>
+                                                                            <?php echo htmlspecialchars($brand['name']); ?>
+                                                                        </option>
                                                                     <?php } ?>
                                                                 </select>
                                                             </div>
 
                                                             <div class="form-group mb-3">
                                                                 <label for="name">NAME</label>
-                                                                <input type="text" name="name" placeholder="Enter Name" class="form-control">
+                                                                <input type="text" name="name" placeholder="Enter Name" class="form-control" value="<?php echo htmlspecialchars($models->name); ?>">
                                                             </div>
 
                                                             <div class="form-group mb-3">
-                                                                <div class="card">
-                                                                    <div class="card-body">
-                                                                        <h5 class="card-title">Features</h5>
-                                                                        <div class="quill-editor-full">
-                                                                            <p>Hello World!</p>
-                                                                            <p>This is Quill <strong>full</strong> editor</p>
-                                                                        </div>
-                                                                        <div id="features-editor" class="editor-container"></div>
-                                                                    </div>
-                                                                </div>
+                                                                <label for="features" class="form-label">FEATURES</label>
+                                                                <textarea class="quill-editor-full" name="features" value="<?php echo htmlspecialchars($models->features); ?>" style="width: 467px;">
+                                                                </textarea>
                                                             </div>
 
                                                             <div class="form-group mb-3">
                                                                 <label for="description">DESCRIPTION</label>
-                                                                <textarea name="description" placeholder="Enter Description" class="form-control"></textarea>
+                                                                <textarea name="description" placeholder="Enter Description" class="form-control"><?php echo htmlspecialchars($models->description); ?></textarea>
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
@@ -145,6 +142,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
@@ -163,37 +161,31 @@
                 <div class="modal-content">
                     <form action="<?php echo base_url('add-model'); ?>" method="POST">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel" style="margin-left: 330px;">Add Model</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Add Model</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
                             <div class="form-group mb-3">
-                                <label for="brand_id" class="form-label">Select Brand </label>
+                                <label for="brand_id" class="form-label">SELECT BRAND</label>
                                 <select class="form-control" name="brand_id" required>
-                                    <option disabled selected>Select your Brand </option>
+                                    <option disabled selected>Select your Brand</option>
                                     <?php foreach ($brands as $brand) { ?>
                                         <option value="<?php echo htmlspecialchars($brand['id']); ?>"><?php echo htmlspecialchars($brand['name']); ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
+
                             <div class="form-group mb-3">
                                 <label for="name" class="form-label">NAME</label>
                                 <input type="text" name="name" placeholder="Enter Name" class="form-control">
                             </div>
+
                             <div class="form-group mb-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Features</h5>
-                                        <div class="quill-editor-full">
-                                            <p>Hello World!</p>
-                                            <p>This is Quill <strong>full</strong> editor</p>
-                                        </div>
-                                        <div id="features-editor" class="editor-container">
-                                            <!-- Include any specific feature content or editor here -->
-                                        </div>
-                                    </div>
-                                </div>
+                                <label for="features" class="form-label">FEATURES</label>
+                                <textarea class="tinymce-editor" name="features">
+                                </textarea>
                             </div>
+
                             <div class="form-group mb-3">
                                 <label for="description" class="form-label">DESCRIPTION</label>
                                 <textarea name="description" placeholder="Enter Description" class="form-control"></textarea>
@@ -207,6 +199,7 @@
                 </div>
             </div>
         </div>
+
 
 
 

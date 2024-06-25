@@ -88,7 +88,7 @@
                                             <td><?php echo htmlspecialchars($products->id); ?></td>
                                             <td><?php echo htmlspecialchars($products->name); ?></td>
                                             <td><?php echo htmlspecialchars($products->description); ?></td>
-                                            <td><?php echo htmlspecialchars($products->date_added); ?></td>
+                                            <td><?php echo date("F j, Y", strtotime($products->date_added)); ?></td>
                                             <td>
                                                 <a data-bs-toggle="modal" data-bs-target="#exampleModall" class="btn btn-primary btn-sm" href="<?php echo base_url('edit-Brand/' . $products->id); ?>">Edit</a>
                                                 <a class="btn btn-danger btn-sm" href="<?php echo base_url('delete-Brand/' . $products->id); ?>">Delete</a>

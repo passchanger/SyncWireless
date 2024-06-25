@@ -85,7 +85,7 @@
                       <td><?php echo htmlspecialchars($ram->id); ?></td>
                       <td><?php echo htmlspecialchars($ram->name); ?></td>
                       <td><?php echo htmlspecialchars($ram->status); ?></td>
-                      <td><?php echo htmlspecialchars($ram->date_added); ?></td>
+                      <td><?php echo date("F j, Y", strtotime($ram->date_added)); ?></td>
                       <td>
                         <a href="#" data-bs-toggle="modal" data-bs-target="#editRamModal<?php echo htmlspecialchars($ram->id); ?>" class="btn btn-primary btn-sm">Edit</a>
                         <a href="<?php echo base_url('delete-ram/' . $ram->id); ?>" class="btn btn-danger btn-sm">Delete</a>

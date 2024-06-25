@@ -17,6 +17,15 @@ class Model extends CI_Controller
         $this->load->library('form_validation');
     }
 
+    public function getModelsByBrand()
+    {
+        if ($this->input->post('brand_id')) {
+            $brand_id = $this->input->post('brand_id');
+            $models = $this->Model_model->getModelsByBrand($brand_id);
+            echo json_encode($models);
+        }
+    }
+
     public function addModel()
     {
 

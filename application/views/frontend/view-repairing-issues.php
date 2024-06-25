@@ -22,7 +22,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                     <li class="breadcrumb-item">Master Data</li>
-                    <li class="breadcrumb-item active">View-rams</li>
+                    <li class="breadcrumb-item active">View-Repairing-issues</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -84,7 +84,7 @@
                                             <td><?php echo $repairing->issue_name; ?></td>
                                             <td><?php echo $repairing->issue_price; ?></td>
                                             <td><?php echo $repairing->status; ?></td>
-                                            <td><?php echo $repairing->date_added; ?></td>
+                                            <td><?php echo date("F j, Y", strtotime($repairing->date_added)); ?></td>
                                             <td>
                                                 <a data-bs-toggle="modal" data-bs-target="#editRepairModal<?php echo $repairing->id; ?>" class="btn btn-primary btn-sm" href="#">Edit</a>
                                                 <a class="btn btn-danger btn-sm" href="<?php echo base_url('delete-repair/' . $repairing->id); ?>">Delete</a>
@@ -156,15 +156,58 @@
 
                         </div>
                         <div class="modal-body">
+
+
                             <div class="form-group mb-3">
-                                <label for="brand_id" class="form-label">Select Brand </label>
-                                <select class="form-control" name="brand_id" required>
-                                    <option disabled selected>Select your Brand </option>
+                                <label for="brand_id" class="form-label">Select Brand</label>
+                                <select class="form-control" name="brand_id" id="brand_id" required>
+                                    <option selected>Select Brand</option>
                                     <?php foreach ($brands as $brand) { ?>
-                                        <option value="<?php echo htmlspecialchars($brand['id']); ?>"><?php echo htmlspecialchars($brand['name']); ?></option>
+                                        <option value="<?php echo $brand['id']; ?>"><?php echo htmlspecialchars($brand['name']); ?></option>
                                     <?php } ?>
                                 </select>
                             </div>
+
+                            <div class="form-group mb-3">
+                                <label for="model_id" class="form-label">Select Model</label>
+                                <select class="form-control" name="model_id" id="model_id" required>
+                                    <option disabled selected>Select Model</option>
+                                </select>
+                            </div>
+
+                            <script>
+                                $(document).ready(function() {
+                                    $('#brand_id').on('change', function() {
+                                        var brand_id = $(this).val();
+
+                                        if (brand_id != '') {
+                                            $.ajax({
+                                                url: '<?php echo base_url("model/select-id"); ?>',
+                                                type: 'POST',
+                                                data: {
+                                                    brand_id: brand_id
+                                                },
+                                                dataType: 'json',
+                                                success: function(response) {
+                                                    $('#model_id').html('<option value="">Select Model</option>');
+                                                    $.each(response, function(index, data) {
+                                                        $('#model_id').append('<option value="' + data.id + '">' + data.name + '</option>');
+                                                    });
+                                                    $('#model_id').prop('disabled', false);
+                                                },
+                                                error: function(xhr, status, error) {
+                                                    console.error('Error:', error);
+                                                }
+                                            });
+                                        } else {
+                                            $('#model_id').html('<option disabled selected>Select Brand first</option>').prop('disabled', true);
+                                        }
+                                    });
+                                });
+                            </script>
+
+
+
                             <div class="form-group mb-3">
                                 <label for="issue">Issue Name</label>
                                 <input type="text" name="issue_name" placeholder="Enter your Issue" class="form-control">

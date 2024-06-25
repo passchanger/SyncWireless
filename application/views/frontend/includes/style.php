@@ -17,6 +17,7 @@
 <link href="<?php echo base_url(); ?>assets/vendor/simple-datatables/style.css" rel="stylesheet">
 <!-- Template Main CSS File -->
 <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- =======================================================
 * Template Name: Twin Wireless
 * Template URL: 
