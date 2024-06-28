@@ -24,11 +24,8 @@ class Repairing extends CI_Controller
         $this->form_validation->set_rules('sorting', ' Sorting', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
-            $data_error = [
-                'error' => validation_errors()
-            ];
-
-            $this->session->set_flashdata($data_error);
+            $error_message = strip_tags(validation_errors());
+            $this->session->set_flashdata('error', $error_message);
         } else {
 
             $currentDateTime = date("Y-m-d H:i:s");
@@ -54,38 +51,41 @@ class Repairing extends CI_Controller
     }
     public function updateRepairing($id)
     {
-
         $this->form_validation->set_rules('issue_name', 'Issue Name', 'trim|required');
         $this->form_validation->set_rules('issue_price', 'Issue Price', 'trim|required');
-        $this->form_validation->set_rules('sorting', ' Sorting', 'trim|required');
+        $this->form_validation->set_rules('sorting', 'Sorting', 'trim|required');
+        $this->form_validation->set_rules('status', 'Status', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
-            $data_error = [
-                'error' => validation_errors()
-            ];
-
-            $this->session->set_flashdata($data_error);
+            $error_message = strip_tags(validation_errors());
+            $this->session->set_flashdata('error', $error_message);
         } else {
-
             $currentDateTime = date("Y-m-d H:i:s");
+            $status = $this->input->post('status');
 
-            $result = $this->Repairing_model->update_issue([
-
+            $data = [
                 'issue_name' => $this->input->post('issue_name'),
                 'issue_price' => $this->input->post('issue_price'),
                 'sorting' => $this->input->post('sorting'),
+                'status' => $status,
                 'date_added' => $currentDateTime
-            ], $id);
+            ];
+
+            $result = $this->Repairing_model->update_issue($data, $id);
 
             if ($result) {
-                $this->session->set_flashdata('inserted', 'your data has been inserted successfully');
+                $this->session->set_flashdata('updated', 'Your data has been updated successfully');
+            } else {
+                $this->session->set_flashdata('error', 'Failed to update data');
             }
         }
+
         redirect('repairing');
     }
+
+
     public function deleteRepairing($id)
     {
-
         $result = $this->Repairing_model->deleteitems($id);
         if ($result == true) {
             $this->session->set_flashdata('deleted', 'your data has been deleted successfully');

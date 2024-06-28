@@ -38,7 +38,7 @@
                         </div>
                         <div class="card-body">
                             <?php if ($this->session->flashdata('error')) : ?>
-                                <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                                <div class="alert alert-danger alert-dismissible fade show text-end justify-content-end" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('error')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
@@ -81,9 +81,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $counter = 1; ?>
                                     <?php foreach ($service_details as $service) : ?>
                                         <tr>
-                                            <td><?php echo $service->id; ?></td>
+                                            <td><?php echo htmlspecialchars($counter); ?></td>
                                             <td><?php echo $service->name; ?></td>
                                             <td><?php echo $service->cp_name . "<br>" . $service->email . "<br>" . $service->mobile ?></td>
                                             <td>
@@ -98,7 +99,7 @@
                                                 <a class="btn btn-danger btn-sm" href="<?php echo base_url('delete-service/' . $service->id); ?>">Delete</a>
                                             </td>
                                         </tr>
-
+                                        <?php $counter++; ?>
                                         <!-- Edit Service Modal -->
                                         <div class="modal fade" id="editServiceModal<?php echo $service->id; ?>" tabindex="-1" aria-labelledby="editServiceModalLabel<?php echo $service->id; ?>" aria-hidden="true">
                                             <div class="modal-dialog">
@@ -150,6 +151,13 @@
                                                             <div class="form-group mb-3">
                                                                 <label for="longitude">Longitude</label>
                                                                 <input type="number" name="longitude" placeholder="Enter your Longitude" class="form-control" value="<?php echo htmlspecialchars($service->longitude); ?>">
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="status">Status</label>
+                                                                <select name="status" class="form-control">
+                                                                    <option value="active" <?php echo ($service->status == 'active') ? 'selected' : ''; ?>>Active</option>
+                                                                    <option value="inactive" <?php echo ($service->status == 'inactive') ? 'selected' : ''; ?>>Inactive</option>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">

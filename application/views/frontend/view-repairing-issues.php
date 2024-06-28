@@ -39,7 +39,7 @@
                         <div class="card-body">
 
                             <?php if ($this->session->flashdata('error')) : ?>
-                                <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                                <div class="alert alert-danger alert-dismissible fade show text-end justify-content-end" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('error')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
@@ -78,9 +78,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $counter = 1; ?>
                                     <?php foreach ($repairing_details as $repairing) : ?>
                                         <tr>
-                                            <td><?php echo $repairing->id; ?></td>
+                                            <td><?php echo htmlspecialchars($counter); ?></td>
                                             <td><?php echo $repairing->issue_name; ?></td>
                                             <td><?php echo $repairing->issue_price; ?></td>
                                             <td><?php echo $repairing->status; ?></td>
@@ -90,7 +91,7 @@
                                                 <a class="btn btn-danger btn-sm" href="<?php echo base_url('delete-repair/' . $repairing->id); ?>">Delete</a>
                                             </td>
                                         </tr>
-
+                                        <?php $counter++; ?>
                                         <!-- Edit Repair Modal -->
                                         <div class="modal fade" id="editRepairModal<?php echo $repairing->id; ?>" tabindex="-1" aria-labelledby="editRepairModalLabel<?php echo $repairing->id; ?>" aria-hidden="true">
                                             <div class="modal-dialog">
@@ -118,6 +119,13 @@
                                                             <div class="form-group mb-3">
                                                                 <label for="number">Issue Price</label>
                                                                 <input type="number" name="issue_price" placeholder="Enter your Issue Price" class="form-control" value="<?php echo htmlspecialchars($repairing->issue_price); ?>">
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="status">Status</label>
+                                                                <select name="status" class="form-control">
+                                                                    <option value="active" <?php echo ($repairing->status == 'active') ? 'selected' : ''; ?>>Active</option>
+                                                                    <option value="inactive" <?php echo ($repairing->status == 'inactive') ? 'selected' : ''; ?>>Inactive</option>
+                                                                </select>
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="sorting">Sorting</label>

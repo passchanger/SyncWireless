@@ -82,11 +82,11 @@
                                                         <div class="modal-body">
                                                             <div class="form-group mb-3">
                                                                 <label for="name">Sitename</label>
-                                                                <input type="text" name="sitename" placeholder="Enter Sitename" class="form-control" value="<?php echo htmlspecialchars($setting->sitename); ?>" >
+                                                                <input type="text" name="sitename" placeholder="Enter Sitename" class="form-control" value="<?php echo htmlspecialchars($setting->sitename); ?>">
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="email">Siteemail</label>
-                                                                <input type="email" name="siteemail" placeholder="Enter Siteemail" class="form-control"value="<?php echo htmlspecialchars($setting->siteemail); ?>" >
+                                                                <input type="email" name="siteemail" placeholder="Enter Siteemail" class="form-control" value="<?php echo htmlspecialchars($setting->siteemail); ?>">
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="number">Sitemobile</label>
@@ -103,6 +103,14 @@
                                                             <div class="form-group mb-3">
                                                                 <label for="tag_manager">Tag_Manager</label>
                                                                 <input type="text" name="tag_manager" placeholder="Enter Tag_Manager" class="form-control" value="<?php echo htmlspecialchars($setting->Tag_manager); ?>">
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" id="edit_primary<?php echo htmlspecialchars($setting->id); ?>" name="is_primary" <?php echo ($setting->is_primary == 1) ? 'checked' : ''; ?>checked>
+                                                                    <label class="form-check-label" for="edit_primary<?php echo htmlspecialchars($setting->id); ?>">
+                                                                        Primary
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">

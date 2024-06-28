@@ -22,11 +22,8 @@ class Storage extends CI_Controller
         $this->form_validation->set_rules('sorting', ' Sorting', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
-            $data_error = [
-                'error' => validation_errors()
-            ];
-
-            $this->session->set_flashdata($data_error);
+            $error_message = strip_tags(validation_errors());
+            $this->session->set_flashdata('error', $error_message);
         } else {
 
             $currentDateTime = date("Y-m-d H:i:s");
@@ -54,19 +51,20 @@ class Storage extends CI_Controller
 
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('sorting', 'Sorting', 'trim|required');
+        $this->form_validation->set_rules('status', 'Status', 'trim|required');
 
-        if ($this->form_validation->run() == false) {
-            $data_error = [
-                'error' => validation_errors()
-            ];
-            $this->session->set_flashdata($data_error);
+        if ($this->form_validation->run() == FALSE) {
+            $error_message = strip_tags(validation_errors());
+            $this->session->set_flashdata('error', $error_message);
         } else {
             $currentDateTime = date("Y-m-d H:i:s");
+            $status = $this->input->post('status');
 
             $result = $this->Storage_model->update_Storage([
 
                 'name' => $this->input->post('name'),
                 'sorting' =>  $this->input->post('sorting'),
+                'status' => $status,
                 'date_added' => $currentDateTime
 
             ], $id);

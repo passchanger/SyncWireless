@@ -35,6 +35,7 @@ class Repairing_model extends CI_Model
             return false;
         }
     }
+
     public function deleteitems($id)
     {
         $this->db->where('id', $id);
@@ -45,4 +46,5 @@ class Repairing_model extends CI_Model
             return false;
         }
     }
+
 }

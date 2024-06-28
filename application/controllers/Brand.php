@@ -20,11 +20,9 @@ class Brand extends CI_Controller
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('sorting', 'Sorting', 'trim|required');
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
-        if ($this->form_validation->run() == false) {
-            $data_error = [
-                'error' => validation_errors()
-            ];
-            $this->session->set_flashdata($data_error);
+        if ($this->form_validation->run() == FALSE) {
+            $error_message = strip_tags(validation_errors());
+            $this->session->set_flashdata('error', $error_message);
         } else {
             $currentDateTime = date("Y-m-d H:i:s");
 
@@ -54,19 +52,21 @@ class Brand extends CI_Controller
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('sorting', 'Sorting', 'trim|required');
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
-        if ($this->form_validation->run() == false) {
-            $data_error = [
-                'error' => validation_errors()
-            ];
-            $this->session->set_flashdata($data_error);
+        $this->form_validation->set_rules('status', 'Status', 'trim|required');
+
+        if ($this->form_validation->run() == FALSE) {
+            $error_message = strip_tags(validation_errors());
+            $this->session->set_flashdata('error', $error_message);
         } else {
             $currentDateTime = date("Y-m-d H:i:s");
+            $status = $this->input->post('status');
 
             $result = $this->Brand_model->update_Brand([
 
                 'name' => $this->input->post('name'),
                 'sorting' =>  $this->input->post('sorting'),
                 'description' =>  $this->input->post('description'),
+                'status' => $status,
                 'date_added' => $currentDateTime
             ], $id);
 

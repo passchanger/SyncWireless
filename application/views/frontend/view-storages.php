@@ -38,7 +38,7 @@
                         </div>
                         <div class="card-body">
                             <?php if ($this->session->flashdata('error')) : ?>
-                                <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                                <div class="alert alert-danger alert-dismissible fade show text-end justify-content-end" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('error')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
@@ -78,9 +78,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $counter = 1; ?>
                                     <?php foreach ($storage_details as $storage) : ?>
                                         <tr>
-                                            <td><?php echo $storage->id; ?></td>
+                                            <td><?php echo htmlspecialchars($counter); ?></td>
                                             <td><?php echo $storage->name; ?></td>
                                             <td><?php echo $storage->status; ?></td>
                                             <td><?php echo date("F j, Y", strtotime($storage->date_added)); ?></td>
@@ -89,7 +90,7 @@
                                                 <a class="btn btn-danger btn-sm" href="<?php echo base_url('delete-storage/' . $storage->id); ?>">Delete</a>
                                             </td>
                                         </tr>
-
+                                        <?php $counter++; ?>
                                         <!-- Edit Storage Modal -->
                                         <div class="modal fade" id="editStorageModal<?php echo $storage->id; ?>" tabindex="-1" aria-labelledby="editStorageModalLabel<?php echo $storage->id; ?>" aria-hidden="true">
                                             <div class="modal-dialog">
@@ -104,6 +105,14 @@
                                                             <div class="form-group mb-3">
                                                                 <label for="name">Name</label>
                                                                 <input type="text" name="name" placeholder="Enter Name" class="form-control" value="<?php echo htmlspecialchars($storage->name); ?>">
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="status">Status</label>
+                                                                <select name="status" class="form-control">
+                                                                    <option value="active" <?php echo ($storage->status == 'active') ? 'selected' : ''; ?>>Active</option>
+                                                                    <option value="inactive" <?php echo ($storage->status == 'inactive') ? 'selected' : ''; ?>>Inactive</option>
+                                                                    
+                                                                </select>
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="sorting">Sorting</label>

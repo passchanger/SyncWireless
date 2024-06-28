@@ -17,12 +17,12 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Users</h1>
+            <h1>Customers Addresses</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                     <li class="breadcrumb-item">Master Data</li>
-                    <li class="breadcrumb-item active">View-users</li>
+                    <li class="breadcrumb-item active">View-Customers-Addresses</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -33,9 +33,6 @@
 
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
-                            <h3></h3>
-                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRamModal">Add User</a>
-
                         </div>
 
                         <div class="card-body">
@@ -73,8 +70,9 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>NAME</th>
-                                        <th>EMAIL</th>
+                                        <th>CUSTOMER-NAME</th>
+                                        <th>ADDRESS-1</th>
+                                        <th>ADDRESS-2</th>
                                         <th>STATUS</th>
                                         <th>DATE ADDED</th>
                                         <th>ACTIONS</th>
@@ -82,52 +80,73 @@
                                 </thead>
                                 <tbody>
                                     <?php $counter = 1; ?>
-                                    <?php foreach ($users_details as $users) : ?>
+                                    <?php foreach ($custadd_details as $custadd) : ?>
                                         <tr>
                                             <td><?php echo htmlspecialchars($counter); ?></td>
-                                            <td><?php echo htmlspecialchars($users->name); ?></td>
-                                            <td><?php echo htmlspecialchars($users->email); ?></td>
-                                            <td><?php echo htmlspecialchars($users->status); ?></td>
-                                            <td><?php echo date("F j, Y", strtotime($users->date_added)); ?></td>
+                                            <td><?php echo htmlspecialchars($custadd->customer_name); ?></td>
+                                            <td><?php echo htmlspecialchars($custadd->addline_1); ?></td>
+                                            <td><?php echo ($custadd->city) . "<br>" . ($custadd->state) . "<br>" . ($custadd->pincode) . "<br>" . ($custadd->country) ?></td>
+                                            <td><?php echo htmlspecialchars($custadd->status); ?></td>
+                                            <td><?php echo date("F j, Y", strtotime($custadd->date_added)); ?></td>
+
                                             <td>
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editRamModal<?php echo htmlspecialchars($users->id); ?>" class="btn btn-primary btn-sm">Edit</a>
-                                                <a href="<?php echo base_url('delete-users/' . $users->id); ?>" class="btn btn-danger btn-sm">Delete</a>
+                                                <a href="#" data-bs-toggle="modal" data-bs-target="#editRamModal<?php echo htmlspecialchars($custadd->id); ?>" class="btn btn-primary btn-sm">Edit</a>
+                                                <a href="<?php echo base_url('delete-custadd/' . $custadd->id); ?>" class="btn btn-danger btn-sm">Delete</a>
                                             </td>
                                         </tr>
                                         <?php $counter++; ?>
                                         <!-- Edit Ram Modal -->
-                                        <div class="modal fade" id="editRamModal<?php echo htmlspecialchars($users->id); ?>" tabindex="-1" aria-labelledby="editRamModalLabel<?php echo htmlspecialchars($users->id); ?>" aria-hidden="true">
+                                        <div class="modal fade" id="editRamModal<?php echo htmlspecialchars($custadd->id); ?>" tabindex="-1" aria-labelledby="editRamModalLabel<?php echo htmlspecialchars($custadd->id); ?>" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="editRamModalLabel<?php echo htmlspecialchars($users->id); ?>" style="margin-left:350px;">Edit User</h1>
+                                                        <h1 class="modal-title fs-5" id="editRamModalLabel<?php echo htmlspecialchars($custadd->id); ?>" style="margin-left:350px;">Edit User</h1>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <form id="editForm<?php echo htmlspecialchars($users->id); ?>" action="<?php echo base_url('update-users/' . $users->id); ?>" method="POST">
+                                                        <form id="editForm<?php echo htmlspecialchars($custadd->id); ?>" action="<?php echo base_url('update-custadd/' . $custadd->id); ?>" method="POST">
                                                             <div class="form-group mb-3">
-                                                                <label for="name" class="form-label">NAME</label>
-                                                                <input type="text" class="form-control" id="edit_name" name="name" placeholder="Enter your Name" value="<?php echo htmlspecialchars($users->name); ?>">
+                                                                <label for="id" class="form-label">Customer_id</label>
+                                                                <input type="text" class="form-control" id="edit_customer_id" name="customer_id" placeholder="Enter your Customer_id" value="<?php echo htmlspecialchars($custadd->customer_id); ?>">
                                                             </div>
                                                             <div class="form-group mb-3">
-                                                                <label for="email" class="form-label">EMAIL</label>
-                                                                <input type="email" class="form-control" id="edit_email" name="email" placeholder="Enter your email" value="<?php echo htmlspecialchars($users->email); ?>">
+                                                                <label for="address">Address</label>
+                                                                <input type="text" name="addline_1" placeholder="Enter your Address" class="form-control" value="<?php echo htmlspecialchars($custadd->addline_1); ?>">
                                                             </div>
                                                             <div class="form-group mb-3">
-                                                                <label for="password" class="form-label">PASSWORD</label>
-                                                                <input type="passowrd" class="form-control" id="edit_password" name="password" placeholder="Enter your Password">
+                                                                <label for="city">City</label>
+                                                                <input type="text" name="city" placeholder="Enter your City" class="form-control" value="<?php echo htmlspecialchars($custadd->city); ?>">
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="state">State</label>
+                                                                <input type="text" name="state" placeholder="Enter your State" class="form-control" value="<?php echo htmlspecialchars($custadd->state); ?>">
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="pincode">Pincode</label>
+                                                                <input type="number" name="pincode" placeholder="Enter your Pincode" class="form-control" value="<?php echo htmlspecialchars($custadd->pincode); ?>">
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="Country">COUNTRY</label>
+                                                                <input type="text" name="country" placeholder="Enter your Country" class="form-control" value="<?php echo htmlspecialchars($custadd->country); ?>">
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="status">Status</label>
                                                                 <select name="status" class="form-control">
-                                                                    <option value="active" <?php echo ($users->status == 'active') ? 'selected' : ''; ?>>Active</option>
-                                                                    <option value="inactive" <?php echo ($users->status == 'inactive') ? 'selected' : ''; ?>>Inactive</option>
-                                                                    
+                                                                    <option value="active" <?php echo ($custadd->status == 'active') ? 'selected' : ''; ?>>Active</option>
+                                                                    <option value="inactive" <?php echo ($custadd->status == 'inactive') ? 'selected' : ''; ?>>Inactive</option>
                                                                 </select>
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" id="edit_primary<?php echo htmlspecialchars($custadd->id); ?>" name="is_primary" <?php echo ($custadd->is_primary == 1) ? 'checked' : ''; ?> checked>
+                                                                    <label class="form-check-label" for="edit_primary<?php echo htmlspecialchars($custadd->id); ?>">
+                                                                        Primary
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                                                                <input type="submit" name="insert" value="Add user" class="btn btn-primary btn-sm">
+                                                                <input type="submit" name="update" value="Update" class="btn btn-primary btn-sm">
                                                             </div>
                                                         </form>
                                                     </div>
@@ -147,42 +166,6 @@
             </div>
         </section>
 
-        <!-- Add Ram Modal -->
-
-        <div class="modal fade" id="addRamModal" tabindex="-1" aria-labelledby="addRamModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form id="addRamForm" action="<?php echo base_url('add-users'); ?>" method="POST">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="addRamModalLabel" style="margin-left:350px">Add User</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-
-                            <div class="form-group mb-3">
-                                <label for="name" class="form-label">NAME</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="email" class="form-label">EMAIL</label>
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="password" class="form-label">PASSWORD</label>
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                                <input type="submit" name="insert" value="Add user" class="btn btn-primary btn-sm">
-                            </div>
-                    </form>
-                    <!-- End Form -->
-                </div>
-                <!-- End Modal Body -->
-            </div>
-        </div>
-
-        <!-- End Modal for Adding RAM -->
     </main>
 
     <?php include("includes/footer.php"); ?>

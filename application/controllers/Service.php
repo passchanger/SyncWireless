@@ -29,11 +29,9 @@ class Service extends CI_Controller
         $this->form_validation->set_rules('latitude', 'Lattitude', 'required');
         $this->form_validation->set_rules('longitude', 'Longitude', 'required');
 
-        if ($this->form_validation->run() == false) {
-            $data_error = [
-                'error' => validation_errors()
-            ];
-            $this->session->set_flashdata($data_error);
+        if ($this->form_validation->run() == FALSE) {
+            $error_message = strip_tags(validation_errors());
+            $this->session->set_flashdata('error', $error_message);
         } else {
 
             $currentDateTime = date("Y-m-d H:i:s");
@@ -76,15 +74,16 @@ class Service extends CI_Controller
         $this->form_validation->set_rules('email', 'Email', 'required|is_unique[service_centres.email]');
         $this->form_validation->set_rules('latitude', 'Lattitude', 'required');
         $this->form_validation->set_rules('longitude', 'Longitude', 'required');
+        $this->form_validation->set_rules('status', 'Status', 'trim|required');
 
-        if ($this->form_validation->run() == false) {
-            $data_error = [
-                'error' => validation_errors()
-            ];
-            $this->session->set_flashdata($data_error);
+        if ($this->form_validation->run() == FALSE) {
+            $error_message = strip_tags(validation_errors());
+            $this->session->set_flashdata('error', $error_message);
         } else {
 
             $currentDateTime = date("Y-m-d H:i:s");
+            $status = $this->input->post('status');
+
             $result = $this->Service_model->update_Service([
 
                 'name' => $this->input->post('name'),
@@ -97,6 +96,7 @@ class Service extends CI_Controller
                 'email' =>  $this->input->post('email'),
                 'latitude' =>  $this->input->post('latitude'),
                 'longitude' =>  $this->input->post('longitude'),
+                'status' => $status,
                 'date_added' => $currentDateTime
             ], $id);
 

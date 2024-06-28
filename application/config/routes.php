@@ -87,6 +87,8 @@ $route['edit-repair/(:any)'] = "Repairing/editRepairing/$1";
 $route['update-repair/(:any)'] = "Repairing/updateRepairing/$1";
 $route['delete-repair/(:any)'] = "Repairing/deleteRepairing/$1";
 
+
+
 $route['view-service-centers'] = "Service/index";
 $route['add-service'] = "Service/addService/";
 $route['edit-service/(:any)'] = "Service/editService/$1";
@@ -107,3 +109,20 @@ $route['add-users'] = "Users/addUsers";
 $route['edit-users/(:any)'] = "Users/editUsers/$1";
 $route['update-users/(:any)'] = "Users/updateUsers/$1";
 $route['delete-users/(:any)'] = "Users/deleteUsers/$1";
+
+$route['login'] = "Users/login";
+$route['login-check'] = "Users/loginCheck";
+$route['logout'] = "Users/logOut";
+
+$route['view-customers'] = "Customers/index";
+$route['edit-customers/(:any)'] = "Customers/editCustomers/$1";
+$route['update-customers/(:any)'] = " Customers/updateCustomers/$1";
+$route['delete-customers/(:any)'] = " Customers/deleteCustomers/$1";
+
+$route['view-cust-address'] = "Cust_Address/index";
+$route['edit-custadd/(:any)'] = "Cust_Address/editCustomersAdd/$1";
+$route['update-custadd/(:any)'] = "Cust_Address/updateCustomersAdd/$1";
+$route['delete-custadd/(:any)'] = "Cust_Address/deleteCustomersAdd/$1";
+
+$route['view-cust_ricart'] = "Cust_ricart/index";
+$route['delete-cart/(:any)'] = "Cust_ricart/deleteCustomersCart";

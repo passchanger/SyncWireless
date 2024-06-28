@@ -41,7 +41,7 @@
                         <div class="card-body">
 
                             <?php if ($this->session->flashdata('error')) : ?>
-                                <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                                <div class="alert alert-danger alert-dismissible fade show text-end justify-content-end" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('error')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
@@ -81,9 +81,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $counter = 1; ?>
                                     <?php foreach ($Model_details as $models) : ?>
                                         <tr>
-                                            <td><?php echo htmlspecialchars($models->id); ?></td>
+                                            <td><?php echo htmlspecialchars($counter); ?></td>
                                             <td><?php echo htmlspecialchars($models->brand_name); ?></td>
                                             <td><?php echo htmlspecialchars($models->name); ?></td>
                                             <td><?php echo htmlspecialchars($models->status); ?></td>
@@ -93,7 +94,7 @@
                                                 <a class="btn btn-danger btn-sm" href="<?php echo base_url('delete-model/' . $models->id); ?>">Delete</a>
                                             </td>
                                         </tr>
-
+                                        <?php $counter++; ?>
                                         <!-- Modal for Edit Model -->
                                         <div class="modal fade" id="exampleModall" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
@@ -107,9 +108,9 @@
                                                         <div class="modal-body">
 
                                                             <div class="form-group mb-3">
-                                                                <label for="brand_id" class="form-label">Select Brand </label>
-                                                                <select class="form-control" name="brand_id" required>
-                                                                    <option disabled selected>Select your Brand </option>
+                                                                <label for="brand_id" class="form-label">Select Brand</label>
+                                                                <select class="form-control" name="brand_id" id="brand_id" required>
+                                                                    <option selected>Select your Brand</option>
                                                                     <?php foreach ($brands as $brand) { ?>
                                                                         <option value="<?php echo htmlspecialchars($brand['id']); ?>" <?php if ($brand['id'] == $models->brand_id) echo 'selected'; ?>>
                                                                             <?php echo htmlspecialchars($brand['name']); ?>
@@ -117,12 +118,10 @@
                                                                     <?php } ?>
                                                                 </select>
                                                             </div>
-
                                                             <div class="form-group mb-3">
                                                                 <label for="name">NAME</label>
                                                                 <input type="text" name="name" placeholder="Enter Name" class="form-control" value="<?php echo htmlspecialchars($models->name); ?>">
                                                             </div>
-
                                                             <div class="form-group mb-3">
                                                                 <label for="features" class="form-label">FEATURES</label>
                                                                 <textarea class="quill-editor-full" name="features" value="<?php echo htmlspecialchars($models->features); ?>" style="width: 467px;">
@@ -133,7 +132,15 @@
                                                                 <label for="description">DESCRIPTION</label>
                                                                 <textarea name="description" placeholder="Enter Description" class="form-control"><?php echo htmlspecialchars($models->description); ?></textarea>
                                                             </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="status">Status</label>
+                                                                <select name="status" class="form-control">
+                                                                    <option value="active" <?php echo ($models->status == 'active') ? 'selected' : ''; ?>>Active</option>
+                                                                    <option value="inactive" <?php echo ($models->status == 'inactive') ? 'selected' : ''; ?>>Inactive</option>
+                                                                </select>
+                                                            </div>
                                                         </div>
+
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
                                                             <input type="submit" name="insert" value="Update" class="btn btn-primary btn-sm">
@@ -166,20 +173,20 @@
                         </div>
                         <div class="modal-body">
                             <div class="form-group mb-3">
-                                <label for="brand_id" class="form-label">SELECT BRAND</label>
-                                <select class="form-control" name="brand_id" required>
-                                    <option disabled selected>Select your Brand</option>
+                                <label for="brand_id" class="form-label">Select Brand</label>
+                                <select class="form-control" name="brand_id" id="brand_id" required>
+                                    <option>Select your Brand</option>
                                     <?php foreach ($brands as $brand) { ?>
-                                        <option value="<?php echo htmlspecialchars($brand['id']); ?>"><?php echo htmlspecialchars($brand['name']); ?></option>
+                                        <option value="<?php echo htmlspecialchars($brand['id']); ?>" <?php if ($brand['id'] == $models->brand_id) ?>>
+                                            <?php echo htmlspecialchars($brand['name']); ?>
+                                        </option>
                                     <?php } ?>
                                 </select>
                             </div>
-
                             <div class="form-group mb-3">
-                                <label for="name" class="form-label">NAME</label>
+                                <label for="name">NAME</label>
                                 <input type="text" name="name" placeholder="Enter Name" class="form-control">
                             </div>
-
                             <div class="form-group mb-3">
                                 <label for="features" class="form-label">FEATURES</label>
                                 <textarea class="tinymce-editor" name="features">

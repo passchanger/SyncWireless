@@ -41,7 +41,7 @@
             <div class="card-body">
 
               <?php if ($this->session->flashdata('error')) : ?>
-                <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                <div class="alert alert-danger alert-dismissible fade show text-end justify-content-end" role="alert">
                   <?php echo htmlspecialchars($this->session->flashdata('error')); ?>
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
@@ -80,9 +80,10 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <?php $counter = 1; ?>
                   <?php foreach ($ram_details as $ram) : ?>
                     <tr>
-                      <td><?php echo htmlspecialchars($ram->id); ?></td>
+                      <td><?php echo htmlspecialchars($counter); ?></td>
                       <td><?php echo htmlspecialchars($ram->name); ?></td>
                       <td><?php echo htmlspecialchars($ram->status); ?></td>
                       <td><?php echo date("F j, Y", strtotime($ram->date_added)); ?></td>
@@ -91,7 +92,7 @@
                         <a href="<?php echo base_url('delete-ram/' . $ram->id); ?>" class="btn btn-danger btn-sm">Delete</a>
                       </td>
                     </tr>
-
+                    <?php $counter++; ?>
                     <!-- Edit Ram Modal -->
                     <div class="modal fade" id="editRamModal<?php echo htmlspecialchars($ram->id); ?>" tabindex="-1" aria-labelledby="editRamModalLabel<?php echo htmlspecialchars($ram->id); ?>" aria-hidden="true">
                       <div class="modal-dialog">
@@ -105,6 +106,13 @@
                               <div class="form-group mb-3">
                                 <label for="name" class="form-label">NAME</label>
                                 <input type="text" class="form-control" id="edit_name" name="name" placeholder="Enter your Name" value="<?php echo htmlspecialchars($ram->name); ?>">
+                              </div>
+                              <div class="form-group mb-3">
+                                <label for="status">Status</label>
+                                <select name="status" class="form-control">
+                                  <option value="active" <?php echo ($ram->status == 'active') ? 'selected' : ''; ?>>Active</option>
+                                  <option value="inactive" <?php echo ($ram->status == 'inactive') ? 'selected' : ''; ?>>Inactive</option>
+                                </select>
                               </div>
                               <div class="form-group mb-3">
                                 <label for="sorting" class="form-label">SORTING</label>

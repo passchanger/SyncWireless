@@ -42,7 +42,7 @@
                         <div class="card-body">
 
                             <?php if ($this->session->flashdata('error')) : ?>
-                                <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                                <div class="alert alert-danger alert-dismissible fade show text-end justify-content-end" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('error')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
@@ -83,9 +83,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php $counter = 1; ?>
                                     <?php foreach ($product_details as $products) : ?>
                                         <tr>
-                                            <td><?php echo htmlspecialchars($products->id); ?></td>
+                                            <td><?php echo htmlspecialchars($counter); ?></td>
                                             <td><?php echo htmlspecialchars($products->name); ?></td>
                                             <td><?php echo htmlspecialchars($products->description); ?></td>
                                             <td><?php echo date("F j, Y", strtotime($products->date_added)); ?></td>
@@ -94,38 +95,45 @@
                                                 <a class="btn btn-danger btn-sm" href="<?php echo base_url('delete-Brand/' . $products->id); ?>">Delete</a>
                                             </td>
                                         </tr>
-                                    <?php endforeach; ?>
-                                    <div class="modal fade" id="exampleModall" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <form action="<?php echo base_url('update-Brand/' . $products->id); ?>" method="POST">
-                                                    <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="exampleModalLabel" style="margin-left:330px;">Edit Brand</h1>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="form-group mb-3">
-                                                            <label for="name">NAME</label>
-                                                            <input type="text" name="name" placeholder="Enter your Name" class="form-control" value="<?php echo htmlspecialchars($products->name); ?>">
+                                        <?php $counter++; ?>
+                                        <div class="modal fade" id="exampleModall" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <form action="<?php echo base_url('update-Brand/' . $products->id); ?>" method="POST">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel" style="margin-left:330px;">Edit Brand</h1>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
-                                                        <div class="form-group mb-3">
-                                                            <label for="description">DESCRIPTION</label>
-                                                            <textarea name="description" placeholder="Enter your description" class="form-control"><?php echo htmlspecialchars($products->description); ?></textarea>
+                                                        <div class="modal-body">
+                                                            <div class="form-group mb-3">
+                                                                <label for="name">NAME</label>
+                                                                <input type="text" name="name" placeholder="Enter your Name" class="form-control" value="<?php echo htmlspecialchars($products->name); ?>">
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="description">DESCRIPTION</label>
+                                                                <textarea name="description" placeholder="Enter your description" class="form-control"><?php echo htmlspecialchars($products->description); ?></textarea>
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="status">Status</label>
+                                                                <select name="status" class="form-control">
+                                                                    <option value="active" <?php echo ($products->status == 'active') ? 'selected' : ''; ?>>Active</option>
+                                                                    <option value="inactive" <?php echo ($products->status == 'inactive') ? 'selected' : ''; ?>>Inactive</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="form-group mb-3">
+                                                                <label for="sorting">SORTING</label>
+                                                                <input type="number" name="sorting" placeholder="Enter your Sorting no." class="form-control" value="<?php echo htmlspecialchars($products->sorting); ?>">
+                                                            </div>
                                                         </div>
-                                                        <div class="form-group mb-3">
-                                                            <label for="sorting">SORTING</label>
-                                                            <input type="number" name="sorting" placeholder="Enter your Sorting no." class="form-control" value="<?php echo htmlspecialchars($products->sorting); ?>">
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                                                            <input type="submit" name="insert" value="Update" class="btn btn-primary btn-sm">
                                                         </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                                                        <input type="submit" name="insert" value="Update" class="btn btn-primary btn-sm">
-                                                    </div>
-                                                </form>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
 

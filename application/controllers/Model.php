@@ -33,11 +33,10 @@ class Model extends CI_Controller
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('features', 'Features', 'trim|required');
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
-        if ($this->form_validation->run() == false) {
-            $data_error = [
-                'error' => validation_errors()
-            ];
-            $this->session->set_flashdata($data_error);
+
+        if ($this->form_validation->run() == FALSE) {
+            $error_message = strip_tags(validation_errors());
+            $this->session->set_flashdata('error', $error_message);
         } else {
             $currentDateTime = date("Y-m-d H:i:s");
 
@@ -56,11 +55,14 @@ class Model extends CI_Controller
         }
         redirect('model');
     }
+
     public function editModel($id)
     {
-        $data['singleModel'] = $this->Brand_Model->getSingleModel($id);
-        $this->load->view('model', $data);
+        $data['singleModel'] = $this->Model_model->getSingleModel($id);
+        $data['Model_details'] = $this->Model_model->getALLModels();
+        $this->load->view('frontend/view-models', $data);
     }
+
     public function updateModel($id)
     {
 
@@ -68,13 +70,15 @@ class Model extends CI_Controller
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('features', 'Features', 'trim|required');
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
-        if ($this->form_validation->run() == false) {
-            $data_error = [
-                'error' => validation_errors()
-            ];
-            $this->session->set_flashdata($data_error);
+        $this->form_validation->set_rules('status', 'Status', 'trim|required');
+
+        if ($this->form_validation->run() == FALSE) {
+            $error_message = strip_tags(validation_errors());
+            $this->session->set_flashdata('error', $error_message);
         } else {
             $currentDateTime = date("Y-m-d H:i:s");
+            $status = $this->input->post('status');
+
 
             $result = $this->Model_model->update_Model([
 

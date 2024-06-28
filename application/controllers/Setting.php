@@ -24,11 +24,9 @@ class Setting extends CI_Controller
         $this->form_validation->set_rules('ga_creds', 'Description', 'trim|required');
         $this->form_validation->set_rules('tag_manager', 'Description', 'trim|required');
 
-        if ($this->form_validation->run() == false) {
-            $data_error = [
-                'error' => validation_errors()
-            ];
-            $this->session->set_flashdata($data_error);
+        if ($this->form_validation->run() == FALSE) {
+            $error_message = strip_tags(validation_errors());
+            $this->session->set_flashdata('error', $error_message);
         } else {
 
             $result = $this->Setting_model->insert_Setting([
@@ -61,11 +59,9 @@ class Setting extends CI_Controller
         $this->form_validation->set_rules('ga_creds', 'Description', 'trim|required');
         $this->form_validation->set_rules('tag_manager', 'Description', 'trim|required');
 
-        if ($this->form_validation->run() == false) {
-            $data_error = [
-                'error' => validation_errors()
-            ];
-            $this->session->set_flashdata($data_error);
+        if ($this->form_validation->run() == FALSE) {
+            $error_message = strip_tags(validation_errors());
+            $this->session->set_flashdata('error', $error_message);
         } else {
 
             $result = $this->Setting_model->update_Setting([
