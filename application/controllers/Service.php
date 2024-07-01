@@ -10,7 +10,7 @@ class Service extends CI_Controller
 
     public function index()
     {
-
+        $data['title'] = 'Services';
         $data['service_details'] = $this->Service_model->getALLService();
         $this->load->view('frontend/view-service-centers', $data);
         $this->load->library('form_validation');

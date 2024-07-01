@@ -6,10 +6,12 @@ class Users extends CI_Controller
         parent::__construct();
         $this->load->model('Users_model');
         $this->load->library('form_validation');
+        $this->load->helper('auth_helper');
     }
 
     public function index()
     {
+        $runFunction = checkLogin();
         $data['users_details'] = $this->Users_model->getUser();
         $this->load->view('frontend/view-users', $data);
     }
@@ -27,13 +29,15 @@ class Users extends CI_Controller
             $currentDateTime = date("Y-m-d H:i:s");
             $encoded_password = base64_encode($this->input->post('password'));
 
+
             $result = $this->Users_model->insert_users([
                 'name' => $this->input->post('name'),
                 'email' => $this->input->post('email'),
                 'password' => $encoded_password,
                 'date_added' => $currentDateTime
             ]);
-
+            var_dump($result);
+            exit;
             if ($result) {
                 $this->session->set_flashdata('inserted', 'Your data has been inserted successfully');
             }
@@ -88,20 +92,29 @@ class Users extends CI_Controller
         redirect('view-users');
     }
 
+    public function login()
+    {
+        $data['title'] = "Login";
+        $this->load->view('frontend/login', $data);
+    }
+
     public function loginCheck()
     {
-
+        // var_dump($_REQUEST);exit;
         $checkUsers = $this->db->select("*")->where("status = 'active'")->where("email = '" . $_REQUEST['email'] . "'")->from('users')->get()->row();
 
+        // var_dump($checkUsers);exit;
         if (isset($checkUsers->password)) {
             $password = base64_decode($checkUsers->password);
+
+
             if ($_REQUEST['password'] == $password) {
                 $tempArr = array('id' => $checkUsers->id, 'name' => $checkUsers->name, 'email' => $checkUsers->email);
                 $this->session->set_userdata('session-data', $tempArr);
-                redirect('/view-users', 'refresh');
+                redirect('/dashboard', 'refresh');
                 exit;
             } else {
-                $this->session->set_flashdata('danger_message', 'Something went wrong, failed to add sport');
+                $this->session->set_flashdata('danger_message', 'Password incorrect');
             }
         } else {
             $this->session->set_flashdata('danger_message', "Email doesn't exist with us");
@@ -117,16 +130,5 @@ class Users extends CI_Controller
         $this->session->set_flashdata('success_message', 'Logout Sucessfully');
         redirect('login', 'refresh');
         exit;
-    }
-
-    private function checkLogin()
-    {
-        if ($this->session->userdata('session-data')) {
-            $session = $this->session->userdata('session-data');
-        } else {
-            $this->session->set_flashdata('danger_message', 'Login to continue');
-            redirect('login', 'refresh');
-            exit;
-        }
     }
 }

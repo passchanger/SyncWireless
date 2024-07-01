@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title><?php echo $title; ?></title>
+    <title><?php echo $title . " - " . SITENAME; ?></title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -17,7 +17,7 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Ram</h1>
+            <h1>Repairing Issues</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>

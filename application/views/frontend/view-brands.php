@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title><?php echo $title; ?></title>
+    <title><?php echo $title . " - " . SITENAME; ?></title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -15,8 +15,6 @@
     <?php include("includes/sidebar.php"); ?>
 
     <main id="main" class="main">
-
-
 
         <div class="pagetitle">
             <h1>Brand</h1>

@@ -10,9 +10,9 @@ class Storage extends CI_Controller
 
     public function index()
     {
-
+        $data['title'] = 'Storages';
         $data['storage_details'] = $this->Storage_model->getStorage();
-        $this->load->view('frontend/view-storages', $data);
+        $this->load->view('frontend/view-variation_category', $data);
         $this->load->library('form_validation');
     }
     public function addStorage()
@@ -44,7 +44,7 @@ class Storage extends CI_Controller
     public function editStorage($id)
     {
         $data['singlestorage'] = $this->Storage_model->getSingleStorage($id);
-        $this->load->view('storage', $data);
+        $this->load->view('frontend/view-variation_category', $data);
     }
     public function updateStorage($id)
     {

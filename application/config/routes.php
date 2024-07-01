@@ -60,13 +60,13 @@ $route['edit-Brand/(:any)'] = "Brand/editBrand/$1";
 $route['update-Brand/(:any)'] = "Brand/updateBrand/$1";
 $route['delete-Brand/(:any)'] = "Brand/deleteBrand/$1";
 
-$route['view-rams'] = "Ram/index";
+$route['view-variants'] = "Ram/index";
 $route['add-ram'] = "Ram/addram";
 $route['edit-ram/(:any)'] = "Ram/editram/$1";
 $route['update-ram/(:any)'] = "Ram/updateram/$1";
 $route['delete-ram/(:any)'] = "Ram/deleteram/$1";
 
-$route['view-storages'] = "Storage/index";
+$route['view-variation_category'] = "Storage/index";
 $route['add-storage'] = "Storage/addStorage";
 $route['edit-storage/(:any)'] = "Storage/editStorage/$1";
 $route['update-storage/(:any)'] = "Storage/updateStorage/$1";
@@ -126,3 +126,18 @@ $route['delete-custadd/(:any)'] = "Cust_Address/deleteCustomersAdd/$1";
 
 $route['view-cust_ricart'] = "Cust_ricart/index";
 $route['delete-cart/(:any)'] = "Cust_ricart/deleteCustomersCart";
+
+$route['view-shopping_cart'] = "Shopping_cart/index";
+$route['delete-shopping_cart/(:any)'] = "Shopping_cart/deleteCartItem";
+
+$route['view-products'] = "Product/index";
+$route['add-product/(:any)'] = "Product/addProduct";
+$route['edit-product/(:any)'] = "Product/editProduct/$1";
+$route['update-product/(:any)'] = "Product/updateProduct/$1";
+$route['delete-product/(:any)'] = "Product/deleteProduct/$1";
+
+$route['view-product_variation'] = "Product_variation/index";
+$route['add-product_variation/(:any)'] = "Product_variation/addProductVariation";
+$route['edit-product_variation/(:any)'] = "Product_variation/editProductVariation/$1";
+$route['update-product_variation/(:any)'] = "Product_variation/updateProductVariation/$1";
+$route['delete-product_variation/(:any)'] = "Product_variation/deleteProductVariation/$1";

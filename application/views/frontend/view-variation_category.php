@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title><?php echo $title; ?></title>
+    <title><?php echo $title . " - " . SITENAME; ?></title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -17,12 +17,12 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Storage</h1>
+            <h1>Variation Category</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                     <li class="breadcrumb-item">Master Data</li>
-                    <li class="breadcrumb-item active">View-storages</li>
+                    <li class="breadcrumb-item active">View-varation-category</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -34,7 +34,7 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <h3></h3>
-                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Storage</a>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Variation-category</a>
                         </div>
                         <div class="card-body">
                             <?php if ($this->session->flashdata('error')) : ?>
@@ -111,7 +111,7 @@
                                                                 <select name="status" class="form-control">
                                                                     <option value="active" <?php echo ($storage->status == 'active') ? 'selected' : ''; ?>>Active</option>
                                                                     <option value="inactive" <?php echo ($storage->status == 'inactive') ? 'selected' : ''; ?>>Inactive</option>
-                                                                    
+
                                                                 </select>
                                                             </div>
                                                             <div class="form-group mb-3">
@@ -146,7 +146,7 @@
                     <form action="<?php echo base_url('add-storage'); ?>" method="POST">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="exampleModalLabel" style="
-                            margin-left:320px">Add Storage</h1>
+                            margin-left:320px">Add Variation-Category</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -161,7 +161,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                            <input type="submit" name="insert" value="Add Storage" class="btn btn-primary btn-sm">
+                            <input type="submit" name="insert" value="Add Variation-Category" class="btn btn-primary btn-sm">
                         </div>
                     </form>
                 </div>

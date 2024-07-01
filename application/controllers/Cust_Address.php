@@ -10,6 +10,7 @@ class Cust_Address extends CI_Controller
 
     public function index()
     {
+        $data['title'] = 'Customer Adresses';
         $data['custadd_details'] = $this->Cust_address_model->getCustomerAdd();
         $data['customers'] = $this->db->query("select * from customers where status = 'active'")->result_array();
         $this->load->view('frontend/view-cust-address', $data);

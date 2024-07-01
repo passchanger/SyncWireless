@@ -10,6 +10,7 @@ class Customers extends CI_Controller
 
     public function index()
     {
+        $data['title'] = 'customers';
         $data['customers_details'] = $this->Customers_model->getCustomer();
         $this->load->view('frontend/view-customers', $data);
     }

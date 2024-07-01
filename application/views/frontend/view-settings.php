@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title><?php echo $title; ?></title>
+    <title><?php echo $title . " - " . SITENAME; ?></title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 

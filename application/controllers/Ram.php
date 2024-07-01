@@ -10,8 +10,9 @@ class Ram extends CI_Controller
 
     public function index()
     {
+        $data['title'] = 'Variation';
         $data['ram_details'] = $this->Ram_model->getRam();
-        $this->load->view('frontend/view-rams', $data);
+        $this->load->view('frontend/view-variants', $data);
     }
 
     public function addram()
@@ -43,7 +44,7 @@ class Ram extends CI_Controller
     {
         $data['singleram'] = $this->Ram_model->getSingleRam($id);
         $data['ram_details'] = $this->Ram_model->getRam();
-        $this->load->view('ram', $data);
+        $this->load->view('frontend/view-variants', $data);
     }
 
     public function updateram($id)

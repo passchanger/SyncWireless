@@ -10,6 +10,7 @@ class Brand extends CI_Controller
 
     public function index()
     {
+        $data['title'] = 'Brands';
         $data['product_details'] = $this->Brand_model->getALLProducts();
         $this->load->view('frontend/view-brands', $data);
     }

@@ -9,10 +9,10 @@ class Repairing extends CI_Controller
     }
     public function index()
     {
-
+        $data['title'] = 'Repairing';
         $data['repairing_details'] = $this->Repairing_model->getRepair();
         $data['brands'] = $this->db->query("select * from brands where status = 'active'")->result_array();
-        $this->load->view('frontend/view-Repairing-issues', $data);
+        $this->load->view('frontend/view-repairing-issues', $data);
         $this->load->library('form_validation');
     }
 

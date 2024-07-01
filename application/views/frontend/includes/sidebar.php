@@ -33,13 +33,13 @@
           </a>
         </li>
         <li>
-          <a href="view-rams">
-            <i class="bi bi-circle"></i><span>RAM</span>
+          <a href="view-variants">
+            <i class="bi bi-circle"></i><span>Variation</span>
           </a>
         </li>
         <li>
-          <a href="view-storages">
-            <i class="bi bi-circle"></i><span>Storage</span>
+          <a href="view-variation_category">
+            <i class="bi bi-circle"></i><span>Variation Category</span>
           </a>
         </li>
         <li>
@@ -79,6 +79,28 @@
         <li>
           <a href="view-cust_ricart">
             <i class="bi bi-circle"></i><span>Customers-RI-Cart</span>
+          </a>
+        </li>
+        <li>
+          <a href="view-shopping_cart">
+            <i class="bi bi-circle"></i><span>Shopping-Cart</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link collapsed" data-bs-target="#products-nav" data-bs-toggle="collapse" href="#">
+        <i class="bi bi-menu-button-wide"></i><span>Products</span><i class="bi bi-chevron-down ms-auto"></i>
+      </a>
+      <ul id="products-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+          <a href="view-products">
+            <i class="bi bi-circle"></i><span>Product</span>
+          </a>
+        </li>
+        <li>
+          <a href="view-product_variation">
+            <i class="bi bi-circle"></i><span>Product Variation</span>
           </a>
         </li>
       </ul>

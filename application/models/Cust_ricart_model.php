@@ -1,7 +1,6 @@
 <?php
 class Cust_ricart_model extends CI_Model
 {
-
     public function getCustomerDetails()
     {
         $query = $this->db->get('cust_ricart');
