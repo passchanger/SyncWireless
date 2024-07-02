@@ -12,6 +12,7 @@ class Users extends CI_Controller
     public function index()
     {
         $runFunction = checkLogin();
+        $data['title'] = 'Users';
         $data['users_details'] = $this->Users_model->getUser();
         $this->load->view('frontend/view-users', $data);
     }
@@ -36,8 +37,7 @@ class Users extends CI_Controller
                 'password' => $encoded_password,
                 'date_added' => $currentDateTime
             ]);
-            var_dump($result);
-            exit;
+
             if ($result) {
                 $this->session->set_flashdata('inserted', 'Your data has been inserted successfully');
             }
@@ -55,10 +55,9 @@ class Users extends CI_Controller
     public function updateUsers($id)
     {
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
-        $this->form_validation->set_rules('email', 'Email', 'required|is_unique[users.email]');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|callback_email_check[' . $id . ']');
         $this->form_validation->set_rules('password', 'Password', 'required|min_length[5]|max_length[15]');
         $this->form_validation->set_rules('status', 'Status', 'trim|required');
-
 
         if ($this->form_validation->run() == FALSE) {
             $error_message = strip_tags(validation_errors());
@@ -66,12 +65,11 @@ class Users extends CI_Controller
         } else {
             $currentDateTime = date("Y-m-d H:i:s");
             $encoded_password = base64_encode($this->input->post('password'));
-            $status = $this->input->post('status');
 
             $result = $this->Users_model->update_users([
                 'name' => $this->input->post('name'),
                 'email' => $this->input->post('email'),
-                'status' => $status,
+                'status' => $this->input->post('status'),
                 'password' => $encoded_password,
                 'date_added' => $currentDateTime
             ], $id);
@@ -82,6 +80,18 @@ class Users extends CI_Controller
         }
         redirect('view-users');
     }
+
+    // Callback function to check unique email during update
+    public function email_check($email, $id)
+    {
+        $user = $this->Users_model->getUserByEmail($email);
+        if ($user && $user->id != $id) {
+            $this->form_validation->set_message('email_check', 'The {field} field must contain a unique value.');
+            return FALSE;
+        }
+        return TRUE;
+    }
+
 
     public function deleteUsers($id)
     {
@@ -106,8 +116,6 @@ class Users extends CI_Controller
         // var_dump($checkUsers);exit;
         if (isset($checkUsers->password)) {
             $password = base64_decode($checkUsers->password);
-
-
             if ($_REQUEST['password'] == $password) {
                 $tempArr = array('id' => $checkUsers->id, 'name' => $checkUsers->name, 'email' => $checkUsers->email);
                 $this->session->set_userdata('session-data', $tempArr);

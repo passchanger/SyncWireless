@@ -6,10 +6,12 @@ class Customers extends CI_Controller
         parent::__construct();
         $this->load->model('Customers_model');
         $this->load->library('form_validation');
+        $this->load->helper('auth_helper');
     }
 
     public function index()
     {
+        $runFunction = checkLogin();
         $data['title'] = 'customers';
         $data['customers_details'] = $this->Customers_model->getCustomer();
         $this->load->view('frontend/view-customers', $data);

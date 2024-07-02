@@ -6,10 +6,12 @@ class Service extends CI_Controller
         parent::__construct();
         $this->load->model('Service_model');
         $this->load->library('form_validation');
+        $this->load->helper('auth_helper');
     }
 
     public function index()
     {
+        $runFuction = checkLogin();
         $data['title'] = 'Services';
         $data['service_details'] = $this->Service_model->getALLService();
         $this->load->view('frontend/view-service-centers', $data);

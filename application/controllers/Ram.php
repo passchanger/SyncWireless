@@ -6,10 +6,12 @@ class Ram extends CI_Controller
         parent::__construct();
         $this->load->model('Ram_model');
         $this->load->library('form_validation');
+        $this->load->helper('auth_helper');
     }
 
     public function index()
     {
+        $runFunction = checkLogin();
         $data['title'] = 'Variation';
         $data['ram_details'] = $this->Ram_model->getRam();
         $this->load->view('frontend/view-variants', $data);

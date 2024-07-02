@@ -6,10 +6,12 @@ class Product_variation extends CI_Controller
         parent::__construct();
         $this->load->model('Product_variation_model');
         $this->load->library('form_validation');
+        // $this->load->helper('auth-helper');
     }
 
     public function index()
     {
+        // $runFunction = checkLogin();
         $data['title'] = 'Product Variation';
         $data['product_variations'] = $this->Product_variation_model->getProductVariations();
         $this->load->view('frontend/view-product_variation', $data);

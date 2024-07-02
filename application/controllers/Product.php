@@ -6,17 +6,22 @@ class Product extends CI_Controller
         parent::__construct();
         $this->load->model('Product_model');
         $this->load->library('form_validation');
+        $this->load->helper('auth_helper');
     }
 
     public function index()
     {
+        $runFunction = checkLogin();
         $data['title'] = 'Product';
         $data['product_details'] = $this->Product_model->getProducts();
+        $data['brands'] = $this->db->query("select * from brands where status = 'active'")->result_array();
+        $data['models'] = $this->db->query("select * from models where status = 'active'")->result_array();
         $this->load->view('frontend/view-products', $data);
     }
 
     public function addProduct()
     {
+
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('brand_id', 'Brand ID', 'trim|required');
         $this->form_validation->set_rules('model_id', 'Model ID', 'trim|required');
@@ -36,14 +41,13 @@ class Product extends CI_Controller
             $currentDateTime = date("Y-m-d H:i:s");
 
             $data = [
+                'brand_id' => $this->input->post('brand_id'),
                 'model_id' => $this->input->post('model_id'),
                 'name' => $this->input->post('name'),
-                // 'image' => $this->input->post('image'), // Handle image upload
                 'price' => $this->input->post('price'),
                 'description' => $this->input->post('description'),
                 'key_specification' => $this->input->post('key_specification'),
                 'refund_policy' => $this->input->post('refund_policy'),
-                'disc_price' => $this->input->post('disc_price'),
                 'status' => $this->input->post('status'),
                 'date_added' => $currentDateTime
             ];
@@ -65,6 +69,7 @@ class Product extends CI_Controller
 
     public function updateProduct($id)
     {
+
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('brand_id', 'Brand ID', 'trim|required');
         $this->form_validation->set_rules('model_id', 'Model ID', 'trim|required');
@@ -82,14 +87,13 @@ class Product extends CI_Controller
             $currentDateTime = date("Y-m-d H:i:s");
 
             $data = [
+                'brand_id' => $this->input->post('brand_id'),
                 'model_id' => $this->input->post('model_id'),
                 'name' => $this->input->post('name'),
-                // 'image' => $this->input->post('image'), // Handle image upload
                 'price' => $this->input->post('price'),
                 'description' => $this->input->post('description'),
                 'key_specification' => $this->input->post('key_specification'),
                 'refund_policy' => $this->input->post('refund_policy'),
-                'disc_price' => $this->input->post('disc_price'),
                 'status' => $this->input->post('status'),
                 'date_added' => $currentDateTime
             ];

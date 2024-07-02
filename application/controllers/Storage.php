@@ -6,10 +6,12 @@ class Storage extends CI_Controller
         parent::__construct();
         $this->load->model('Storage_model');
         $this->load->library('form_validation');
+        $this->load->helper('auth_helper');
     }
 
     public function index()
     {
+        $runFunction = checkLogin();
         $data['title'] = 'Storages';
         $data['storage_details'] = $this->Storage_model->getStorage();
         $this->load->view('frontend/view-variation_category', $data);

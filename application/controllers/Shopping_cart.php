@@ -6,10 +6,12 @@ class Shopping_cart extends CI_Controller
         parent::__construct();
         $this->load->model('Shopping_cart_model');
         $this->load->library('form_validation');
+        $this->load->helper('auth_helper');
     }
 
     public function index()
     {
+        $runFunction = checkLogin();
         $data['title'] = 'Shopping Cart';
         $data['cart_details'] = $this->Shopping_cart_model->getCartDetails();
 

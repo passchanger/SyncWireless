@@ -65,6 +65,9 @@
                                         <th>Model ID</th>
                                         <th>Name</th>
                                         <th>Price</th>
+                                        <th>Description</th>
+                                        <th>Key Specification</th>
+                                        <th>Refund-Policy</th>
                                         <th>Status</th>
                                         <th>Date Added</th>
                                         <th>Actions</th>
@@ -78,6 +81,9 @@
                                             <td><?php echo $product->model_id; ?></td>
                                             <td><?php echo $product->name; ?></td>
                                             <td><?php echo $product->price; ?></td>
+                                            <td><?php echo $product->description; ?></td>
+                                            <td><?php echo $product->key_specification; ?></td>
+                                            <td><?php echo $product->refund_policy; ?></td>
                                             <td><?php echo $product->status; ?></td>
                                             <td><?php echo date("F j, Y", strtotime($product->date_added)); ?></td>
                                             <td>
@@ -128,12 +134,9 @@
                                                                 <textarea class="form-control" id="refund_policy" name="refund_policy" required><?php echo $product->refund_policy; ?></textarea>
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="disc_price">Discount Price</label>
-                                                                <input type="number" class="form-control" id="disc_price" name="disc_price" value="<?php echo $product->disc_price; ?>" required>
-                                                            </div>
-                                                            <div class="form-group">
                                                                 <label for="status">Status</label>
                                                                 <select class="form-control" id="status" name="status" required>
+
                                                                     <option value="1" <?php echo ($product->status == 1) ? 'selected' : ''; ?>>Active</option>
                                                                     <option value="0" <?php echo ($product->status == 0) ? 'selected' : ''; ?>>Inactive</option>
                                                                 </select>
@@ -190,13 +193,10 @@
                                                     <label for="refund_policy">Refund Policy</label>
                                                     <textarea class="form-control" id="refund_policy" name="refund_policy" required></textarea>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="disc_price">Discount Price</label>
-                                                    <input type="number" class="form-control" id="disc_price" name="disc_price" required>
-                                                </div>
-                                                <div class="form-group">
+                                                <div class="form-group mb-2">
                                                     <label for="status">Status</label>
                                                     <select class="form-control" id="status" name="status" required>
+                                                        <option value="" disbaled selected>Select Status</option>
                                                         <option value="1">Active</option>
                                                         <option value="0">Inactive</option>
                                                     </select>

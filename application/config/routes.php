@@ -131,13 +131,13 @@ $route['view-shopping_cart'] = "Shopping_cart/index";
 $route['delete-shopping_cart/(:any)'] = "Shopping_cart/deleteCartItem";
 
 $route['view-products'] = "Product/index";
-$route['add-product/(:any)'] = "Product/addProduct";
+$route['add-product'] = "Product/addProduct";
 $route['edit-product/(:any)'] = "Product/editProduct/$1";
 $route['update-product/(:any)'] = "Product/updateProduct/$1";
 $route['delete-product/(:any)'] = "Product/deleteProduct/$1";
 
 $route['view-product_variation'] = "Product_variation/index";
-$route['add-product_variation/(:any)'] = "Product_variation/addProductVariation";
+$route['add-product_variation'] = "Product_variation/addProductVariation";
 $route['edit-product_variation/(:any)'] = "Product_variation/editProductVariation/$1";
 $route['update-product_variation/(:any)'] = "Product_variation/updateProductVariation/$1";
 $route['delete-product_variation/(:any)'] = "Product_variation/deleteProductVariation/$1";

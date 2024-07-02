@@ -6,10 +6,12 @@ class Setting extends CI_Controller
         parent::__construct();
         $this->load->model('Setting_model');
         $this->load->library('form_validation');
+        $this->load->helper('auth_helper');
     }
 
     public function index()
     {
+        $runFunction = checkLogin();
         $this->load->model('Setting_Model');
         $data['setting_details'] = $this->Setting_Model->getALLSettings();
         $this->load->view('frontend/view-settings', $data);

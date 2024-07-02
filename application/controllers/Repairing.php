@@ -6,9 +6,11 @@ class Repairing extends CI_Controller
         parent::__construct();
         $this->load->model('Repairing_model');
         $this->load->library('form_validation');
+        $this->load->helper('auth_helper');
     }
     public function index()
     {
+        $runFunction = checkLogin();
         $data['title'] = 'Repairing';
         $data['repairing_details'] = $this->Repairing_model->getRepair();
         $data['brands'] = $this->db->query("select * from brands where status = 'active'")->result_array();

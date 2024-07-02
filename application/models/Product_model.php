@@ -9,7 +9,12 @@ class Product_model extends CI_Model
 
     public function insert_product($data)
     {
-        return $this->db->insert('products', $data);
+        $query = $this->db->insert('products', $data);
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function getSingleProduct($id)

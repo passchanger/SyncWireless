@@ -21,7 +21,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                     <li class="breadcrumb-item">Master Data</li>
-                    <li class="breadcrumb-item active">View Product Variations</li>
+                    <li class="breadcrumb-item active">View-Product-Variations</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -115,10 +115,16 @@
                                                                 <label for="variation_id" class="form-label">Variation ID</label>
                                                                 <input type="text" class="form-control" id="variation_id" name="variation_id" value="<?php echo $variation->variation_id; ?>" required>
                                                             </div>
-                                                            <div class="mb-3">
-                                                                <label for="status" class="form-label">Status</label>
-                                                                <input type="text" class="form-control" id="status" name="status" value="<?php echo $variation->status; ?>" required>
+                                                            <div class="form-group mb-2">
+                                                                <label for="status">Status</label>
+                                                                <select class="form-control" id="status" name="status" required>
+                                                                    <option value="" disabled>Select Status</option>
+                                                                    <option value="active" <?php echo ($variation->status == 'active') ? 'selected' : ''; ?>>Active</option>
+                                                                    <option value="inactive" <?php echo ($variation->status == 'inactive') ? 'selected' : ''; ?>>Inactive</option>
+                                                                </select>
                                                             </div>
+
+
                                                             <div class="mb-3">
                                                                 <button type="submit" class="btn btn-primary">Update</button>
                                                             </div>
@@ -163,9 +169,13 @@
                                 <label for="variation_id" class="form-label">Variation ID</label>
                                 <input type="text" class="form-control" id="variation_id" name="variation_id" required>
                             </div>
-                            <div class="mb-3">
-                                <label for="status" class="form-label">Status</label>
-                                <input type="text" class="form-control" id="status" name="status" required>
+                            <div class="form-group mb-2">
+                                <label for="status">Status</label>
+                                <select class="form-control" id="status" name="status" required>
+                                    <option value="" disbaled selected>Select Status</option>
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <button type="submit" class="btn btn-primary">Add</button>

@@ -48,4 +48,8 @@ class Users_model extends CI_Model
             return false;
         }
     }
+    public function getUserByEmail($email)
+    {
+        return $this->db->get_where('users', ['email' => $email])->row();
+    }
 }

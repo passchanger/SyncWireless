@@ -6,10 +6,12 @@ class Model extends CI_Controller
         parent::__construct();
         $this->load->model('Model_model');
         $this->load->library('form_validation');
+        $this->load->helper('auth_helper');
     }
 
     public function index()
     {
+        $runFunction = checkLogin();
         $data['title'] = 'Models';
         $data['Model_details'] = $this->Model_model->getALLModels();
         $data['brands'] = $this->db->query("select * from brands where status = 'active'")->result_array();

@@ -6,10 +6,12 @@ class Cust_Address extends CI_Controller
         parent::__construct();
         $this->load->model('Cust_address_model');
         $this->load->library('form_validation');
+        $this->load->helper('auth_helper');
     }
 
     public function index()
     {
+        $runFunction = checkLogin();
         $data['title'] = 'Customer Adresses';
         $data['custadd_details'] = $this->Cust_address_model->getCustomerAdd();
         $data['customers'] = $this->db->query("select * from customers where status = 'active'")->result_array();

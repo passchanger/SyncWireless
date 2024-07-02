@@ -6,10 +6,12 @@ class Brand extends CI_Controller
         parent::__construct();
         $this->load->model('Brand_model');
         $this->load->library('form_validation');
+        $this->load->helper('auth_helper');
     }
 
     public function index()
     {
+        $runFunction = checkLogin();
         $data['title'] = 'Brands';
         $data['product_details'] = $this->Brand_model->getALLProducts();
         $this->load->view('frontend/view-brands', $data);

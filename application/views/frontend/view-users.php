@@ -120,9 +120,9 @@
                                                             <div class="form-group mb-3">
                                                                 <label for="status">Status</label>
                                                                 <select name="status" class="form-control">
+                                                                    <option value="" disabled selected>Select Status</option>
                                                                     <option value="active" <?php echo ($users->status == 'active') ? 'selected' : ''; ?>>Active</option>
                                                                     <option value="inactive" <?php echo ($users->status == 'inactive') ? 'selected' : ''; ?>>Inactive</option>
-                                                                    
                                                                 </select>
                                                             </div>
                                                             <div class="modal-footer">
@@ -170,6 +170,14 @@
                             <div class="form-group mb-3">
                                 <label for="password" class="form-label">PASSWORD</label>
                                 <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="status">Status</label>
+                                <select name="status" class="form-control" required>
+                                    <option value="" disabled selected>Select Status</option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>

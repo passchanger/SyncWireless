@@ -6,10 +6,12 @@ class Cust_ricart extends CI_Controller
         parent::__construct();
         $this->load->model('Cust_ricart_model');
         $this->load->library('form_validation');
+        $this->load->helper('auth_helper');
     }
 
     public function index()
     {
+        $runFunction = checkLogin();
         $data['title'] = 'Customer RI Cart';
         $data['cust_details'] = $this->Cust_ricart_model->getCustomerDetails();
 
