@@ -8,6 +8,13 @@ class Brand_model extends CI_Model
             return $query->result();
         }
     }
+    public function getActiveBrands()
+    {
+        $query = $this->db->where('status', 'active')->get('brands');
+        if ($query) {
+            return $query->result();
+        }
+    }
     public function insert_Brand($data)
     {
         $query = $this->db->insert('brands', $data);

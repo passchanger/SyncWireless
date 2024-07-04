@@ -14,29 +14,43 @@ class Product extends CI_Controller
         $runFunction = checkLogin();
         $data['title'] = 'Product';
         $data['product_details'] = $this->Product_model->getProducts();
-        $data['brands'] = $this->db->query("select * from brands where status = 'active'")->result_array();
-        $data['models'] = $this->db->query("select * from models where status = 'active'")->result_array();
+
         $this->load->view('frontend/view-products', $data);
     }
 
     public function addProduct()
     {
+        $runFunction = checkLogin();
+        $data['title'] = 'Add Product';
+
+        $data['brands'] = $this->db->query("SELECT * FROM brands WHERE status = 'active'")->result_array();
+        $data['models'] = $this->db->query("SELECT * FROM models WHERE status = 'active'")->result_array();
+        $data['variationCatg'] = $this->db->query("SELECT * FROM variation_cat WHERE status = 'active'")->result_array();
+
+        $this->load->view('frontend/add-edit-product', $data);
+    }
+
+    public function createProduct()
+    {
+
 
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('brand_id', 'Brand ID', 'trim|required');
         $this->form_validation->set_rules('model_id', 'Model ID', 'trim|required');
-        $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('price', 'Price', 'trim|required');
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
         $this->form_validation->set_rules('key_specification', 'Key Specification', 'trim|required');
         $this->form_validation->set_rules('refund_policy', 'Refund Policy', 'trim|required');
         $this->form_validation->set_rules('status', 'Status', 'trim|required');
 
-        // Add more validation rules as needed
-
         if ($this->form_validation->run() == FALSE) {
             $error_message = strip_tags(validation_errors());
             $this->session->set_flashdata('error', $error_message);
+            $this->load->view('frontend/add-edit-product', [
+                'title' => 'Add Product',
+                'brands' => $this->db->query("SELECT * FROM brands WHERE status = 'active'")->result_array(),
+                'models' => $this->db->query("SELECT * FROM models WHERE status = 'active'")
+            ]);
         } else {
             $currentDateTime = date("Y-m-d H:i:s");
 
@@ -53,27 +67,54 @@ class Product extends CI_Controller
             ];
 
             $result = $this->Product_model->insert_product($data);
+            $product_id = $this->db->insert_id();
+
+            $variations = $_REQUEST['variations'];
+            $keys = array_keys($_REQUEST['variations']);
+
+            for ($i = 0; $i < count($keys); $i++) {
+                $exploded = explode("#", $keys[$i]);
+                $params['vcat_id'] = $exploded[1];
+                $params['variation_id'] = $variations[$keys[$i]];
+                $params['product_id'] = $product_id;
+                $params['status'] = 'active';
+                $params['date_added'] = $currentDateTime;
+
+
+                $result_pv = $this->Product_model->insert_pv($params);
+            }
 
             if ($result) {
-                $this->session->set_flashdata('inserted', 'Your data has been inserted successfully');
+                $this->session->set_flashdata('inserted', 'Product has been created successfully');
             }
+            redirect('view-products');
         }
-        redirect('product');
     }
 
     public function editProduct($id)
     {
-        $data['singleproduct'] = $this->Product_model->getSingleProduct($id);
-        $this->load->view('frontend/view-edit-product', $data);
+        $data['title'] = 'Edit Product';
+        $singleProduct = $this->Product_model->getSingleProduct($id);
+
+        if ($singleProduct) {
+            $variationCatg = $this->db->query("SELECT * FROM variation_cat WHERE status = 'active'")->result_array();
+            $singleProduct->variationCatg = $variationCatg;
+        }
+
+        $data['singleproduct'] = $singleProduct;
+        $data['brands'] = $this->db->query("SELECT * FROM brands WHERE status = 'active'")->result_array();
+        $data['models'] = $this->db->query("SELECT * FROM models WHERE status = 'active'")->result_array();
+        $data['variationCatg'] = $variationCatg;
+
+        $this->load->view('frontend/add-edit-product', $data);
     }
+
 
     public function updateProduct($id)
     {
-
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('brand_id', 'Brand ID', 'trim|required');
         $this->form_validation->set_rules('model_id', 'Model ID', 'trim|required');
-        $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('price', 'Price', 'trim|required');
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
         $this->form_validation->set_rules('key_specification', 'Key Specification', 'trim|required');
@@ -83,6 +124,7 @@ class Product extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $error_message = strip_tags(validation_errors());
             $this->session->set_flashdata('error', $error_message);
+            redirect('product/editProduct/' . $id);
         } else {
             $currentDateTime = date("Y-m-d H:i:s");
 
@@ -99,20 +141,36 @@ class Product extends CI_Controller
             ];
 
             $result = $this->Product_model->update_product($data, $id);
+            $result = $this->Product_model->delete_pv($id);
+
+            $variations = $_REQUEST['variations'];
+            $keys = array_keys($_REQUEST['variations']);
+
+            for ($i = 0; $i < count($keys); $i++) {
+                $exploded = explode("#", $keys[$i]);
+                $params['vcat_id'] = $exploded[1];
+                $params['variation_id'] = $variations[$keys[$i]];
+                $params['product_id'] = $id;
+                $params['status'] = 'active';
+                $params['date_added'] = $currentDateTime;
+
+
+                $result_pv = $this->Product_model->insert_pv($params);
+            }
 
             if ($result) {
-                $this->session->set_flashdata('updated', 'Your data has been updated successfully');
+                $this->session->set_flashdata('updated', 'Product has been updated successfully');
             }
+            redirect('view-products');
         }
-        redirect('product');
     }
 
     public function deleteProduct($id)
     {
         $result = $this->Product_model->delete_product($id);
-        if ($result == true) {
-            $this->session->set_flashdata('deleted', 'Your data has been deleted successfully');
+        if ($result) {
+            $this->session->set_flashdata('deleted', 'Product has been deleted successfully');
         }
-        redirect('product');
+        redirect('view-products');
     }
 }

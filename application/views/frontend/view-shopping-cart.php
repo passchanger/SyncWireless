@@ -38,7 +38,7 @@
                         <div class="card-body">
 
                             <?php if ($this->session->flashdata('deleted')) : ?>
-                                <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                                <div class="alert alert-success alert-dismissible fade show text-start justify-content-start" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('deleted')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
@@ -49,9 +49,9 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>CUSTOMER_ID</th>
-                                        <th>PRODUCT_ID</th>
-                                        <th>VARIATION_ID</th>
+                                        <th>CUSTOMER NAME</th>
+                                        <th>PRODUCT NAME</th>
+                                        <th>VARIATION NAME</th>
                                         <th>DISC_PRICE</th>
                                         <th>STATUS</th>
                                         <th>DATE_ADDED</th>
@@ -60,12 +60,12 @@
                                 </thead>
                                 <tbody>
                                     <?php $counter = 1; ?>
-                                    <?php foreach ($query_result as $cart) : ?>
+                                    <?php foreach ($cart_details as $cart) : ?>
                                         <tr>
                                             <td><?php echo htmlspecialchars($counter); ?></td>
-                                            <td><?php echo htmlspecialchars($cart->customer_id); ?></td>
-                                            <td><?php echo htmlspecialchars($cart->product_id); ?></td>
-                                            <td><?php echo htmlspecialchars($cart->variation_id); ?></td>
+                                            <td><?php echo htmlspecialchars($cart->customer_name); ?></td>
+                                            <td><?php echo htmlspecialchars($cart->product_name); ?></td>
+                                            <td><?php echo htmlspecialchars($cart->variation_name); ?></td>
                                             <td><?php echo htmlspecialchars($cart->disc_price); ?></td>
                                             <td><?php echo htmlspecialchars($cart->status); ?></td>
                                             <td><?php echo date("F j, Y", strtotime($cart->date_added)); ?></td>

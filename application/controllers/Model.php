@@ -19,14 +19,7 @@ class Model extends CI_Controller
         $this->load->library('form_validation');
     }
 
-    public function getModelsByBrand()
-    {
-        if ($this->input->post('brand_id')) {
-            $brand_id = $this->input->post('brand_id');
-            $models = $this->Model_model->getModelsByBrand($brand_id);
-            echo json_encode($models);
-        }
-    }
+
 
     public function addModel()
     {
@@ -52,10 +45,10 @@ class Model extends CI_Controller
             ]);
 
             if ($result) {
-                $this->session->set_flashdata('inserted', 'your data has been inserted successfully');
+                $this->session->set_flashdata('inserted', 'Model has been created successfully');
             }
         }
-        redirect('model');
+        redirect('view-models');
     }
 
     public function editModel($id)
@@ -93,18 +86,18 @@ class Model extends CI_Controller
             ], $id);
 
             if ($result) {
-                $this->session->set_flashdata('updated', 'your data has been updated successfully');
+                $this->session->set_flashdata('updated', 'Model has been updated successfully');
             }
         }
-        redirect('model');
+        redirect('view-models');
     }
     public function deleteModel($id)
     {
 
         $result = $this->Model_model->deleteitems($id);
         if ($result == true) {
-            $this->session->set_flashdata('deleted', 'your data has been deleted successfully');
+            $this->session->set_flashdata('deleted', 'Model has been deleted successfully');
         }
-        redirect('model');
+        redirect('view-models');
     }
 }

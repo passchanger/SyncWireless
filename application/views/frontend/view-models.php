@@ -41,28 +41,28 @@
                         <div class="card-body">
 
                             <?php if ($this->session->flashdata('error')) : ?>
-                                <div class="alert alert-danger alert-dismissible fade show text-end justify-content-end" role="alert">
+                                <div class="alert alert-danger alert-dismissible fade show text-start justify-content-start" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('error')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             <?php endif; ?>
 
                             <?php if ($this->session->flashdata('inserted')) : ?>
-                                <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                                <div class="alert alert-success alert-dismissible fade show text-start justify-content-start" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('inserted')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             <?php endif; ?>
 
                             <?php if ($this->session->flashdata('updated')) : ?>
-                                <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                                <div class="alert alert-success alert-dismissible fade show text-start justify-content-start" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('updated')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             <?php endif; ?>
 
                             <?php if ($this->session->flashdata('deleted')) : ?>
-                                <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                                <div class="alert alert-success alert-dismissible fade show text-start justify-content-start" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('deleted')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
@@ -90,13 +90,13 @@
                                             <td><?php echo htmlspecialchars($models->status); ?></td>
                                             <td><?php echo date("F j, Y", strtotime($models->date_added)); ?></td>
                                             <td>
-                                                <a data-bs-toggle="modal" data-bs-target="#exampleModall" class="btn btn-primary btn-sm" href="<?php echo base_url('edit-model/' . $models->id); ?>">Edit</a>
+                                                <a data-bs-toggle="modal" data-bs-target="#exampleModall<?php echo $models->id; ?>" class="btn btn-primary btn-sm" href="<?php echo base_url('edit-model/' . $models->id); ?>">Edit</a>
                                                 <a class="btn btn-danger btn-sm" href="<?php echo base_url('delete-model/' . $models->id); ?>">Delete</a>
                                             </td>
                                         </tr>
                                         <?php $counter++; ?>
                                         <!-- Modal for Edit Model -->
-                                        <div class="modal fade" id="exampleModall" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="exampleModall<?php echo $models->id; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <form action="<?php echo base_url('update-model/' . $models->id); ?>" method="POST">
@@ -124,7 +124,7 @@
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="features" class="form-label">FEATURES</label>
-                                                                <textarea class="quill-editor-full" name="features" value="<?php echo htmlspecialchars($models->features); ?>" style="width: 467px;">
+                                                                <textarea class="quill-editor-full" name="features" style="width: 467px;"><?php echo htmlspecialchars($models->features); ?>
                                                                 </textarea>
                                                             </div>
 

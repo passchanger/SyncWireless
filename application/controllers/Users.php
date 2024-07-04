@@ -39,7 +39,7 @@ class Users extends CI_Controller
             ]);
 
             if ($result) {
-                $this->session->set_flashdata('inserted', 'Your data has been inserted successfully');
+                $this->session->set_flashdata('inserted', 'User has been created successfully');
             }
         }
         redirect('view-users');
@@ -75,11 +75,12 @@ class Users extends CI_Controller
             ], $id);
 
             if ($result) {
-                $this->session->set_flashdata('updated', 'Your data has been updated successfully');
+                $this->session->set_flashdata('updated', 'User has been updated successfully');
             }
         }
         redirect('view-users');
     }
+
 
     // Callback function to check unique email during update
     public function email_check($email, $id)
@@ -97,7 +98,7 @@ class Users extends CI_Controller
     {
         $result = $this->Users_model->deleteitems($id);
         if ($result == true) {
-            $this->session->set_flashdata('deleted', 'Your data has been deleted successfully');
+            $this->session->set_flashdata('deleted', 'User has been deleted successfully');
         }
         redirect('view-users');
     }

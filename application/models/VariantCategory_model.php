@@ -1,48 +1,46 @@
 <?php
-class Product_variation_model extends CI_Model
+class VariantCategory_model extends CI_Model
 {
-    public function getProductVariations()
+
+    public function getVariationCat()
     {
-        $query = $this->db->get('product_variations');
+        $query = $this->db->get('variation_cat');
         if ($query) {
             return $query->result();
         }
     }
-
-    public function insertProductVariation($data)
+    public function insert_VariationCat($data)
     {
-        $query = $this->db->insert('product_variations', $data);
+        $query = $this->db->insert('variation_cat', $data);
         if ($query) {
             return true;
         } else {
             return false;
         }
     }
-
-    public function getSingleProductVariation($id)
+    public function getSingleVariationCat($id)
     {
+
         $this->db->where('id', $id);
-        $query = $this->db->get('product_variations');
+        $query =  $this->db->get('variation_cat');
         if ($query) {
             return $query->row();
         }
     }
-
-    public function updateProductVariation($data, $id)
+    public function update_VariationCat($data, $id)
     {
         $this->db->where('id', $id);
-        $query = $this->db->update('product_variations', $data);
+        $query = $this->db->update('variation_cat', $data);
         if ($query) {
             return true;
         } else {
             return false;
         }
     }
-
-    public function deleteProductVariation($id)
+    public function deleteitems($id)
     {
         $this->db->where('id', $id);
-        $query = $this->db->delete('product_variations');
+        $query = $this->db->delete('variation_cat');
         if ($query) {
             return true;
         } else {

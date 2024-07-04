@@ -38,28 +38,28 @@
                         <div class="card-body">
 
                             <?php if ($this->session->flashdata('error')) : ?>
-                                <div class="alert alert-danger alert-dismissible fade show text-end justify-content-end" role="alert">
+                                <div class="alert alert-danger alert-dismissible fade show text-start justify-content-start" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('error')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             <?php endif; ?>
 
                             <?php if ($this->session->flashdata('inserted')) : ?>
-                                <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                                <div class="alert alert-success alert-dismissible fade show text-start justify-content-start" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('inserted')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             <?php endif; ?>
 
                             <?php if ($this->session->flashdata('updated')) : ?>
-                                <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                                <div class="alert alert-success alert-dismissible fade show text-start justify-content-start" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('updated')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             <?php endif; ?>
 
                             <?php if ($this->session->flashdata('deleted')) : ?>
-                                <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                                <div class="alert alert-success alert-dismissible fade show text-start justify-content-start" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('deleted')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>

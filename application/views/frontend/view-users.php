@@ -41,28 +41,28 @@
                         <div class="card-body">
 
                             <?php if ($this->session->flashdata('error')) : ?>
-                                <div class="alert alert-danger alert-dismissible fade show text-end justify-content-end" role="alert">
+                                <div class="alert alert-danger alert-dismissible fade show text-start justify-content-start" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('error')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             <?php endif; ?>
 
                             <?php if ($this->session->flashdata('inserted')) : ?>
-                                <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                                <div class="alert alert-success alert-dismissible fade show text-start justify-content-start" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('inserted')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             <?php endif; ?>
 
                             <?php if ($this->session->flashdata('updated')) : ?>
-                                <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                                <div class="alert alert-success alert-dismissible fade show text-start justify-content-start" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('updated')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             <?php endif; ?>
 
                             <?php if ($this->session->flashdata('deleted')) : ?>
-                                <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                                <div class="alert alert-success alert-dismissible fade show text-start justify-content-start" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('deleted')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
@@ -115,7 +115,7 @@
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="password" class="form-label">PASSWORD</label>
-                                                                <input type="passowrd" class="form-control" id="edit_password" name="password" placeholder="Enter your Password">
+                                                                <input type="password" class="form-control" id="edit_password" name="password" placeholder="Enter your Password">
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="status">Status</label>
@@ -127,7 +127,7 @@
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                                                                <input type="submit" name="insert" value="Add user" class="btn btn-primary btn-sm">
+                                                                <input type="submit" name="insert" value="Update" class="btn btn-primary btn-sm">
                                                             </div>
                                                         </form>
                                                     </div>

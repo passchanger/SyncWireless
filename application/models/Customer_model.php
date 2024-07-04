@@ -1,5 +1,5 @@
 <?php
-class Customers_model extends CI_Model
+class Customer_model extends CI_Model
 {
 
     public function getCustomer()
@@ -23,11 +23,7 @@ class Customers_model extends CI_Model
     {
         $this->db->where('id', $id);
         $query = $this->db->update('customers', $data);
-        if ($query) {
-            return true;
-        } else {
-            return false;
-        }
+        return $query ? true : false;
     }
 
     public function deleteitems($id)

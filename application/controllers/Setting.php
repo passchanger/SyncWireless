@@ -42,7 +42,7 @@ class Setting extends CI_Controller
             ]);
 
             if ($result) {
-                $this->session->set_flashdata('inserted', 'your data has been inserted successfully');
+                $this->session->set_flashdata('inserted', 'your data has been created successfully');
             }
         }
         redirect('setting');

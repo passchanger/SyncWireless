@@ -1,5 +1,5 @@
 <?php
-class Cust_address_model extends CI_Model
+class CustAddress_model extends CI_Model
 {
     public function getCustomerAdd()
     {

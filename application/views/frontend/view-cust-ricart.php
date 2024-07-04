@@ -13,7 +13,7 @@
     <?php include("includes/sidebar.php"); ?>
     <main id="main" class="main">
         <div class="pagetitle">
-            <h1>CUSTOMER RI CART</h1>
+            <h1>CUSTOMER REPAIRING ISSUE CART</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
@@ -29,13 +29,13 @@
                         <div class="card-header d-flex justify-content-between"></div>
                         <div class="card-body">
                             <?php if ($this->session->flashdata('error')) : ?>
-                                <div class="alert alert-danger alert-dismissible fade show text-end justify-content-end" role="alert">
+                                <div class="alert alert-danger alert-dismissible fade show text-start justify-content-start" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('error')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             <?php endif; ?>
                             <?php if ($this->session->flashdata('deleted')) : ?>
-                                <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                                <div class="alert alert-success alert-dismissible fade show text-start justify-content-start" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('deleted')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>

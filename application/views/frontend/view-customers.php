@@ -38,28 +38,28 @@
                         <div class="card-body">
 
                             <?php if ($this->session->flashdata('error')) : ?>
-                                <div class="alert alert-danger alert-dismissible fade show text-end justify-content-end" role="alert">
+                                <div class="alert alert-danger alert-dismissible fade show text-start justify-content-start" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('error')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             <?php endif; ?>
 
                             <?php if ($this->session->flashdata('inserted')) : ?>
-                                <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                                <div class="alert alert-success alert-dismissible fade show text-start justify-content-start" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('inserted')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             <?php endif; ?>
 
                             <?php if ($this->session->flashdata('updated')) : ?>
-                                <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                                <div class="alert alert-success alert-dismissible fade show text-start justify-content-start" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('updated')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             <?php endif; ?>
 
                             <?php if ($this->session->flashdata('deleted')) : ?>
-                                <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                                <div class="alert alert-success alert-dismissible fade show text-start justify-content-start" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('deleted')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
@@ -71,6 +71,10 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>CUSTOMER INFO</th>
+                                        <th>RI Cart</th>
+                                        <th>RI Orders</th>
+                                        <th>Shopping Cart</th>
+                                        <th>Shopping Orders</th>
                                         <th>STATUS</th>
                                         <th>DATE ADDED</th>
                                         <th>ACTIONS</th>
@@ -82,6 +86,10 @@
                                         <tr>
                                             <td><?php echo htmlspecialchars($counter); ?></td>
                                             <td><?php echo ($customers->name) . "<br>" . ($customers->email) . "<br>" . ($customers->mobile) ?></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                             <td><?php echo htmlspecialchars($customers->status); ?></td>
                                             <td><?php echo date("F j, Y", strtotime($customers->date_added)); ?></td>
                                             <td>
@@ -95,7 +103,7 @@
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h1 class="modal-title fs-5" id="editRamModalLabel<?php echo htmlspecialchars($customers->id); ?>" style="margin-left:350px;">Edit User</h1>
+                                                        <h1 class="modal-title fs-5" id="editRamModalLabel<?php echo htmlspecialchars($customers->id); ?>" style="margin-left:300px;">Edit Customers</h1>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
@@ -114,7 +122,7 @@
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="password" class="form-label">PASSWORD</label>
-                                                                <input type="passowrd" class="form-control" id="edit_password" name="password" placeholder="Enter your Password" value="<?php echo htmlspecialchars($customers->password); ?>">
+                                                                <input type="password" class="form-control" id="edit_password" name="password" placeholder="Enter your Password">
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="status">Status</label>
@@ -125,7 +133,7 @@
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                                                                <input type="submit" name="insert" value="Add user" class="btn btn-primary btn-sm">
+                                                                <input type="submit" name="insert" value="Update" class="btn btn-primary btn-sm">
                                                             </div>
                                                         </form>
                                                     </div>

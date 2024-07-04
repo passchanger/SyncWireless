@@ -1,10 +1,10 @@
 <?php
-class Cust_Address extends CI_Controller
+class CustAddress extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Cust_address_model');
+        $this->load->model('CustAddress_model');
         $this->load->library('form_validation');
         $this->load->helper('auth_helper');
     }
@@ -13,7 +13,7 @@ class Cust_Address extends CI_Controller
     {
         $runFunction = checkLogin();
         $data['title'] = 'Customer Adresses';
-        $data['custadd_details'] = $this->Cust_address_model->getCustomerAdd();
+        $data['custadd_details'] = $this->CustAddress_model->getCustomerAdd();
         $data['customers'] = $this->db->query("select * from customers where status = 'active'")->result_array();
         $this->load->view('frontend/view-cust-address', $data);
     }
@@ -43,7 +43,7 @@ class Cust_Address extends CI_Controller
             $currentDateTime = date("Y-m-d H:i:s");
             $status = $this->input->post('status');
 
-            $result = $this->Cust_address_model->update_customersadd([
+            $result = $this->CustAddress_model->update_customersadd([
                 'customer_id' => $this->input->post('customer_id'),
                 'addline_1' => $this->input->post('addline_1'),
                 'city' => $this->input->post('city'),
@@ -56,16 +56,16 @@ class Cust_Address extends CI_Controller
             ], $id);
 
             if ($result) {
-                $this->session->set_flashdata('updated', 'Your data has been updated successfully');
+                $this->session->set_flashdata('updated', 'Customer Address has been updated successfully');
             }
         }
         redirect('view-cust-address');
     }
     public function deleteCustomersAdd($id)
     {
-        $result = $this->Cust_address_model->deleteitems($id);
+        $result = $this->CustAddress_model->deleteitems($id);
         if ($result == true) {
-            $this->session->set_flashdata('deleted', 'Your data has been deleted successfully');
+            $this->session->set_flashdata('deleted', 'Customer Address has been deleted successfully');
         }
         redirect('view-cust-address');
     }

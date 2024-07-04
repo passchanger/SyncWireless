@@ -1,10 +1,10 @@
 <?php
-class Cust_ricart extends CI_Controller
+class CustRIcart extends CI_Controller
 {
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Cust_ricart_model');
+        $this->load->model('CustRIcart_model');
         $this->load->library('form_validation');
         $this->load->helper('auth_helper');
     }
@@ -13,7 +13,7 @@ class Cust_ricart extends CI_Controller
     {
         $runFunction = checkLogin();
         $data['title'] = 'Customer RI Cart';
-        $data['cust_details'] = $this->Cust_ricart_model->getCustomerDetails();
+        $data['cust_details'] = $this->CustRIcart_model->getCustomerDetails();
 
         $query = $this->db->select('cr.id, c.name as customer_name, b.name as brand_name, m.name as model_name, ri.issue_name as ri_name, cr.est_price, cr.status, cr.date_added')
             ->from('cust_ricart cr')
@@ -25,15 +25,15 @@ class Cust_ricart extends CI_Controller
             ->get();
 
         $data['query_result'] = $query->result();
-        $this->load->view('frontend/view-cust_ricart', $data);
+        $this->load->view('frontend/view-cust-ricart', $data);
     }
 
     public function deleteCustomersCart($id)
     {
-        $result = $this->Cust_ricart_model->deleteitems($id);
+        $result = $this->CustRIcart_model->deleteitems($id);
         if ($result == true) {
-            $this->session->set_flashdata('deleted', 'Your data has been deleted successfully');
+            $this->session->set_flashdata('deleted', 'Customer Repairing Issue has been deleted successfully');
         }
-        redirect('view-customer');
+        redirect('view-cust-ricart');
     }
 }

@@ -1,5 +1,5 @@
 <?php
-class Cust_ricart_model extends CI_Model
+class CustRIcart_model extends CI_Model
 {
     public function getCustomerDetails()
     {

@@ -17,12 +17,12 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Variants</h1>
+      <h1>Variation</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
           <li class="breadcrumb-item">Master Data</li>
-          <li class="breadcrumb-item active">View-variants</li>
+          <li class="breadcrumb-item active">View-variation</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -34,35 +34,35 @@
           <div class="card">
             <div class="card-header d-flex justify-content-between">
               <h3></h3>
-              <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRamModal">Add Variants</a>
+              <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRamModal">Add Variation</a>
 
             </div>
 
             <div class="card-body">
 
               <?php if ($this->session->flashdata('error')) : ?>
-                <div class="alert alert-danger alert-dismissible fade show text-end justify-content-end" role="alert">
+                <div class="alert alert-danger alert-dismissible fade show text-start justify-content-start" role="alert">
                   <?php echo htmlspecialchars($this->session->flashdata('error')); ?>
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
               <?php endif; ?>
 
               <?php if ($this->session->flashdata('inserted')) : ?>
-                <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                <div class="alert alert-success alert-dismissible fade show text-start justify-content-start" role="alert">
                   <?php echo htmlspecialchars($this->session->flashdata('inserted')); ?>
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
               <?php endif; ?>
 
               <?php if ($this->session->flashdata('updated')) : ?>
-                <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                <div class="alert alert-success alert-dismissible fade show text-start justify-content-start" role="alert">
                   <?php echo htmlspecialchars($this->session->flashdata('updated')); ?>
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
               <?php endif; ?>
 
               <?php if ($this->session->flashdata('deleted')) : ?>
-                <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                <div class="alert alert-success alert-dismissible fade show text-start justify-content-start" role="alert">
                   <?php echo htmlspecialchars($this->session->flashdata('deleted')); ?>
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
@@ -73,6 +73,7 @@
                 <thead>
                   <tr>
                     <th>ID</th>
+                    <th>CATEGORY NAME</th>
                     <th>NAME</th>
                     <th>STATUS</th>
                     <th>DATE ADDED</th>
@@ -81,50 +82,58 @@
                 </thead>
                 <tbody>
                   <?php $counter = 1; ?>
-                  <?php foreach ($ram_details as $ram) : ?>
+                  <?php foreach ($variation_details as $variation) : ?>
                     <tr>
                       <td><?php echo htmlspecialchars($counter); ?></td>
-                      <td><?php echo htmlspecialchars($ram->name); ?></td>
-                      <td><?php echo htmlspecialchars($ram->status); ?></td>
-                      <td><?php echo date("F j, Y", strtotime($ram->date_added)); ?></td>
+                      <td><?php echo htmlspecialchars($variation->Category_name); ?></td>
+                      <td><?php echo htmlspecialchars($variation->name); ?></td>
+                      <td><?php echo htmlspecialchars($variation->status); ?></td>
+                      <td><?php echo date("F j, Y", strtotime($variation->date_added)); ?></td>
                       <td>
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#editRamModal<?php echo htmlspecialchars($ram->id); ?>" class="btn btn-primary btn-sm">Edit</a>
-                        <a href="<?php echo base_url('delete-ram/' . $ram->id); ?>" class="btn btn-danger btn-sm">Delete</a>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#editRamModal<?php echo htmlspecialchars($variation->id); ?>" class="btn btn-primary btn-sm">Edit</a>
+                        <a href="<?php echo base_url('delete-variation/' . $variation->id); ?>" class="btn btn-danger btn-sm">Delete</a>
                       </td>
                     </tr>
                     <?php $counter++; ?>
                     <!-- Edit Ram Modal -->
-                    <div class="modal fade" id="editRamModal<?php echo htmlspecialchars($ram->id); ?>" tabindex="-1" aria-labelledby="editRamModalLabel<?php echo htmlspecialchars($ram->id); ?>" aria-hidden="true">
+                    <div class="modal fade" id="editRamModal<?php echo htmlspecialchars($variation->id); ?>" tabindex="-1" aria-labelledby="editRamModalLabel<?php echo htmlspecialchars($variation->id); ?>" aria-hidden="true">
                       <div class="modal-dialog">
                         <div class="modal-content">
                           <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="editRamModalLabel<?php echo htmlspecialchars($ram->id); ?>" style="margin-left:350px;">Edit Ram</h1>
+                            <h1 class="modal-title fs-5" id="editRamModalLabel<?php echo htmlspecialchars($variation->id); ?>" style="margin-left:320px;">Edit Variation</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                           </div>
                           <div class="modal-body">
-                            <form id="editForm<?php echo htmlspecialchars($ram->id); ?>" action="<?php echo base_url('update-ram/' . $ram->id); ?>" method="POST">
+                            <form id="editForm<?php echo htmlspecialchars($variation->id); ?>" action="<?php echo base_url('update-variation/' . $variation->id); ?>" method="POST">
                               <div class="form-group mb-3">
                                 <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="edit_name" name="name" placeholder="Enter Name" value="<?php echo htmlspecialchars($ram->name); ?>">
+                                <input type="text" class="form-control" id="edit_name" name="name" placeholder="Enter Name" value="<?php echo htmlspecialchars($variation->name); ?>">
                               </div>
                               <div class="form-group mb-3">
-                                <label for="cat_id" class="form-label">Category ID</label>
-                                <input type="text" class="form-control" id="edit_cat_id" name="cat_id" placeholder="Enter Category ID" value="<?php echo htmlspecialchars($ram->cat_id); ?>">
+                                <label for="cat_id" class="form-label">Select Variation Category</label>
+                                <select class="form-control" name="cat_id" id="cat_id" required>
+                                  <option selected>Select your Variation Category</option>
+                                  <?php foreach ($categ as $cat) { ?>
+                                    <option value="<?php echo htmlspecialchars($cat['id']); ?>" <?php if ($cat['id'] == $variation->cat_id) echo 'selected'; ?>>
+                                      <?php echo htmlspecialchars($cat['name']); ?>
+                                    </option>
+                                  <?php } ?>
+                                </select>
                               </div>
                               <div class="form-group mb-3">
                                 <label for="status">Status</label>
                                 <select name="status" class="form-control">
-                                  <option value="active" <?php echo ($ram->status == 'active') ? 'selected' : ''; ?>>Active</option>
-                                  <option value="inactive" <?php echo ($ram->status == 'inactive') ? 'selected' : ''; ?>>Inactive</option>
+                                  <option value="active" <?php echo ($variation->status == 'active') ? 'selected' : ''; ?>>Active</option>
+                                  <option value="inactive" <?php echo ($variation->status == 'inactive') ? 'selected' : ''; ?>>Inactive</option>
                                 </select>
                               </div>
                               <div class="form-group mb-3">
                                 <label for="resources" class="form-label">Resources</label>
-                                <input type="text" class="form-control" id="edit_resources" name="resources" placeholder="Enter Resources" value="<?php echo htmlspecialchars($ram->resources); ?>">
+                                <input type="text" class="form-control" id="edit_resources" name="resources" placeholder="Enter Resources" value="<?php echo htmlspecialchars($variation->resources); ?>">
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                                <input type="submit" name="insert" value="Update Ram" class="btn btn-primary btn-sm">
+                                <input type="submit" name="insert" value="Update" class="btn btn-primary btn-sm">
                               </div>
                             </form>
                           </div>
@@ -144,25 +153,31 @@
       </div>
     </section>
 
-    <!-- Add Ram Modal -->
 
     <!-- Add Ram Modal -->
     <div class="modal fade" id="addRamModal" tabindex="-1" aria-labelledby="addRamModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
-          <form id="addRamForm" action="<?php echo base_url('add-ram'); ?>" method="POST">
+          <form id="addRamForm" action="<?php echo base_url('add-variation'); ?>" method="POST">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="addRamModalLabel" style="margin-left:350px">Add Variant</h1>
+              <h1 class="modal-title fs-5" id="addRamModalLabel" style="margin-left:310px">Add Variation</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <div class="form-group mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+                <label for="cat_id" class="form-label">Select Variation Category</label>
+                <select class="form-control" name="cat_id" id="cat_id" required>
+                  <option selected>Select your Variation Category</option>
+                  <?php foreach ($categ as $cat) { ?>
+                    <option value="<?php echo htmlspecialchars($cat['id']); ?>">
+                      <?php echo htmlspecialchars($cat['name']); ?>
+                    </option>
+                  <?php } ?>
+                </select>
               </div>
               <div class="form-group mb-3">
-                <label for="cat_id" class="form-label">Category ID</label>
-                <input type="text" class="form-control" id="cat_id" name="cat_id" placeholder="Enter Category ID">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
               </div>
               <div class="form-group mb-3">
                 <label for="resources" class="form-label">Resources</label>
@@ -170,7 +185,7 @@
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                <input type="submit" name="insert" value="Add Variant" class="btn btn-primary btn-sm">
+                <input type="submit" name="insert" value="Add Variation" class="btn btn-primary btn-sm">
               </div>
           </form>
           <!-- End Form -->
@@ -178,10 +193,7 @@
         <!-- End Modal Body -->
       </div>
     </div>
-    <!-- End Modal for Adding RAM -->
 
-
-    <!-- End Modal for Adding RAM -->
   </main><!-- End #main -->
 
   <?php include("includes/footer.php"); ?>

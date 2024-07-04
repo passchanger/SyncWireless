@@ -32,26 +32,11 @@
             <i class="bi bi-circle"></i><span>Service Centers</span>
           </a>
         </li>
-        <li>
-          <a href="view-variants">
-            <i class="bi bi-circle"></i><span>Variation</span>
-          </a>
-        </li>
-        <li>
-          <a href="view-variation_category">
-            <i class="bi bi-circle"></i><span>Variation Category</span>
-          </a>
-        </li>
-        <li>
-          <a href="login">
-            <i class="bi bi-circle"></i><span>Login</span>
-          </a>
-        </li>
-        <li>
+        <!-- <li>
           <a href="view-settings">
             <i class="bi bi-circle"></i><span>Website Settings</span>
           </a>
-        </li>
+        </li> -->
       </ul>
     </li>
     <li class="nav-item">
@@ -77,12 +62,12 @@
       </a>
       <ul id="carts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         <li>
-          <a href="view-cust_ricart">
+          <a href="view-cust-ricart">
             <i class="bi bi-circle"></i><span>Customers-RI-Cart</span>
           </a>
         </li>
         <li>
-          <a href="view-shopping_cart">
+          <a href="view-shopping-cart">
             <i class="bi bi-circle"></i><span>Shopping-Cart</span>
           </a>
         </li>
@@ -94,13 +79,18 @@
       </a>
       <ul id="products-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         <li>
-          <a href="view-products">
-            <i class="bi bi-circle"></i><span>Product</span>
+          <a href="view-variation-category">
+            <i class="bi bi-circle"></i><span>Variation Category</span>
           </a>
         </li>
         <li>
-          <a href="view-product_variation">
-            <i class="bi bi-circle"></i><span>Product Variation</span>
+          <a href="view-variations">
+            <i class="bi bi-circle"></i><span>Variation</span>
+          </a>
+        </li>
+        <li>
+          <a href="view-products">
+            <i class="bi bi-circle"></i><span>Product</span>
           </a>
         </li>
       </ul>

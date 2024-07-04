@@ -60,17 +60,17 @@ $route['edit-Brand/(:any)'] = "Brand/editBrand/$1";
 $route['update-Brand/(:any)'] = "Brand/updateBrand/$1";
 $route['delete-Brand/(:any)'] = "Brand/deleteBrand/$1";
 
-$route['view-variants'] = "Ram/index";
-$route['add-ram'] = "Ram/addram";
-$route['edit-ram/(:any)'] = "Ram/editram/$1";
-$route['update-ram/(:any)'] = "Ram/updateram/$1";
-$route['delete-ram/(:any)'] = "Ram/deleteram/$1";
+$route['view-variations'] = "Variant/index";
+$route['add-variation'] = "Variant/addVariation";
+$route['edit-variation/(:any)'] = "Variant/editVariation/$1";
+$route['update-variation/(:any)'] = "Variant/updateVariation/$1";
+$route['delete-variation/(:any)'] = "Variant/deleteVariation/$1";
 
-$route['view-variation_category'] = "Storage/index";
-$route['add-storage'] = "Storage/addStorage";
-$route['edit-storage/(:any)'] = "Storage/editStorage/$1";
-$route['update-storage/(:any)'] = "Storage/updateStorage/$1";
-$route['delete-storage/(:any)'] = "Storage/deleteStorage/$1";
+$route['view-variation-category'] = "VariantCategory/index";
+$route['add-variationCat'] = "VariantCategory/addVariationCat";
+$route['edit-variationCat/(:any)'] = "VariantCategory/editVariationCat/$1";
+$route['update-variationCat/(:any)'] = "VariantCategory/updateVariationCat/$1";
+$route['delete-variationCat/(:any)'] = "VariantCategory/deleteVariationCat/$1";
 
 $route['view-models'] = "Model/index";
 $route['add-model'] = "Model/addModel";
@@ -81,19 +81,19 @@ $route['model/select-id'] = "Model/getModelsByBrand";
 
 
 
-$route['view-repairing-issues'] = "Repairing/index";
-$route['add-repair'] = "Repairing/addRepairing";
-$route['edit-repair/(:any)'] = "Repairing/editRepairing/$1";
-$route['update-repair/(:any)'] = "Repairing/updateRepairing/$1";
-$route['delete-repair/(:any)'] = "Repairing/deleteRepairing/$1";
+$route['view-repairing-issues'] = "RepairingIssue/index";
+$route['add-repair'] = "RepairingIssue/addRepairing";
+$route['edit-repair/(:any)'] = "RepairingIssue/editRepairing/$1";
+$route['update-repair/(:any)'] = "RepairingIssue/updateRepairing/$1";
+$route['delete-repair/(:any)'] = "RepairingIssue/deleteRepairing/$1";
 
 
 
-$route['view-service-centers'] = "Service/index";
-$route['add-service'] = "Service/addService/";
-$route['edit-service/(:any)'] = "Service/editService/$1";
-$route['delete-service/(:any)'] = "Service/deleteService/$1";
-$route['update-service/(:any)'] = "Service/updateService/$1";
+$route['view-service-centers'] = "ServiceCentres/index";
+$route['add-service'] = "ServiceCentres/addService/";
+$route['edit-service/(:any)'] = "ServiceCentres/editService/$1";
+$route['delete-service/(:any)'] = "ServiceCentres/deleteService/$1";
+$route['update-service/(:any)'] = "ServiceCentres/updateService/$1";
 
 $route['view-settings'] = "Setting/index";
 $route['add-setting'] = "Setting/addSetting";
@@ -114,30 +114,38 @@ $route['login'] = "Users/login";
 $route['login-check'] = "Users/loginCheck";
 $route['logout'] = "Users/logOut";
 
-$route['view-customers'] = "Customers/index";
-$route['edit-customers/(:any)'] = "Customers/editCustomers/$1";
-$route['update-customers/(:any)'] = " Customers/updateCustomers/$1";
-$route['delete-customers/(:any)'] = " Customers/deleteCustomers/$1";
+$route['view-customers'] = 'Customer/index';
+$route['edit-customers/(:any)'] = 'Customer/editCustomers/$1';
+$route['update-customers/(:any)'] = 'Customer/updateCustomers/$1';
+$route['delete-customers/(:any)'] = 'Customer/deleteCustomers/$1';
 
-$route['view-cust-address'] = "Cust_Address/index";
-$route['edit-custadd/(:any)'] = "Cust_Address/editCustomersAdd/$1";
-$route['update-custadd/(:any)'] = "Cust_Address/updateCustomersAdd/$1";
-$route['delete-custadd/(:any)'] = "Cust_Address/deleteCustomersAdd/$1";
 
-$route['view-cust_ricart'] = "Cust_ricart/index";
-$route['delete-cart/(:any)'] = "Cust_ricart/deleteCustomersCart";
+$route['view-cust-address'] = "CustAddress/index";
+$route['edit-custadd/(:any)'] = "CustAddress/editCustomersAdd/$1";
+$route['update-custadd/(:any)'] = "CustAddress/updateCustomersAdd/$1";
+$route['delete-custadd/(:any)'] = "CustAddress/deleteCustomersAdd/$1";
 
-$route['view-shopping_cart'] = "Shopping_cart/index";
-$route['delete-shopping_cart/(:any)'] = "Shopping_cart/deleteCartItem";
+$route['view-cust-ricart'] = "CustRIcart/index";
+$route['delete-cart/(:any)'] = "CustRIcart/deleteCustomersCart";
+
+$route['view-shopping-cart'] = "ShoppingCart/index";
+$route['delete-shopping-cart/(:any)'] = "ShoppingCart/deleteCartItem";
 
 $route['view-products'] = "Product/index";
 $route['add-product'] = "Product/addProduct";
+$route['create-product'] = "Product/createProduct";
 $route['edit-product/(:any)'] = "Product/editProduct/$1";
 $route['update-product/(:any)'] = "Product/updateProduct/$1";
 $route['delete-product/(:any)'] = "Product/deleteProduct/$1";
 
-$route['view-product_variation'] = "Product_variation/index";
-$route['add-product_variation'] = "Product_variation/addProductVariation";
-$route['edit-product_variation/(:any)'] = "Product_variation/editProductVariation/$1";
-$route['update-product_variation/(:any)'] = "Product_variation/updateProductVariation/$1";
-$route['delete-product_variation/(:any)'] = "Product_variation/deleteProductVariation/$1";
+$route['view-product-variation'] = "ProductVariation/index";
+$route['add-product_variation'] = "ProductVariation/addProductVariation";
+$route['edit-product_variation/(:any)'] = "ProductVariation/editProductVariation/$1";
+$route['update-product_variation/(:any)'] = "ProductVariation/updateProductVariation/$1";
+$route['delete-product_variation/(:any)'] = "ProductVariation/deleteProductVariation/$1";
+
+
+
+
+$route['api/get-brands'] = "Api/getBrands";
+$route['api/get-models/(:any)'] = "Api/getModels/$1";

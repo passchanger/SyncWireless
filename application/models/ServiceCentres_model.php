@@ -1,56 +1,50 @@
 <?php
-class Users_model extends CI_Model
+class ServiceCentres_model extends CI_Model
 {
-
-    public function getUser()
+    public function getALLService()
     {
-        $query = $this->db->get('users');
+        $query = $this->db->get('service_centres');
         if ($query) {
             return $query->result();
         }
     }
-    public function insert_users($data)
+    public function insert_Service($data)
     {
-        $query = $this->db->insert('users', $data);
+        $query = $this->db->insert('service_centres', $data);
         if ($query) {
             return true;
         } else {
             return false;
         }
     }
-    public function getSingleUser($id)
+    public function getSingleService($id)
     {
         $this->db->where('id', $id);
-        $query =  $this->db->get('users');
+        $query = $this->db->get('service_centres');
         if ($query) {
             return $query->row();
         }
     }
-
-    public function update_users($data, $id)
+    public function update_Service($data, $id)
     {
+        var_dump($id);
+        exit;
         $this->db->where('id', $id);
-        $query = $this->db->update('users', $data);
+        $query = $this->db->update('service_centres', $data);
         if ($query) {
             return true;
         } else {
             return false;
         }
     }
-
-
     public function deleteitems($id)
     {
         $this->db->where('id', $id);
-        $query = $this->db->delete('users');
+        $query = $this->db->delete('service_centres');
         if ($query) {
             return true;
         } else {
             return false;
         }
-    }
-    public function getUserByEmail($email)
-    {
-        return $this->db->get_where('users', ['email' => $email])->row();
     }
 }

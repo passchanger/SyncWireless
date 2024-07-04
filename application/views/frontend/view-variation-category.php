@@ -34,32 +34,32 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <h3></h3>
-                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Variation-category</a>
+                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Variation category</a>
                         </div>
                         <div class="card-body">
                             <?php if ($this->session->flashdata('error')) : ?>
-                                <div class="alert alert-danger alert-dismissible fade show text-end justify-content-end" role="alert">
+                                <div class="alert alert-danger alert-dismissible fade show text-start justify-content-start" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('error')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             <?php endif; ?>
 
                             <?php if ($this->session->flashdata('inserted')) : ?>
-                                <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                                <div class="alert alert-success alert-dismissible fade show text-start justify-content-start" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('inserted')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             <?php endif; ?>
 
                             <?php if ($this->session->flashdata('updated')) : ?>
-                                <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                                <div class="alert alert-success alert-dismissible fade show text-start justify-content-start" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('updated')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                             <?php endif; ?>
 
                             <?php if ($this->session->flashdata('deleted')) : ?>
-                                <div class="alert alert-warning alert-dismissible fade show text-center" role="alert">
+                                <div class="alert alert-success alert-dismissible fade show text-start justify-content-start" role="alert">
                                     <?php echo htmlspecialchars($this->session->flashdata('deleted')); ?>
                                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
@@ -79,44 +79,44 @@
                                 </thead>
                                 <tbody>
                                     <?php $counter = 1; ?>
-                                    <?php foreach ($storage_details as $storage) : ?>
+                                    <?php foreach ($VariationCat_details as $Variation) : ?>
                                         <tr>
                                             <td><?php echo htmlspecialchars($counter); ?></td>
-                                            <td><?php echo $storage->name; ?></td>
-                                            <td><?php echo $storage->status; ?></td>
-                                            <td><?php echo date("F j, Y", strtotime($storage->date_added)); ?></td>
+                                            <td><?php echo $Variation->name; ?></td>
+                                            <td><?php echo $Variation->status; ?></td>
+                                            <td><?php echo date("F j, Y", strtotime($Variation->date_added)); ?></td>
                                             <td>
-                                                <a data-bs-toggle="modal" data-bs-target="#editStorageModal<?php echo $storage->id; ?>" class="btn btn-primary btn-sm" href="<?php echo base_url('edit-storage/' . $storage->id); ?>">Edit</a>
-                                                <a class="btn btn-danger btn-sm" href="<?php echo base_url('delete-storage/' . $storage->id); ?>">Delete</a>
+                                                <a data-bs-toggle="modal" data-bs-target="#editVariationModal<?php echo $Variation->id; ?>" class="btn btn-primary btn-sm" href="<?php echo base_url('edit-variationCat/' . $Variation->id); ?>">Edit</a>
+                                                <a class="btn btn-danger btn-sm" href="<?php echo base_url('delete-variationCat/' . $Variation->id); ?>">Delete</a>
                                             </td>
                                         </tr>
                                         <?php $counter++; ?>
-                                        <!-- Edit Storage Modal -->
-                                        <div class="modal fade" id="editStorageModal<?php echo $storage->id; ?>" tabindex="-1" aria-labelledby="editStorageModalLabel<?php echo $storage->id; ?>" aria-hidden="true">
+                                        <!-- Edit Variation Modal -->
+                                        <div class="modal fade" id="editVariationModal<?php echo $Variation->id; ?>" tabindex="-1" aria-labelledby="editVariationModalLabel<?php echo $Variation->id; ?>" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
-                                                    <form action="<?php echo base_url('update-storage/' . $storage->id); ?>" method="POST">
+                                                    <form action="<?php echo base_url('update-variationCat/' . $Variation->id); ?>" method="POST">
                                                         <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="editStorageModalLabel<?php echo $storage->id; ?>" style="margin-left: 320px;">Edit Storage
+                                                            <h1 class="modal-title fs-5" id="editVariationModalLabel<?php echo $Variation->id; ?>" style="margin-left: 220px;">Edit Variation Category
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </h1>
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="form-group mb-3">
                                                                 <label for="name">Name</label>
-                                                                <input type="text" name="name" placeholder="Enter Name" class="form-control" value="<?php echo htmlspecialchars($storage->name); ?>">
+                                                                <input type="text" name="name" placeholder="Enter Name" class="form-control" value="<?php echo htmlspecialchars($Variation->name); ?>">
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="status">Status</label>
                                                                 <select name="status" class="form-control">
-                                                                    <option value="active" <?php echo ($storage->status == 'active') ? 'selected' : ''; ?>>Active</option>
-                                                                    <option value="inactive" <?php echo ($storage->status == 'inactive') ? 'selected' : ''; ?>>Inactive</option>
+                                                                    <option value="active" <?php echo ($Variation->status == 'active') ? 'selected' : ''; ?>>Active</option>
+                                                                    <option value="inactive" <?php echo ($Variation->status == 'inactive') ? 'selected' : ''; ?>>Inactive</option>
 
                                                                 </select>
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="sorting">Sorting</label>
-                                                                <input type="text" name="sorting" placeholder="Enter Sorting" class="form-control" value="<?php echo htmlspecialchars($storage->sorting); ?>">
+                                                                <input type="text" name="sorting" placeholder="Enter Sorting" class="form-control" value="<?php echo htmlspecialchars($Variation->sorting); ?>">
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
@@ -139,14 +139,14 @@
                 </div>
             </div>
         </section>
-        <!-- Add Storage Modal -->
+        <!-- Add Variation Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form action="<?php echo base_url('add-storage'); ?>" method="POST">
+                    <form action="<?php echo base_url('add-variationCat'); ?>" method="POST">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="exampleModalLabel" style="
-                            margin-left:320px">Add Variation-Category</h1>
+                            margin-left:220px">Add Variation Category</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -161,7 +161,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                            <input type="submit" name="insert" value="Add Variation-Category" class="btn btn-primary btn-sm">
+                            <input type="submit" name="insert" value="Add Variation Category" class="btn btn-primary btn-sm">
                         </div>
                     </form>
                 </div>
