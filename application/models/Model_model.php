@@ -14,14 +14,19 @@ class Model_model extends CI_Model
 
     public function getActiveModels($id)
     {
-        $this->db->select('models.*, brands.name AS brand_name');
-        $this->db->from('models')->where('models.brand_id', $id);
+        $this->db->select('models.id, models.name, models.date_added');
+        $this->db->from('models');
+        $this->db->where('models.brand_id', $id);
         $this->db->join('brands', 'models.brand_id = brands.id', 'left');
         $query = $this->db->get();
-        if ($query) {
+
+        if ($query->num_rows() > 0) {
             return $query->result();
+        } else {
+            return array();
         }
     }
+
 
     public function getModelsByBrand($brand_id)
     {

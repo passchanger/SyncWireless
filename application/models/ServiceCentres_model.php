@@ -8,6 +8,9 @@ class ServiceCentres_model extends CI_Model
             return $query->result();
         }
     }
+
+    
+
     public function insert_Service($data)
     {
         $query = $this->db->insert('service_centres', $data);

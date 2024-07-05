@@ -31,23 +31,52 @@
                         <div class="card-body">
                             <form action="<?php echo isset($singleproduct) ? base_url('update-product/' . $singleproduct->id) : base_url('create-product'); ?>" method="post">
                                 <div class="form-group mb-3">
-                                    <label for="brand_id">Brand</label>
-                                    <select class="form-control" id="brand_id" name="brand_id" required>
-                                        <option value="" disabled <?php echo !isset($singleproduct) ? 'selected' : ''; ?>>Select Brand</option>
-                                        <?php foreach ($brands as $brand) : ?>
-                                            <option value="<?php echo $brand['id']; ?>" <?php echo (isset($singleproduct) && $singleproduct->brand_id == $brand['id']) ? 'selected' : ''; ?>><?php echo $brand['name']; ?></option>
-                                        <?php endforeach; ?>
+                                    <label for="brand_id" class="form-label">Select Brand</label>
+                                    <select class="form-control" name="brand_id" id="brand_id" required>
+                                        <option selected>Select Brand</option>
+                                        <?php foreach ($brands as $brand) { ?>
+                                            <option value="<?php echo $brand['id']; ?>"><?php echo htmlspecialchars($brand['name']); ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
+
                                 <div class="form-group mb-3">
-                                    <label for="model_id">Model</label>
-                                    <select class="form-control" id="model_id" name="model_id" required>
-                                        <option value="" disabled <?php echo !isset($singleproduct) ? 'selected' : ''; ?>>Select Model</option>
-                                        <?php foreach ($models as $model) : ?>
-                                            <option value="<?php echo $model['id']; ?>" <?php echo (isset($singleproduct) && $singleproduct->model_id == $model['id']) ? 'selected' : ''; ?>><?php echo $model['name']; ?></option>
-                                        <?php endforeach; ?>
+                                    <label for="model_id" class="form-label">Select Model</label>
+                                    <select class="form-control" name="model_id" id="model_id" required>
+                                        <option disabled selected>Select Model</option>
                                     </select>
                                 </div>
+
+                                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('#brand_id').on('change', function() {
+                                            var brand_id = $(this).val();
+                                            if (brand_id != '') {
+                                                $.ajax({
+                                                    url: '<?php echo base_url("select-id"); ?>',
+                                                    type: 'POST',
+                                                    data: {
+                                                        brand_id: brand_id
+                                                    },
+                                                    dataType: 'json',
+                                                    success: function(response) {
+                                                        $('#model_id').html('<option value="">Select Model</option>');
+                                                        $.each(response, function(index, data) {
+                                                            $('#model_id').append('<option value="' + data.id + '">' + data.name + '</option>');
+                                                        });
+                                                        $('#model_id').prop('disabled', false);
+                                                    },
+                                                    error: function(xhr, status, error) {
+                                                        console.error('Error:', error);
+                                                    }
+                                                });
+                                            } else {
+                                                $('#model_id').html('<option disabled selected>Select Brand first</option>').prop('disabled', true);
+                                            }
+                                        });
+                                    });
+                                </script>
                                 <div class="form-group mb-3">
                                     <label for="name">Name</label>
                                     <input type="text" class="form-control" id="name" name="name" value="<?php echo isset($singleproduct) ? $singleproduct->name : ''; ?>" required>

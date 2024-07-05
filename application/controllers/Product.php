@@ -173,4 +173,15 @@ class Product extends CI_Controller
         }
         redirect('view-products');
     }
+
+    public function select_id()
+    {
+        $brand_id = $this->input->post('brand_id');
+        if (!empty($brand_id)) {
+            $models = $this->Product_model->getModelsByBrand($brand_id);
+            echo json_encode($models);
+        } else {
+            echo json_encode([]);
+        }
+    }
 }

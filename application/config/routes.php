@@ -86,11 +86,12 @@ $route['add-repair'] = "RepairingIssue/addRepairing";
 $route['edit-repair/(:any)'] = "RepairingIssue/editRepairing/$1";
 $route['update-repair/(:any)'] = "RepairingIssue/updateRepairing/$1";
 $route['delete-repair/(:any)'] = "RepairingIssue/deleteRepairing/$1";
-
+$route['select-id'] = 'RepairingIssue/select_id';
 
 
 $route['view-service-centers'] = "ServiceCentres/index";
-$route['add-service'] = "ServiceCentres/addService/";
+$route['create-service'] = 'ServiceCentres/createService';
+$route['add-service'] = "ServiceCentres/addService";
 $route['edit-service/(:any)'] = "ServiceCentres/editService/$1";
 $route['delete-service/(:any)'] = "ServiceCentres/deleteService/$1";
 $route['update-service/(:any)'] = "ServiceCentres/updateService/$1";
@@ -137,6 +138,8 @@ $route['create-product'] = "Product/createProduct";
 $route['edit-product/(:any)'] = "Product/editProduct/$1";
 $route['update-product/(:any)'] = "Product/updateProduct/$1";
 $route['delete-product/(:any)'] = "Product/deleteProduct/$1";
+$route['select-id'] = 'Product/select_id';
+
 
 $route['view-product-variation'] = "ProductVariation/index";
 $route['add-product_variation'] = "ProductVariation/addProductVariation";
@@ -145,7 +148,9 @@ $route['update-product_variation/(:any)'] = "ProductVariation/updateProductVaria
 $route['delete-product_variation/(:any)'] = "ProductVariation/deleteProductVariation/$1";
 
 
-
-
 $route['api/get-brands'] = "Api/getBrands";
 $route['api/get-models/(:any)'] = "Api/getModels/$1";
+$route['api/get-repairingIssue/(:any)'] = "Api/getRepairingIssues/$1";
+$route['api/get-all-repairing-issues'] = 'Api/AllRepairingissues';
+$route['api/get-products/(:any)'] = 'Api/getProductsByModelId/$1';
+$route['api/get-product-details/(:any)'] = "Api/getProductDetailsWithVariations/$1";

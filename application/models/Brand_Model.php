@@ -10,11 +10,17 @@ class Brand_model extends CI_Model
     }
     public function getActiveBrands()
     {
-        $query = $this->db->where('status', 'active')->get('brands');
-        if ($query) {
+        $query = $this->db->select('id, name, date_added') // Select specific fields
+            ->where('status', 'active')
+            ->get('brands');
+
+        if ($query->num_rows() > 0) {
             return $query->result();
+        } else {
+            return array(); // Return empty array if no results
         }
     }
+
     public function insert_Brand($data)
     {
         $query = $this->db->insert('brands', $data);

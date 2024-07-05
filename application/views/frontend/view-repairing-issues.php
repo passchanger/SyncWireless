@@ -70,6 +70,8 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
+                                        <th>BRAND</th>
+                                        <th>MODEL</th>
                                         <th>ISSSUE-NAME</th>
                                         <th>ISSSUE-PRICE</th>
                                         <th>STATUS</th>
@@ -82,9 +84,11 @@
                                     <?php foreach ($repairing_details as $repairing) : ?>
                                         <tr>
                                             <td><?php echo htmlspecialchars($counter); ?></td>
-                                            <td><?php echo $repairing->issue_name; ?></td>
-                                            <td><?php echo $repairing->issue_price; ?></td>
-                                            <td><?php echo $repairing->status; ?></td>
+                                            <td><?php echo htmlspecialchars($repairing->brand_name); ?></td>
+                                            <td><?php echo htmlspecialchars($repairing->model_name); ?></td>
+                                            <td><?php echo htmlspecialchars($repairing->issue_name); ?></td>
+                                            <td><?php echo htmlspecialchars($repairing->issue_price); ?></td>
+                                            <td><?php echo htmlspecialchars($repairing->status); ?></td>
                                             <td><?php echo date("F j, Y", strtotime($repairing->date_added)); ?></td>
                                             <td>
                                                 <a data-bs-toggle="modal" data-bs-target="#editRepairModal<?php echo $repairing->id; ?>" class="btn btn-primary btn-sm" href="#">Edit</a>
@@ -92,6 +96,7 @@
                                             </td>
                                         </tr>
                                         <?php $counter++; ?>
+
                                         <!-- Edit Repair Modal -->
                                         <div class="modal fade" id="editRepairModal<?php echo $repairing->id; ?>" tabindex="-1" aria-labelledby="editRepairModalLabel<?php echo $repairing->id; ?>" aria-hidden="true">
                                             <div class="modal-dialog">
@@ -104,14 +109,61 @@
                                                         </div>
                                                         <div class="modal-body">
                                                             <div class="form-group mb-3">
-                                                                <label for="brand_id" class="form-label">Select Brand </label>
-                                                                <select class="form-control" name="brand_id" required>
-                                                                    <option disabled selected>Select your Brand </option>
+                                                                <label for="brand_id" class="form-label">Select Brand</label>
+                                                                <select class="form-control" name="brand_id" id="brand_id<?php echo $repairing->id; ?>" required>
+                                                                    <option disabled>Select Brand</option>
                                                                     <?php foreach ($brands as $brand) { ?>
-                                                                        <option value="<?php echo htmlspecialchars($brand['id']); ?>"><?php echo htmlspecialchars($brand['name']); ?></option>
+                                                                        <option value="<?php echo $brand['id']; ?>" <?php echo ($repairing->brand_id == $brand['id']) ? 'selected' : ''; ?>>
+                                                                            <?php echo htmlspecialchars($brand['name']); ?>
+                                                                        </option>
                                                                     <?php } ?>
                                                                 </select>
                                                             </div>
+
+                                                            <div class="form-group mb-3">
+                                                                <label for="model_id" class="form-label">Select Model</label>
+                                                                <select class="form-control" name="model_id" id="model_id<?php echo $repairing->id; ?>" required>
+                                                                    <option disabled>Select Model</option>
+                                                                    <?php foreach ($models[$repairing->brand_id] as $model) { ?>
+                                                                        <option value="<?php echo $model['id']; ?>" <?php echo ($repairing->model_id == $model['id']) ? 'selected' : ''; ?>>
+                                                                            <?php echo htmlspecialchars($model['name']); ?>
+                                                                        </option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+
+                                                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                                            <script>
+                                                                $(document).ready(function() {
+                                                                    $('#brand_id<?php echo $repairing->id; ?>').on('change', function() {
+                                                                        var brand_id = $(this).val();
+                                                                        if (brand_id != '') {
+                                                                            $.ajax({
+                                                                                url: '<?php echo base_url("select-id"); ?>',
+                                                                                type: 'POST',
+                                                                                data: {
+                                                                                    brand_id: brand_id
+                                                                                },
+                                                                                dataType: 'json',
+                                                                                success: function(response) {
+                                                                                    var modelSelect = $('#model_id<?php echo $repairing->id; ?>');
+                                                                                    modelSelect.html('<option value="">Select Model</option>');
+                                                                                    $.each(response, function(index, data) {
+                                                                                        modelSelect.append('<option value="' + data.id + '">' + data.name + '</option>');
+                                                                                    });
+                                                                                    modelSelect.prop('disabled', false);
+                                                                                },
+                                                                                error: function(xhr, status, error) {
+                                                                                    console.error('Error:', error);
+                                                                                }
+                                                                            });
+                                                                        } else {
+                                                                            $('#model_id<?php echo $repairing->id; ?>').html('<option disabled selected>Select Brand first</option>').prop('disabled', true);
+                                                                        }
+                                                                    });
+                                                                });
+                                                            </script>
+
                                                             <div class="form-group mb-3">
                                                                 <label for="issue">Issue Name</label>
                                                                 <input type="text" name="issue_name" placeholder="Enter your Issue" class="form-control" value="<?php echo htmlspecialchars($repairing->issue_name); ?>">
@@ -140,8 +192,8 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     <?php endforeach; ?>
+
                                 </tbody>
                             </table>
                             <!-- End Table with stripped rows -->
@@ -164,8 +216,6 @@
 
                         </div>
                         <div class="modal-body">
-
-
                             <div class="form-group mb-3">
                                 <label for="brand_id" class="form-label">Select Brand</label>
                                 <select class="form-control" name="brand_id" id="brand_id" required>
@@ -183,14 +233,14 @@
                                 </select>
                             </div>
 
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
                             <script>
                                 $(document).ready(function() {
                                     $('#brand_id').on('change', function() {
                                         var brand_id = $(this).val();
-
                                         if (brand_id != '') {
                                             $.ajax({
-                                                url: '<?php echo base_url("model/select-id"); ?>',
+                                                url: '<?php echo base_url("select-id"); ?>',
                                                 type: 'POST',
                                                 data: {
                                                     brand_id: brand_id
@@ -214,8 +264,6 @@
                                 });
                             </script>
 
-
-
                             <div class="form-group mb-3">
                                 <label for="issue">Issue Name</label>
                                 <input type="text" name="issue_name" placeholder="Enter your Issue" class="form-control">
@@ -237,8 +285,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Flash Messages -->
 
     </main><!-- End #main -->
 

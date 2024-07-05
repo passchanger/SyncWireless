@@ -73,7 +73,6 @@
                                         <th>Name</th>
                                         <th>CP-DETAILS</th>
                                         <th>ADDRESS</th>
-                                        
                                         <th>STATUS</th>
                                         <th>DATE-ADDED</th>
                                         <th>ACTIONS</th>
@@ -89,7 +88,7 @@
                                             <td>
                                                 <?php echo $service->address . "<br>" . $service->city . "<br>" . $service->state . "<br>" . $service->pincode  ?>
                                             </td>
-                                            
+
                                             <td><?php echo $service->status; ?></td>
                                             <td><?php echo date("F j, Y", strtotime($service->date_added)); ?></td>
                                             <td>

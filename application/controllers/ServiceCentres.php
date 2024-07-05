@@ -17,6 +17,16 @@ class ServiceCentres extends CI_Controller
         $this->load->view('frontend/view-service-centers', $data);
         $this->load->library('form_validation');
     }
+
+    public function serviceForm($id = null)
+    {
+        $data['title'] = 'Service Center Form';
+        if ($id) {
+            $data['service'] = $this->ServiceCentres_model->getSingleService($id);
+        }
+        $this->load->view('frontend/service_center_form', $data);
+    }
+
     public function addService()
     {
 

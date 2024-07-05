@@ -21,6 +21,8 @@ class RepairingIssue extends CI_Controller
     public function addRepairing()
     {
 
+        $this->form_validation->set_rules('brand_id', 'Brand Name', 'trim|required');
+        $this->form_validation->set_rules('model_id', 'Model Name', 'trim|required');
         $this->form_validation->set_rules('issue_name', 'Issue Name', 'trim|required');
         $this->form_validation->set_rules('issue_price', 'Issue Price', 'trim|required');
         $this->form_validation->set_rules('sorting', ' Sorting', 'trim|required');
@@ -33,7 +35,8 @@ class RepairingIssue extends CI_Controller
             $currentDateTime = date("Y-m-d H:i:s");
 
             $result = $this->RepairingIssue_model->insert_issue([
-
+                'brand_id' => $this->input->post('brand_id'),
+                'model_id' => $this->input->post('model_id'),
                 'issue_name' => $this->input->post('issue_name'),
                 'issue_price' => $this->input->post('issue_price'),
                 'sorting' => $this->input->post('sorting'),
@@ -53,6 +56,8 @@ class RepairingIssue extends CI_Controller
     }
     public function updateRepairing($id)
     {
+        $this->form_validation->set_rules('brand_id', 'Brand Name', 'trim|required');
+        $this->form_validation->set_rules('model_id', 'Model Name', 'trim|required');
         $this->form_validation->set_rules('issue_name', 'Issue Name', 'trim|required');
         $this->form_validation->set_rules('issue_price', 'Issue Price', 'trim|required');
         $this->form_validation->set_rules('sorting', 'Sorting', 'trim|required');
@@ -66,6 +71,8 @@ class RepairingIssue extends CI_Controller
             $status = $this->input->post('status');
 
             $data = [
+                'brand_id' => $this->input->post('brand_id'),
+                'model_id' => $this->input->post('model_id'),
                 'issue_name' => $this->input->post('issue_name'),
                 'issue_price' => $this->input->post('issue_price'),
                 'sorting' => $this->input->post('sorting'),
@@ -85,7 +92,6 @@ class RepairingIssue extends CI_Controller
         redirect('view-repairing-issues');
     }
 
-
     public function deleteRepairing($id)
     {
         $result = $this->RepairingIssue_model->deleteitems($id);
@@ -93,5 +99,15 @@ class RepairingIssue extends CI_Controller
             $this->session->set_flashdata('deleted', 'Reparing Issue has been deleted successfully');
         }
         redirect('view-repairing-issues');
+    }
+    public function select_id()
+    {
+        $brand_id = $this->input->post('brand_id');
+        if (!empty($brand_id)) {
+            $models = $this->RepairingIssue_model->getModelsByBrand($brand_id);
+            echo json_encode($models);
+        } else {
+            echo json_encode([]);
+        }
     }
 }
