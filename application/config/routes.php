@@ -90,7 +90,7 @@ $route['select-id'] = 'RepairingIssue/select_id';
 
 
 $route['view-service-centers'] = "ServiceCentres/index";
-$route['create-service'] = 'ServiceCentres/createService';
+$route['create-service/(:any)'] = 'ServiceCentres/serviceForm/$1';
 $route['add-service'] = "ServiceCentres/addService";
 $route['edit-service/(:any)'] = "ServiceCentres/editService/$1";
 $route['delete-service/(:any)'] = "ServiceCentres/deleteService/$1";

@@ -5,17 +5,14 @@
     <title><?php echo $title . " - " . SITENAME; ?></title>
     <meta content="" name="description">
     <meta content="" name="keywords">
-
     <?php include('includes/style.php'); ?>
 </head>
 
 <body>
     <?php include("includes/header.php"); ?>
-
     <?php include("includes/sidebar.php"); ?>
 
     <main id="main" class="main">
-
         <div class="pagetitle">
             <h1>Service Centers</h1>
             <nav>
@@ -25,16 +22,15 @@
                     <li class="breadcrumb-item active">View-Service-Centers</li>
                 </ol>
             </nav>
-        </div><!-- End Page Title -->
+        </div>
 
         <section class="section">
             <div class="row">
                 <div class="col-lg-12">
-
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <h3></h3>
-                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Services</a>
+                            <a href="<?php echo base_url('serviceCentres/serviceForm'); ?>" class="btn btn-primary">Add Service</a>
                         </div>
                         <div class="card-body">
                             <?php if ($this->session->flashdata('error')) : ?>
@@ -65,7 +61,6 @@
                                 </div>
                             <?php endif; ?>
 
-                            <!-- Table with stripped rows -->
                             <table class="table datatable">
                                 <thead>
                                     <tr>
@@ -92,154 +87,20 @@
                                             <td><?php echo $service->status; ?></td>
                                             <td><?php echo date("F j, Y", strtotime($service->date_added)); ?></td>
                                             <td>
-                                                <a data-bs-toggle="modal" data-bs-target="#editServiceModal<?php echo $service->id; ?>" class="btn btn-primary btn-sm" href="#">Edit</a>
+                                                <a class="btn btn-primary btn-sm" href="<?php echo base_url('create-service/' . $service->id); ?>">Edit</a>
                                                 <a class="btn btn-danger btn-sm" href="<?php echo base_url('delete-service/' . $service->id); ?>">Delete</a>
                                             </td>
                                         </tr>
                                         <?php $counter++; ?>
-                                        <!-- Edit Service Modal -->
-                                        <div class="modal fade" id="editServiceModal<?php echo $service->id; ?>" tabindex="-1" aria-labelledby="editServiceModalLabel<?php echo $service->id; ?>" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <form action="<?php echo base_url('update-service/' . $service->id); ?>" method="POST">
-                                                        <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="editServiceModalLabel<?php echo $service->id; ?>" style="margin-left: 250px;">Edit Service Centre
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </h1>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <div class="form-group mb-3">
-                                                                <label for="name">Name</label>
-                                                                <input type="text" name="name" placeholder="Enter your Name" class="form-control" value="<?php echo htmlspecialchars($service->name); ?>">
-                                                            </div>
-
-                                                            <div class="form-group mb-3">
-                                                                <label for="address">Address</label>
-                                                                <input type="text" name="address" placeholder="Enter your Address" class="form-control" value="<?php echo htmlspecialchars($service->address); ?>">
-                                                            </div>
-                                                            <div class="form-group mb-3">
-                                                                <label for="city">City</label>
-                                                                <input type="text" name="city" placeholder="Enter your City" class="form-control" value="<?php echo htmlspecialchars($service->city); ?>">
-                                                            </div>
-                                                            <div class="form-group mb-3">
-                                                                <label for="state">State</label>
-                                                                <input type="text" name="state" placeholder="Enter your State" class="form-control" value="<?php echo htmlspecialchars($service->state); ?>">
-                                                            </div>
-                                                            <div class="form-group mb-3">
-                                                                <label for="pincode">Pincode</label>
-                                                                <input type="number" name="pincode" placeholder="Enter your Pincode" class="form-control" value="<?php echo htmlspecialchars($service->pincode); ?>">
-                                                            </div>
-                                                            <div class="form-group mb-3">
-                                                                <label for="name">Contact Person Name</label>
-                                                                <input type="text" name="cp_name" placeholder="Enter your CP-Name" class="form-control" value="<?php echo htmlspecialchars($service->cp_name); ?>">
-                                                            </div>
-                                                            <div class="form-group mb-3">
-                                                                <label for="mobile">Mobile</label>
-                                                                <input type="number" name="mobile" placeholder="Enter Mobile" class="form-control" value="<?php echo htmlspecialchars($service->mobile); ?>">
-                                                            </div>
-                                                            <div class="form-group mb-3">
-                                                                <label for="mail">Email</label>
-                                                                <input type="email" name="email" placeholder="Enter your Email" class="form-control" value="<?php echo htmlspecialchars($service->email); ?>">
-                                                            </div>
-                                                            <div class="form-group mb-3">
-                                                                <label for="latitude">Latitude</label>
-                                                                <input type="number" name="latitude" placeholder="Enter your Latitude" class="form-control" value="<?php echo htmlspecialchars($service->latitude); ?>">
-                                                            </div>
-                                                            <div class="form-group mb-3">
-                                                                <label for="longitude">Longitude</label>
-                                                                <input type="number" name="longitude" placeholder="Enter your Longitude" class="form-control" value="<?php echo htmlspecialchars($service->longitude); ?>">
-                                                            </div>
-                                                            <div class="form-group mb-3">
-                                                                <label for="status">Status</label>
-                                                                <select name="status" class="form-control">
-                                                                    <option value="active" <?php echo ($service->status == 'active') ? 'selected' : ''; ?>>Active</option>
-                                                                    <option value="inactive" <?php echo ($service->status == 'inactive') ? 'selected' : ''; ?>>Inactive</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                                                            <input type="submit" name="insert" value="Update" class="btn btn-primary btn-sm">
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-
                                     <?php endforeach; ?>
                                 </tbody>
                             </table>
-                            <!-- End Table with stripped rows -->
-
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
-        <!-- Add Service Centre Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form action="<?php echo base_url('add-service'); ?>" method="POST">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel" style="
-                            margin-left:250px">Add Service Centres</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group mb-3">
-                                <label for="name">Name</label>
-                                <input type="text" name="name" placeholder="Enter your Name" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="address">Address</label>
-                                <input type="text" name="address" placeholder="Enter your Address" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="city">City</label>
-                                <input type="text" name="city" placeholder="Enter your City" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="state">State</label>
-                                <input type="text" name="state" placeholder="Enter your State" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="pincode">Pincode</label>
-                                <input type="number" name="pincode" placeholder="Enter your Pincode" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="name">Contact Person Name</label>
-                                <input type="text" name="cp_name" placeholder="Enter your CP-Name" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="mobile">Mobile</label>
-                                <input type="number" name="mobile" placeholder="Enter Mobile" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="mail">Email</label>
-                                <input type="email" name="email" placeholder="Enter your Email" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="latitude">Latitude</label>
-                                <input type="number" name="latitude" placeholder="Enter your Latitude" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label for="longitude">Longitude</label>
-                                <input type="number" name="longitude" placeholder="Enter your Longitude" class="form-control">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                            <input type="submit" name="insert" value="Add Services" class="btn btn-primary btn-sm">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
-
-    </main><!-- End #main -->
+    </main>
 
     <?php include("includes/footer.php"); ?>
 </body>

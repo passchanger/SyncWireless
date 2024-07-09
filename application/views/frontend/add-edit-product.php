@@ -87,24 +87,26 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="description">Description</label>
-                                    <textarea class="form-control" id="description" name="description" required><?php echo isset($singleproduct) ? $singleproduct->description : ''; ?></textarea>
+                                    <textarea class="form-control tinymce-editor" id="description" name="description" required><?php echo isset($singleproduct) ? $singleproduct->description : ''; ?></textarea>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="key_specification">Key Specification</label>
-                                    <textarea class="form-control" id="key_specification" name="key_specification" required><?php echo isset($singleproduct) ? $singleproduct->key_specification : ''; ?></textarea>
+                                    <textarea class="form-control tinymce-editor" id="key_specification" name="key_specification" required><?php echo isset($singleproduct) ? $singleproduct->key_specification : ''; ?></textarea>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="refund_policy">Refund Policy</label>
-                                    <textarea class="form-control" id="refund_policy" name="refund_policy" required><?php echo isset($singleproduct) ? $singleproduct->refund_policy : ''; ?></textarea>
+                                    <textarea class="form-control tinymce-editor" id="refund_policy" name="refund_policy" required><?php echo isset($singleproduct) ? $singleproduct->refund_policy : ''; ?></textarea>
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label for="status">Status</label>
-                                    <select class="form-control" id="status" name="status" required>
-                                        <option value="" disabled selected>Select Status</option>
-                                        <option value="active" <?php echo (isset($singleproduct) && $singleproduct->status == 'active') ? 'selected' : ''; ?>>Active</option>
-                                        <option value="inactive" <?php echo (isset($singleproduct) && $singleproduct->status == 'inactive') ? 'selected' : ''; ?>>Inactive</option>
-                                    </select>
-                                </div>
+                                <?php if (isset($singleproduct)) { ?>
+                                    <div class="form-group mb-3">
+                                        <label for="status">Status</label>
+                                        <select class="form-control" id="status" name="status" required>
+                                            <option value="" disabled selected>Select Status</option>
+                                            <option value="active" <?php echo (isset($singleproduct) && $singleproduct->status == 'active') ? 'selected' : ''; ?>>Active</option>
+                                            <option value="inactive" <?php echo (isset($singleproduct) && $singleproduct->status == 'inactive') ? 'selected' : ''; ?>>Inactive</option>
+                                        </select>
+                                    </div>
+                                <?php } ?>
                                 <div class="row">
                                     <?php
                                     foreach ($variationCatg as $variationCat) {
@@ -128,7 +130,9 @@
                                     <?php }
                                     ?>
                                 </div>
-                                <button type="submit" class="btn btn-primary"><?php echo isset($singleproduct) ? 'Update' : 'Add'; ?> Product</button>
+                                <div class="mt-3">
+                                    <button type="submit" class="btn btn-primary btn-sm"><?php echo isset($singleproduct) ? 'Update' : 'Add'; ?> Product</button>
+                                </div>
                             </form>
                         </div>
                     </div>

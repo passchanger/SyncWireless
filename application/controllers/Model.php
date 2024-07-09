@@ -41,6 +41,7 @@ class Model extends CI_Controller
                 'name' => $this->input->post('name'),
                 'features' =>  $this->input->post('features'),
                 'description' =>  $this->input->post('description'),
+                'status' => 'active',
                 'date_added' => $currentDateTime
             ]);
 

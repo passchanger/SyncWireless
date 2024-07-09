@@ -35,6 +35,7 @@ class Users extends CI_Controller
                 'name' => $this->input->post('name'),
                 'email' => $this->input->post('email'),
                 'password' => $encoded_password,
+                'status' => 'active',
                 'date_added' => $currentDateTime
             ]);
 
@@ -49,14 +50,14 @@ class Users extends CI_Controller
     {
         $data['singleuser'] = $this->Users_model->getSingleUser($id);
         $data['users_details'] = $this->Users_model->getUser();
-        $this->load->view('users', $data);
+        $this->load->view('view-users', $data);
     }
 
     public function updateUsers($id)
     {
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('email', 'Email', 'required|valid_email|callback_email_check[' . $id . ']');
-        $this->form_validation->set_rules('password', 'Password', 'required|min_length[5]|max_length[15]');
+        // $this->form_validation->set_rules('password', 'Password', 'required|min_length[5]|max_length[15]');
         $this->form_validation->set_rules('status', 'Status', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {

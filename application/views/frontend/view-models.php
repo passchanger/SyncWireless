@@ -96,12 +96,12 @@
                                         </tr>
                                         <?php $counter++; ?>
                                         <!-- Modal for Edit Model -->
-                                        <div class="modal fade" id="exampleModall<?php echo $models->id; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal fade" id="exampleModall<?php echo $models->id; ?>" tabindex="-1" aria-labelledby="exampleModalLabel<?php echo   $models->id; ?>" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <form action="<?php echo base_url('update-model/' . $models->id); ?>" method="POST">
                                                         <div class="modal-header">
-                                                            <h1 class="modal-title fs-5" id="exampleModalLabel" style="margin-left: 330px;">Edit Model
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel<?php echo $models->id; ?>" style="margin-left: 330px;">Edit Model
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </h1>
                                                         </div>
@@ -124,7 +124,8 @@
                                                             </div>
                                                             <div class="form-group mb-3">
                                                                 <label for="features" class="form-label">FEATURES</label>
-                                                                <textarea class="quill-editor-full" name="features" style="width: 467px;"><?php echo htmlspecialchars($models->features); ?>
+                                                                <textarea class="tinymce-editor" name="features" id="features" style="width: 467px;">
+                                                                    <?php echo htmlspecialchars($models->features); ?>
                                                                 </textarea>
                                                             </div>
 

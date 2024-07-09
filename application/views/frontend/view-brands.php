@@ -76,6 +76,7 @@
                                         <!-- <th>logo</th> -->
                                         <!-- <th>sorting</th> -->
                                         <th>DESCRIPTION</th>
+                                        <th>STATUS</th>
                                         <th>DATE-ADDED</th>
                                         <th>ACTIONS</th>
                                     </tr>
@@ -87,6 +88,7 @@
                                             <td><?php echo htmlspecialchars($counter); ?></td>
                                             <td><?php echo htmlspecialchars($products->name); ?></td>
                                             <td><?php echo htmlspecialchars($products->description); ?></td>
+                                            <td><?php echo htmlspecialchars($products->status); ?></td>
                                             <td><?php echo date("F j, Y", strtotime($products->date_added)); ?></td>
                                             <td>
                                                 <a data-bs-toggle="modal" data-bs-target="#exampleModall<?php echo $products->id; ?>" class="btn btn-primary btn-sm" href="<?php echo base_url('edit-Brand/' . $products->id); ?>">Edit</a>

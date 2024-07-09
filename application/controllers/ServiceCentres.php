@@ -9,6 +9,7 @@ class ServiceCentres extends CI_Controller
         $this->load->helper('auth_helper');
     }
 
+
     public function index()
     {
         $runFuction = checkLogin();
@@ -24,7 +25,7 @@ class ServiceCentres extends CI_Controller
         if ($id) {
             $data['service'] = $this->ServiceCentres_model->getSingleService($id);
         }
-        $this->load->view('frontend/service_center_form', $data);
+        $this->load->view('frontend/add-edit-service', $data);
     }
 
     public function addService()
@@ -60,6 +61,7 @@ class ServiceCentres extends CI_Controller
                 'email' =>  $this->input->post('email'),
                 'latitude' =>  $this->input->post('latitude'),
                 'longitude' =>  $this->input->post('longitude'),
+                'status' => 'active',
                 'date_added' => $currentDateTime
             ]);
             if ($result) {

@@ -40,6 +40,7 @@ class RepairingIssue extends CI_Controller
                 'issue_name' => $this->input->post('issue_name'),
                 'issue_price' => $this->input->post('issue_price'),
                 'sorting' => $this->input->post('sorting'),
+                'status' => 'active',
                 'date_added' => $currentDateTime
             ]);
 

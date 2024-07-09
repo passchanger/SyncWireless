@@ -34,6 +34,7 @@ class Brand extends CI_Controller
                 'name' => $this->input->post('name'),
                 'sorting' =>  $this->input->post('sorting'),
                 'description' =>  $this->input->post('description'),
+                'status' => 'active',
                 'date_added' => $currentDateTime
             ]);
 

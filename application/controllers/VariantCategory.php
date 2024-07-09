@@ -34,6 +34,7 @@ class VariantCategory extends CI_Controller
 
                 'name' => $this->input->post('name'),
                 'sorting' => $this->input->post('sorting'),
+                'status' => 'active',
                 'date_added' => $currentDateTime
             ]);
 

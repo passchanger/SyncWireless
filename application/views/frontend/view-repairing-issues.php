@@ -274,7 +274,7 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label for="sorting">Sorting</label>
-                                <input type="text" name="sorting" placeholder="Enter Sorting no." class="form-control">
+                                <input type="number" name="sorting" placeholder="Enter Sorting no." class="form-control">
                             </div>
                         </div>
                         <div class="modal-footer">

@@ -33,7 +33,6 @@ class Product extends CI_Controller
     public function createProduct()
     {
 
-
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('brand_id', 'Brand ID', 'trim|required');
         $this->form_validation->set_rules('model_id', 'Model ID', 'trim|required');
@@ -41,7 +40,6 @@ class Product extends CI_Controller
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
         $this->form_validation->set_rules('key_specification', 'Key Specification', 'trim|required');
         $this->form_validation->set_rules('refund_policy', 'Refund Policy', 'trim|required');
-        $this->form_validation->set_rules('status', 'Status', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
             $error_message = strip_tags(validation_errors());
@@ -62,7 +60,7 @@ class Product extends CI_Controller
                 'description' => $this->input->post('description'),
                 'key_specification' => $this->input->post('key_specification'),
                 'refund_policy' => $this->input->post('refund_policy'),
-                'status' => $this->input->post('status'),
+                'status' => 'active',
                 'date_added' => $currentDateTime
             ];
 

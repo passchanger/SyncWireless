@@ -8,8 +8,11 @@ class ServiceCentres_model extends CI_Model
             return $query->result();
         }
     }
-
-    
+    public function getServiceById($id)
+    {
+        $query = $this->db->get_where('service_centers', array('id' => $id));
+        return $query->row();
+    }
 
     public function insert_Service($data)
     {
@@ -30,8 +33,6 @@ class ServiceCentres_model extends CI_Model
     }
     public function update_Service($data, $id)
     {
-        var_dump($id);
-        exit;
         $this->db->where('id', $id);
         $query = $this->db->update('service_centres', $data);
         if ($query) {
