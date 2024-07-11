@@ -112,15 +112,15 @@
                                     ?>
                                         <div class="col-md-6">
                                             <?php
-                                            $sqlGetVariations = "select id, name from variation where cat_id = '" . $variationCat['id'] . "'";
+                                            $sqlGetVariations = "select id, name, inc_value from variation where cat_id = '" . $variationCat['id'] . "'";
                                             $getVariations = $this->db->query($sqlGetVariations)->result_array();
 
                                             if (sizeof($getVariations) > 0) { ?>
                                                 <label for="variation_cat" class="mb-2">Choose <?php echo $variationCat['name']; ?></label><br>
                                                 <?php
                                                 foreach ($getVariations as $variations) { ?>
-                                                    <input type="radio" name="variations[<?php echo 'varcat#' . $variationCat['id']; ?>]" value="<?php echo $variations['id']; ?>" id="variations<?php echo $variations['id']; ?>" required>
-                                                    <label for="variations<?php echo $variations['id']; ?>"><?php echo $variations['name']; ?></label>
+                                                    <input type="checkbox" name="variations[]" value="<?php echo $variationCat['id']."_".$variations['id']; ?>" id="variations<?php echo $variations['id']; ?>">
+                                                    <label for="variations<?php echo $variations['id']; ?>"><?php echo $variations['name']." - ".$variations['inc_value']." %"; ?></label>
                                                     <br>
                                             <?php }
                                             } ?>

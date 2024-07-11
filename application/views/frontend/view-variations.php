@@ -107,7 +107,11 @@
                             <form id="editForm<?php echo htmlspecialchars($variation->id); ?>" action="<?php echo base_url('update-variation/' . $variation->id); ?>" method="POST">
                               <div class="form-group mb-3">
                                 <label for="name" class="form-label">Name</label>
-                                <input type="text" class="form-control" id="edit_name" name="name" placeholder="Enter Name" value="<?php echo htmlspecialchars($variation->name); ?>">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" value="<?php echo htmlspecialchars($variation->name); ?>">
+                              </div>
+                              <div class="form-group mb-3">
+                                <label for="inc_value" class="form-label">Increment Percentage</label>
+                                <input type="text" class="form-control" id="inc_value" name="inc_value" placeholder="Enter Increment Percentage" value="<?php echo htmlspecialchars($variation->inc_value); ?>">
                               </div>
                               <div class="form-group mb-3">
                                 <label for="cat_id" class="form-label">Select Variation Category</label>
@@ -178,6 +182,10 @@
               <div class="form-group mb-3">
                 <label for="name" class="form-label">Name</label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name">
+              </div>
+              <div class="form-group mb-3">
+                <label for="name" class="form-label">Increment Value</label>
+                <input type="text" class="form-control" id="inc_value" name="inc_value" placeholder="Enter Increment Value">
               </div>
               <div class="form-group mb-3">
                 <label for="resources" class="form-label">Resources</label>

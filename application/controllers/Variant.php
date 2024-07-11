@@ -23,6 +23,7 @@ class Variant extends CI_Controller
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('cat_id', 'Category ID', 'trim|required');
         $this->form_validation->set_rules('resources', 'Resources', 'trim|required');
+        $this->form_validation->set_rules('inc_value', 'Increment Value', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
             $error_message = strip_tags(validation_errors());
@@ -34,6 +35,7 @@ class Variant extends CI_Controller
                 'name' => $this->input->post('name'),
                 'cat_id' => $this->input->post('cat_id'),
                 'resources' => $this->input->post('resources'),
+                'inc_value' => $this->input->post('inc_value'),
                 'status' => 'active',
                 'date_added' => $currentDateTime
             ]);
@@ -57,6 +59,7 @@ class Variant extends CI_Controller
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('cat_id', 'Category ID', 'trim|required');
         $this->form_validation->set_rules('resources', 'Resources', 'trim|required');
+        $this->form_validation->set_rules('inc_value', 'Increment Value', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {
             $error_message = strip_tags(validation_errors());
@@ -69,6 +72,7 @@ class Variant extends CI_Controller
                 'name' => $this->input->post('name'),
                 'cat_id' => $this->input->post('cat_id'),
                 'resources' => $this->input->post('resources'),
+                'inc_value' => $this->input->post('inc_value'),
                 'status' => $status,
                 'date_added' => $currentDateTime
             ], $id);
