@@ -68,12 +68,12 @@ class Product extends CI_Controller
             $product_id = $this->db->insert_id();
 
             $variations = $_REQUEST['variations'];
-            $keys = array_keys($_REQUEST['variations']);
 
-            for ($i = 0; $i < count($keys); $i++) {
-                $exploded = explode("#", $keys[$i]);
-                $params['vcat_id'] = $exploded[1];
-                $params['variation_id'] = $variations[$keys[$i]];
+            for ($i = 0; $i < count($variations); $i++) {
+                $dataVariation = explode("_", $variations[$i]);
+                
+                $params['vcat_id'] = $dataVariation[0];
+                $params['variation_id'] = $dataVariation[1];
                 $params['product_id'] = $product_id;
                 $params['status'] = 'active';
                 $params['date_added'] = $currentDateTime;
