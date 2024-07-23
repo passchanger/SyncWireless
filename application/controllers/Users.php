@@ -125,13 +125,10 @@ class Users extends CI_Controller
         if ($user) {
             $decoded_password = base64_decode($user->password);
             if ($password == $decoded_password) {
-                $token = bin2hex(random_bytes(64));
-                $this->db->where('id', $user->id)->update('users', array('token' => $token));
                 $user_data = array(
                     'id' => $user->id,
                     'name' => $user->name,
                     'email' => $user->email,
-                    'token' => $token,
                 );
 
                 $this->session->set_userdata('session-data', $user_data);

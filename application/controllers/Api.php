@@ -119,6 +119,7 @@ class Api extends CI_Controller
             echo json_encode(array('message' => "Model ID is mandatory"));
         }
     }
+
     public function getProductsByBrandId($id)
     {
         if ($id) {
@@ -210,7 +211,6 @@ class Api extends CI_Controller
 
         echo json_encode($response);
     }
-
 
     public function registerCustomer()
     {
