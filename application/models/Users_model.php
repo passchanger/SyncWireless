@@ -53,4 +53,9 @@ class Users_model extends CI_Model
     {
         return $this->db->get_where('users', ['email' => $email])->row();
     }
+    public function updateToken($userId, $token)
+    {
+        $this->db->where('id', $userId);
+        $this->db->update('users', ['token' => $token]);
+    }
 }

@@ -5,7 +5,7 @@ class Product extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Product_model');
-        $this->load->library('form_validation');
+        $this->load->library('form_validation', 'upload', 'config');
         $this->load->helper('auth_helper');
     }
 
@@ -23,6 +23,7 @@ class Product extends CI_Controller
         $runFunction = checkLogin();
         $data['title'] = 'Add Product';
 
+        // Load necessary models and database queries properly
         $data['brands'] = $this->db->query("SELECT * FROM brands WHERE status = 'active'")->result_array();
         $data['models'] = $this->db->query("SELECT * FROM models WHERE status = 'active'")->result_array();
         $data['variationCatg'] = $this->db->query("SELECT * FROM variation_cat WHERE status = 'active'")->result_array();
@@ -32,7 +33,6 @@ class Product extends CI_Controller
 
     public function createProduct()
     {
-
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('brand_id', 'Brand ID', 'trim|required');
         $this->form_validation->set_rules('model_id', 'Model ID', 'trim|required');
@@ -41,51 +41,70 @@ class Product extends CI_Controller
         $this->form_validation->set_rules('key_specification', 'Key Specification', 'trim|required');
         $this->form_validation->set_rules('refund_policy', 'Refund Policy', 'trim|required');
 
+        if (empty($_FILES['image']['name'])) {
+            $this->form_validation->set_rules('image', 'Image', 'required');
+        }
+
         if ($this->form_validation->run() == FALSE) {
             $error_message = strip_tags(validation_errors());
             $this->session->set_flashdata('error', $error_message);
-            $this->load->view('frontend/add-edit-product', [
-                'title' => 'Add Product',
-                'brands' => $this->db->query("SELECT * FROM brands WHERE status = 'active'")->result_array(),
-                'models' => $this->db->query("SELECT * FROM models WHERE status = 'active'")
-            ]);
+            redirect('Product/addProduct');
         } else {
-            $currentDateTime = date("Y-m-d H:i:s");
+            $config['upload_path'] = './assets/products/';
+            $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            $config['max_size'] = 204800;
+            $config['file_name'] = time() . '_' . $_FILES['image']['name'];
 
-            $data = [
-                'brand_id' => $this->input->post('brand_id'),
-                'model_id' => $this->input->post('model_id'),
-                'name' => $this->input->post('name'),
-                'price' => $this->input->post('price'),
-                'description' => $this->input->post('description'),
-                'key_specification' => $this->input->post('key_specification'),
-                'refund_policy' => $this->input->post('refund_policy'),
-                'status' => 'active',
-                'date_added' => $currentDateTime
-            ];
+            $this->load->library('upload', $config);
 
-            $result = $this->Product_model->insert_product($data);
-            $product_id = $this->db->insert_id();
+            if (!$this->upload->do_upload('image')) {
+                $error_message = $this->upload->display_errors();
+                $this->session->set_flashdata('error', $error_message);
+                redirect('Product/addProduct');
+            } else {
+                $uploadData = $this->upload->data();
+                $imagePath = 'assets/products/' . $uploadData['file_name'];
 
-            $variations = $_REQUEST['variations'];
+                $currentDateTime = date("Y-m-d H:i:s");
 
-            for ($i = 0; $i < count($variations); $i++) {
-                $dataVariation = explode("_", $variations[$i]);
-                
-                $params['vcat_id'] = $dataVariation[0];
-                $params['variation_id'] = $dataVariation[1];
-                $params['product_id'] = $product_id;
-                $params['status'] = 'active';
-                $params['date_added'] = $currentDateTime;
+                $data = [
+                    'brand_id' => $this->input->post('brand_id'),
+                    'model_id' => $this->input->post('model_id'),
+                    'name' => $this->input->post('name'),
+                    'image' => $imagePath,
+                    'price' => $this->input->post('price'),
+                    'description' => $this->input->post('description'),
+                    'key_specification' => $this->input->post('key_specification'),
+                    'refund_policy' => $this->input->post('refund_policy'),
+                    'status' => 'active',
+                    'date_added' => $currentDateTime
+                ];
 
+                $result = $this->Product_model->insert_product($data);
 
-                $result_pv = $this->Product_model->insert_pv($params);
+                $product_id = $this->db->insert_id();
+
+                $variations = $this->input->post('variations');
+
+                if (!empty($variations)) {
+                    foreach ($variations as $variation) {
+                        $dataVariation = explode("_", $variation);
+
+                        $params['vcat_id'] = $dataVariation[0];
+                        $params['variation_id'] = $dataVariation[1];
+                        $params['product_id'] = $product_id;
+                        $params['status'] = 'active';
+                        $params['date_added'] = $currentDateTime;
+
+                        $this->Product_model->insert_pv($params);
+                    }
+                }
+
+                if ($result) {
+                    $this->session->set_flashdata('inserted', 'Product has been created successfully');
+                }
+                redirect('product'); // Correct redirect URL
             }
-
-            if ($result) {
-                $this->session->set_flashdata('inserted', 'Product has been created successfully');
-            }
-            redirect('view-products');
         }
     }
 
@@ -102,11 +121,10 @@ class Product extends CI_Controller
         $data['singleproduct'] = $singleProduct;
         $data['brands'] = $this->db->query("SELECT * FROM brands WHERE status = 'active'")->result_array();
         $data['models'] = $this->db->query("SELECT * FROM models WHERE status = 'active'")->result_array();
-        $data['variationCatg'] = $variationCatg;
+        $data['variationCatg'] = $variationCatg; // Ensure variation categories are loaded properly
 
         $this->load->view('frontend/add-edit-product', $data);
     }
-
 
     public function updateProduct($id)
     {
@@ -122,7 +140,7 @@ class Product extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $error_message = strip_tags(validation_errors());
             $this->session->set_flashdata('error', $error_message);
-            redirect('product/editProduct/' . $id);
+            redirect('Product/editProduct/' . $id);
         } else {
             $currentDateTime = date("Y-m-d H:i:s");
 
@@ -131,6 +149,7 @@ class Product extends CI_Controller
                 'model_id' => $this->input->post('model_id'),
                 'name' => $this->input->post('name'),
                 'price' => $this->input->post('price'),
+                'image' => $this->input->post('image'),
                 'description' => $this->input->post('description'),
                 'key_specification' => $this->input->post('key_specification'),
                 'refund_policy' => $this->input->post('refund_policy'),
@@ -138,30 +157,33 @@ class Product extends CI_Controller
                 'date_added' => $currentDateTime
             ];
 
-            $result = $this->Product_model->update_product($data, $id);
-            $result = $this->Product_model->delete_pv($id);
+            if (!empty($_FILES['image']['name'])) {
+                $config['upload_path'] = 'assets/products/';
+                $config['allowed_types'] = 'jpg|jpeg|png|gif';
+                $config['max_size'] = 204800;
+                $config['file_name'] = time() . '_' . $_FILES['image']['name'];
 
-            $variations = $_REQUEST['variations'];
-            $keys = array_keys($_REQUEST['variations']);
+                $this->load->library('upload', $config);
 
-            for ($i = 0; $i < count($keys); $i++) {
-                $exploded = explode("#", $keys[$i]);
-                $params['vcat_id'] = $exploded[1];
-                $params['variation_id'] = $variations[$keys[$i]];
-                $params['product_id'] = $id;
-                $params['status'] = 'active';
-                $params['date_added'] = $currentDateTime;
-
-
-                $result_pv = $this->Product_model->insert_pv($params);
+                if (!$this->upload->do_upload('image')) {
+                    $error_message = $this->upload->display_errors();
+                    $this->session->set_flashdata('error', $error_message);
+                    redirect('Product/editProduct/' . $id);
+                } else {
+                    $uploadData = $this->upload->data();
+                    $data['image'] = 'assets/products/' . $uploadData['file_name'];
+                }
             }
+
+            $result = $this->Product_model->update_product($id, $data);
 
             if ($result) {
                 $this->session->set_flashdata('updated', 'Product has been updated successfully');
             }
-            redirect('view-products');
+            redirect('product');
         }
     }
+
 
     public function deleteProduct($id)
     {

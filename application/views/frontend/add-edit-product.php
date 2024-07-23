@@ -29,7 +29,8 @@
                             <h3><?php echo $title; ?></h3>
                         </div>
                         <div class="card-body">
-                            <form action="<?php echo isset($singleproduct) ? base_url('update-product/' . $singleproduct->id) : base_url('create-product'); ?>" method="post">
+                            <form action="<?php echo isset($singleproduct) ? base_url('update-product/' . $singleproduct->id) : base_url('create-product'); ?>" method="post" enctype="multipart/form-data">
+
                                 <div class="form-group mb-3">
                                     <label for="brand_id" class="form-label">Select Brand</label>
                                     <select class="form-control" name="brand_id" id="brand_id" required>
@@ -81,6 +82,10 @@
                                     <label for="name">Name</label>
                                     <input type="text" class="form-control" id="name" name="name" value="<?php echo isset($singleproduct) ? $singleproduct->name : ''; ?>" required>
                                 </div>
+                                <div class="mb-3">
+                                    <label for="formFile" class="form-label">Choose your file</label>
+                                    <input class="form-control" name="image" type="file" id="formFile">
+                                </div>
                                 <div class="form-group mb-3">
                                     <label for="price">Price</label>
                                     <input type="number" class="form-control" id="price" name="price" value="<?php echo isset($singleproduct) ? $singleproduct->price : ''; ?>" required>
@@ -121,8 +126,8 @@
                                                 <label for="variation_cat" class="mb-2">Choose <?php echo $variationCat['name']; ?></label><br>
                                                 <?php
                                                 foreach ($getVariations as $variations) { ?>
-                                                    <input type="checkbox" name="variations[]" value="<?php echo $variationCat['id']."_".$variations['id']; ?>" id="variations<?php echo $variations['id']; ?>">
-                                                    <label for="variations<?php echo $variations['id']; ?>"><?php echo $variations['name']." - ".$variations['inc_value']." %"; ?></label>
+                                                    <input type="checkbox" name="variations[]" value="<?php echo $variationCat['id'] . "_" . $variations['id']; ?>" id="variations<?php echo $variations['id']; ?>">
+                                                    <label for="variations<?php echo $variations['id']; ?>"><?php echo $variations['name'] . " - " . $variations['inc_value'] . " %"; ?></label>
                                                     <br>
                                             <?php }
                                             } ?>

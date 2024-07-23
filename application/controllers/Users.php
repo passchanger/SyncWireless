@@ -83,7 +83,6 @@ class Users extends CI_Controller
     }
 
 
-    // Callback function to check unique email during update
     public function email_check($email, $id)
     {
         $user = $this->Users_model->getUserByEmail($email);
@@ -112,17 +111,33 @@ class Users extends CI_Controller
 
     public function loginCheck()
     {
-        // var_dump($_REQUEST);exit;
-        $checkUsers = $this->db->select("*")->where("status = 'active'")->where("email = '" . $_REQUEST['email'] . "'")->from('users')->get()->row();
+        $email = $this->input->post('email');
+        $password = $this->input->post('password');
 
-        // var_dump($checkUsers);exit;
-        if (isset($checkUsers->password)) {
-            $password = base64_decode($checkUsers->password);
-            if ($_REQUEST['password'] == $password) {
-                $tempArr = array('id' => $checkUsers->id, 'name' => $checkUsers->name, 'email' => $checkUsers->email);
-                $this->session->set_userdata('session-data', $tempArr);
+        if (empty($email) || empty($password)) {
+            $this->session->set_flashdata('danger_message', 'Email and Password are required.');
+            redirect('login', 'refresh');
+            return;
+        }
+
+        $user = $this->db->select("*")->where("status", 'active')->where("email", $email)->from('users')->get()->row();
+
+        if ($user) {
+            $decoded_password = base64_decode($user->password);
+            if ($password == $decoded_password) {
+                $token = bin2hex(random_bytes(64));
+                $this->db->where('id', $user->id)->update('users', array('token' => $token));
+                $user_data = array(
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'token' => $token,
+                );
+
+                $this->session->set_userdata('session-data', $user_data);
+
+                $this->session->set_flashdata('success_message', 'Login successful');
                 redirect('/dashboard', 'refresh');
-                exit;
             } else {
                 $this->session->set_flashdata('danger_message', 'Password incorrect');
             }
@@ -131,7 +146,6 @@ class Users extends CI_Controller
         }
 
         redirect('login', 'refresh');
-        exit;
     }
 
     public function logOut()
@@ -139,6 +153,5 @@ class Users extends CI_Controller
         $this->session->unset_userdata('session-data');
         $this->session->set_flashdata('success_message', 'Logout Sucessfully');
         redirect('login', 'refresh');
-        exit;
     }
 }

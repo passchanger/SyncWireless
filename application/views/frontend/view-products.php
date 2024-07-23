@@ -64,6 +64,7 @@
                                         <th>BRAND AND MODEL</th>
                                         <th>PRODUCT NAME</th>
                                         <th>VARIATION</th>
+                                        <th>IMAGE</th>
                                         <th>PRICE</th>
                                         <th>STATUS</th>
                                         <th>DATE ADDED</th>
@@ -84,6 +85,7 @@
                                                     echo "<br>";
                                                 }
                                                 ?></td>
+                                            <td><?php echo $product->image; ?></td>
                                             <td><?php echo $product->price; ?></td>
                                             <td><?php echo $product->status; ?></td>
                                             <td><?php echo date("F j, Y", strtotime($product->date_added)); ?></td>

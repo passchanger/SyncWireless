@@ -36,4 +36,22 @@ class Customer_model extends CI_Model
             return false;
         }
     }
+    public function getCustomerByEmail($email)
+    {
+        return $this->db->get_where('customers', array('email' => $email))->row();
+    }
+    public function getCustomerById($id, $fields = array('id', 'name', 'email', 'mobile', 'token', 'status', 'updated_at'))
+    {
+        return $this->db->select($fields)
+            ->from('customers')
+            ->where('id', $id)
+            ->get()
+            ->row();
+    }
+
+    public function insert_customer($data)
+    {
+        $this->db->insert('customers', $data);
+        return $this->db->insert_id();
+    }
 }

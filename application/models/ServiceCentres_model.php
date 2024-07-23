@@ -51,4 +51,14 @@ class ServiceCentres_model extends CI_Model
             return false;
         }
     }
+    public function getServiceCentresByExactLocation($latitude, $longitude)
+    {
+        $this->db->select('*');
+        $this->db->from('service_centres');
+        $this->db->where('latitude', $latitude);
+        $this->db->where('longitude', $longitude);
+
+        $query = $this->db->get();
+        return $query->result();
+    }
 }
