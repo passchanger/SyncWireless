@@ -46,4 +46,10 @@ class CustAddress_model extends CI_Model
         $this->db->insert('cust_addresses', $data);
         return $this->db->insert_id();
     }
+    public function getAddressByCustomerId($customer_id)
+    {
+        $this->db->where('customer_id', $customer_id);
+        $query = $this->db->get('cust_addresses');
+        return $query->row();
+    }
 }

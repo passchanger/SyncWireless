@@ -56,9 +56,11 @@ class Customer_model extends CI_Model
         $this->db->insert('customers', $data);
         return $this->db->insert_id();
     }
+
     public function getCustomerByToken($token)
     {
-        $query = $this->db->get_where('customers', array('token' => $token));
+        $this->db->where('token', $token);
+        $query = $this->db->get('customers');
         return $query->row();
     }
 }

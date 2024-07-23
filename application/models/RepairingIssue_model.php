@@ -46,6 +46,7 @@ class RepairingIssue_model extends CI_Model
             return false;
         }
     }
+
     public function getSingleRepair($id)
     {
         $this->db->where('id', $id);
@@ -75,7 +76,6 @@ class RepairingIssue_model extends CI_Model
             return false;
         }
     }
-
 
     public function getModelsByBrand($brand_id)
     {

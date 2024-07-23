@@ -9,6 +9,7 @@ class Api extends CI_Controller
         $this->load->model('RepairingIssue_model');
         $this->load->model('Product_model');
         $this->load->model('Customer_model');
+        $this->load->model('CustAddress_model');
         $this->load->model('ServiceCentres_model');
         $this->load->library('form_validation');
         $this->load->helper('auth_helper');
@@ -173,22 +174,28 @@ class Api extends CI_Controller
             return;
         }
 
-        $user = $this->db->select("*")->where("status", 'active')->where("email", $email)->from('users')->get()->row();
-        if ($user) {
-            $decoded_password = base64_decode($user->password);
+        // Fetch the customer with the provided email and active status
+        $customer = $this->db->select("*")->where("status", 'active')->where("email", $email)->from('customers')->get()->row();
+
+        if ($customer) {
+            // Decode the stored password and compare with the provided password
+            $decoded_password = base64_decode($customer->password);
             if ($password == $decoded_password) {
+                // Generate a new token
                 $token = bin2hex(random_bytes(64));
-                $this->db->where('id', $user->id)->update('users', array('token' => $token));
-                $user_data = array(
-                    'id' => $user->id,
-                    'name' => $user->name,
-                    'email' => $user->email,
+                // Update the customer's token in the database
+                $this->db->where('id', $customer->id)->update('customers', array('token' => $token));
+                // Prepare the user data for the response
+                $customer_data = array(
+                    'id' => $customer->id,
+                    'name' => $customer->name,
+                    'email' => $customer->email,
                     'token' => $token,
                 );
 
                 $response = array(
                     'message' => 'Login successful',
-                    'data' => $user_data
+                    'data' => $customer_data
                 );
             } else {
                 $response = array(
@@ -203,6 +210,7 @@ class Api extends CI_Controller
 
         echo json_encode($response);
     }
+
 
     public function registerCustomer()
     {
@@ -295,13 +303,7 @@ class Api extends CI_Controller
                     'status' => $newCustomer->status,
                     'token' => $newCustomer->token,
                     'updated_at' => $newCustomer->updated_at,
-                    'address_id' => $addressId,
-                    'address' => array(
-                        'country' => $addressData['country'],
-                        'state' => $addressData['state'],
-                        'city' => $addressData['city'],
-                        'pincode' => $addressData['pincode']
-                    )
+                    'address_id' => $addressId
                 )
             );
         } else {
@@ -313,13 +315,11 @@ class Api extends CI_Controller
         echo json_encode($response);
     }
 
-
-
     public function getServiceCentresByLocation()
     {
         $latitude = $this->input->get('latitude');
         $longitude = $this->input->get('longitude');
-        $radius = $this->input->get('radius'); // Optional radius parameter
+        $radius = 10;      //$this->input->get('1000'); // Optional radius parameter
 
         if (!$latitude || !$longitude) {
             echo json_encode(array('message' => 'Latitude and Longitude are required'));
@@ -337,6 +337,7 @@ class Api extends CI_Controller
 
     public function addToCart()
     {
+        // Retrieve input data
         $brand_id = $this->input->post('brand_id');
         $model_id = $this->input->post('model_id');
         $issue_name = $this->input->post('issue_name');
@@ -347,10 +348,11 @@ class Api extends CI_Controller
         $this->form_validation->set_rules('brand_id', 'Brand ID', 'trim|required');
         $this->form_validation->set_rules('model_id', 'Model ID', 'trim|required');
         $this->form_validation->set_rules('issue_name', 'Issue Name', 'trim|required');
-        $this->form_validation->set_rules('issue_price', 'Issue Price', 'trim|required');
+        $this->form_validation->set_rules('issue_price', 'Issue Price', 'trim|required|numeric');
         $this->form_validation->set_rules('sorting', 'Sorting', 'trim|required|numeric');
 
         if ($this->form_validation->run() == FALSE) {
+            // Retrieve validation errors
             $error_message = strip_tags(validation_errors());
             echo json_encode(array('status' => 'error', 'message' => $error_message));
             return;
@@ -376,15 +378,17 @@ class Api extends CI_Controller
             echo json_encode(array('status' => 'error', 'message' => 'Failed to add repairing issue to cart'));
         }
     }
+
     public function getAddressByToken()
     {
-        // Retrieve token from request headers
-        $token = $this->input->get_request_header('Authorization');
+        // Retrieve token from GET request
+        $token = $this->input->get('token');
 
+        // Check if token is provided
         if (!$token) {
             $response = array(
-                'message' => 'Token is required',
-                'status' => false
+                'status' => false,
+                'message' => 'Token is required'
             );
             echo json_encode($response);
             return;
@@ -393,10 +397,11 @@ class Api extends CI_Controller
         // Fetch customer data based on token
         $customer = $this->Customer_model->getCustomerByToken($token);
 
+        // Check if customer exists
         if (!$customer) {
             $response = array(
-                'message' => 'Invalid token',
-                'status' => false
+                'status' => false,
+                'message' => 'Invalid token'
             );
             echo json_encode($response);
             return;
@@ -405,19 +410,20 @@ class Api extends CI_Controller
         // Fetch address data based on customer ID
         $address = $this->CustAddress_model->getAddressByCustomerId($customer->id);
 
+        // Check if address exists
         if (!$address) {
             $response = array(
-                'message' => 'Address not found',
-                'status' => false
+                'status' => false,
+                'message' => 'Address not found'
             );
             echo json_encode($response);
             return;
         }
 
-        // Prepare response
+        // Prepare successful response
         $response = array(
-            'message' => 'Address retrieved successfully',
             'status' => true,
+            'message' => 'Address retrieved successfully',
             'data' => array(
                 'customer_id' => $customer->id,
                 'name' => $customer->name,
@@ -433,5 +439,131 @@ class Api extends CI_Controller
         );
 
         echo json_encode($response);
+    }
+    public function createAddressByToken()
+    {
+        // Retrieve input data
+        $token = $this->input->post('token');
+        $country = $this->input->post('country');
+        $state = $this->input->post('state');
+        $city = $this->input->post('city');
+        $pincode = $this->input->post('pincode');
+        $addline_1 = $this->input->post('addline_1');
+        $addline_2 = $this->input->post('addline_2');
+
+        // Validate inputs
+        $this->form_validation->set_rules('token', 'Token', 'trim|required');
+        $this->form_validation->set_rules('country', 'Country', 'trim|required');
+        $this->form_validation->set_rules('state', 'State', 'trim|required');
+        $this->form_validation->set_rules('city', 'City', 'trim|required');
+        $this->form_validation->set_rules('pincode', 'Pincode', 'trim|required|numeric');
+        $this->form_validation->set_rules('addline_1', 'Address Line 1', 'trim|required');
+        $this->form_validation->set_rules('addline_2', 'Address Line 2', 'trim');
+
+        if ($this->form_validation->run() == FALSE) {
+            // Retrieve validation errors
+            $error_message = strip_tags(validation_errors());
+            $response = array(
+                'status' => false,
+                'message' => $error_message
+            );
+            echo json_encode($response);
+            return;
+        }
+
+        // Fetch customer data based on token
+        $customer = $this->Customer_model->getCustomerByToken($token);
+
+        // Check if customer exists
+        if (!$customer) {
+            $response = array(
+                'status' => false,
+                'message' => 'Invalid token'
+            );
+            echo json_encode($response);
+            return;
+        }
+
+        // Prepare data for insertion
+        $address_data = array(
+            'customer_id' => $customer->id,
+            'country' => $country,
+            'state' => $state,
+            'city' => $city,
+            'pincode' => $pincode,
+            'addline_1' => $addline_1,
+            'addline_2' => $addline_2,
+            'date_added' => date("Y-m-d H:i:s")
+        );
+
+        // Insert address data into the database
+        $result = $this->CustAddress_model->insert_address($address_data);
+
+        if ($result) {
+            $response = array(
+                'status' => true,
+                'message' => 'Address created successfully'
+            );
+        } else {
+            $response = array(
+                'status' => false,
+                'message' => 'Failed to create address'
+            );
+        }
+
+        echo json_encode($response);
+    }
+    public function getSlotsByDate()
+    {
+        // Retrieve input data
+        $date = $this->input->get('date');
+
+        // Validate input
+        $this->form_validation->set_data(array('date' => $date));
+        $this->form_validation->set_rules('date', 'Date', 'trim|required|callback_valid_date');
+
+        if ($this->form_validation->run() == FALSE) {
+            $error_message = strip_tags(validation_errors());
+            $response = array(
+                'status' => false,
+                'message' => $error_message
+            );
+            echo json_encode($response);
+            return;
+        }
+
+        // Mock data for slots (this should be replaced with actual data retrieval logic)
+        $slots = $this->getMockSlots();
+
+        $response = array(
+            'status' => true,
+            'message' => 'Slots retrieved successfully',
+            'data' => $slots
+        );
+
+        echo json_encode($response);
+    }
+
+    // Custom validation callback for date format
+    public function valid_date($date)
+    {
+        $d = DateTime::createFromFormat('Y-m-d', $date);
+        return $d && $d->format('Y-m-d') === $date;
+    }
+
+    // Mock function to simulate slot retrieval
+    private function getMockSlots()
+    {
+        // Example generic slot data
+        return array(
+            '09:00AM - 10:00AM',
+            '10:00AM - 11:00AM',
+            '11:00AM - 12:00PM',
+            '12:00PM - 01:00PM',
+            '01:00PM - 02:00PM',
+            '02:00PM - 03:00PM',
+            '03:00PM - 04:00PM',
+            '04:00PM - 05:00PM'
+        );
     }
 }
