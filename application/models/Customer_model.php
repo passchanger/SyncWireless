@@ -40,18 +40,25 @@ class Customer_model extends CI_Model
     {
         return $this->db->get_where('customers', array('email' => $email))->row();
     }
-    public function getCustomerById($id, $fields = array('id', 'name', 'email', 'mobile', 'token', 'status', 'updated_at'))
+
+    public function getCustomerById($customerId)
     {
-        return $this->db->select($fields)
-            ->from('customers')
-            ->where('id', $id)
-            ->get()
-            ->row();
+        $this->db->select('customers.id, customers.name, customers.email, customers.mobile, customers.token, customers.status, customers.updated_at, cust_addresses.country, cust_addresses.state, cust_addresses.city, cust_addresses.pincode');
+        $this->db->from('customers');
+        $this->db->join('cust_addresses', 'customers.id = cust_addresses.customer_id', 'left');
+        $this->db->where('customers.id', $customerId);
+        $query = $this->db->get();
+        return $query->row();
     }
 
     public function insert_customer($data)
     {
         $this->db->insert('customers', $data);
         return $this->db->insert_id();
+    }
+    public function getCustomerByToken($token)
+    {
+        $query = $this->db->get_where('customers', array('token' => $token));
+        return $query->row();
     }
 }

@@ -51,12 +51,11 @@ class ServiceCentres_model extends CI_Model
             return false;
         }
     }
-    public function getServiceCentresByExactLocation($latitude, $longitude)
+    public function getServiceCentresByLocation($latitude, $longitude, $radius = 10)
     {
         $this->db->select('*');
         $this->db->from('service_centres');
-        $this->db->where('latitude', $latitude);
-        $this->db->where('longitude', $longitude);
+        $this->db->where("ST_Distance_Sphere(point(longitude, latitude), point($longitude, $latitude)) <= ", $radius * 1000); // Radius in meters
 
         $query = $this->db->get();
         return $query->result();

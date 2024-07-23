@@ -41,4 +41,9 @@ class CustAddress_model extends CI_Model
             return false;
         }
     }
+    public function insert_address($data)
+    {
+        $this->db->insert('cust_addresses', $data);
+        return $this->db->insert_id();
+    }
 }

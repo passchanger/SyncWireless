@@ -159,3 +159,4 @@ $route['api/login'] = "Api/apiLogin";
 $route['api/signup'] = 'Api/registerCustomer';
 $route['api/ServiceCentresLatLong'] = 'Api/getServiceCentresByLocation';
 $route['api/AddRI-Issue'] = 'Api/addToCart';
+$route['api/getAddressByToken'] = 'Api/getAddressByToken';
