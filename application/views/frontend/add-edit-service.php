@@ -64,11 +64,11 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label for="latitude">Latitude</label>
-                                <input type="number" name="latitude" placeholder="Enter your Latitude" class="form-control" value="<?php echo isset($service) ? htmlspecialchars($service->latitude) : ''; ?>">
+                                <input type="text" name="latitude" placeholder="Enter your Latitude" class="form-control" value="<?php echo isset($service) ? htmlspecialchars($service->latitude) : ''; ?>">
                             </div>
                             <div class="form-group mb-3">
                                 <label for="longitude">Longitude</label>
-                                <input type="number" name="longitude" placeholder="Enter your Longitude" class="form-control" value="<?php echo isset($service) ? htmlspecialchars($service->longitude) : ''; ?>">
+                                <input type="text" name="longitude" placeholder="Enter your Longitude" class="form-control" value="<?php echo isset($service) ? htmlspecialchars($service->longitude) : ''; ?>">
                             </div>
                             <?php if (isset($service)) : ?>
                                 <div class="form-group mb-3">

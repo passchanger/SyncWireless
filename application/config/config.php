@@ -24,8 +24,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 |
 */
 // $config['base_url'] = 'http://65.1.77.233/tw/';
-// $config['base_url'] = 'http://65.1.77.233/tw-ci/';
-$config['base_url'] = 'http://localhost/tw-ci-main/tw-ci/';
+$config['base_url'] = 'http://65.1.77.233/tw-ci/';
+// $config['base_url'] = 'http://localhost/tw-ci-main/tw-ci/';
 
 
 /*
