@@ -83,12 +83,12 @@ class Api extends CI_Controller
 
     public function AllRepairingissues()
     {
-        $repairing_issues = $this->RepairingIssue_model->getAllRepairingIssues();
+        // $repairing_issues = $this->RepairingIssue_model->getAllRepairingIssues();
 
-        $response = array();
-        foreach ($repairing_issues as $issue) {
-            $response[] = $issue;
-        }
+        $response = array(
+            array('icon' => 'https://tal7aouy.gallerycdn.vsassets.io/extensions/tal7aouy/icons/3.8.0/1703110281439/Microsoft.VisualStudio.Services.Icons.Default', 'name' => 'Broken Screen', 'description' => "Lorem ipsum"),
+            array('icon' => 'https://tal7aouy.gallerycdn.vsassets.io/extensions/tal7aouy/icons/3.8.0/1703110281439/Microsoft.VisualStudio.Services.Icons.Default', 'name' => 'Jack Issue', 'description' => "Lorem ipsum")
+        );
 
         echo json_encode(array('message' => "All Repairing issues retrieved successfully", 'data' => $response));
     }
@@ -134,8 +134,8 @@ class Api extends CI_Controller
                         'image' => $product->image,
                         'name' => $product->name,
                         'price' => $product->price,
-                        'brand_id' => $product->brand_name,
-                        'model_id' => $product->model_name
+                        'brand' => $product->brand_name,
+                        'model' => $product->model_name
                     );
                 }
                 echo json_encode(array('message' => "Product retrieved successfully", 'data' => $response));
