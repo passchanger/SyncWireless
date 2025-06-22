@@ -79,15 +79,12 @@ $route['update-model/(:any)'] = "Model/updateModel/$1";
 $route['delete-model/(:any)'] = "Model/deleteModel/$1";
 $route['model/select-id'] = "Model/getModelsByBrand";
 
-
-
 $route['view-repairing-issues'] = "RepairingIssue/index";
 $route['add-repair'] = "RepairingIssue/addRepairing";
 $route['edit-repair/(:any)'] = "RepairingIssue/editRepairing/$1";
 $route['update-repair/(:any)'] = "RepairingIssue/updateRepairing/$1";
 $route['delete-repair/(:any)'] = "RepairingIssue/deleteRepairing/$1";
 $route['select-id'] = 'RepairingIssue/select_id';
-
 
 $route['view-service-centers'] = "ServiceCentres/index";
 $route['create-service/(:any)'] = 'ServiceCentres/serviceForm/$1';
@@ -158,7 +155,26 @@ $route['api/get-product-details/(:any)'] = "Api/getProductDetailsWithVariations/
 $route['api/login'] = "Api/apiLogin";
 $route['api/signup'] = 'Api/registerCustomer';
 $route['api/ServiceCentresLatLong'] = 'Api/getServiceCentresByLocation';
-$route['api/addRiIssue'] = "Api/addToCart";
+$route['api/addRiIssueCart'] = "Api/addToCart";
 $route['api/getAddressByToken'] = 'Api/getAddressByToken';
 $route['api/createAddressByToken'] = 'Api/createAddressByToken';
 $route['api/getSlotsByDate'] = 'Api/getSlotsByDate';
+$route['api/viewCart'] = "Api/viewCart";
+$route['api/add_riorders'] = "Api/add_riorders";
+$route['api/update_riorders'] = "Api/update_riorders";
+$route['api/delete_cart'] = "Api/delete_cart";
+
+
+$route['search-page'] = 'SearchController/redirectPage';
+
+
+$route['view-orders'] = 'Orders/index';
+$route['view-shop-orders'] = 'ShopOrders/index';
+$route['view-sell-request'] = 'SellRequest/index';
+$route['view-report'] = 'Report/index';
+$route['view-transaction'] = 'Transaction/index';
+$route['view-invoices'] = 'Invoices/index';
+
+$route['view-return-request'] = 'ReturnRequest/index';
+$route['view-disputes'] = 'Disputes/index';
+$route['view-deliveries'] = 'TrackDeliveries/index';

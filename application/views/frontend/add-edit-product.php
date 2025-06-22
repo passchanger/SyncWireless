@@ -44,7 +44,10 @@
                                 <div class="form-group mb-3">
                                     <label for="model_id" class="form-label">Select Model</label>
                                     <select class="form-control" name="model_id" id="model_id" required>
-                                        <option disabled selected>Select Model</option>
+                                        <option selected>Select Model</option>
+                                        <?php foreach ($models as $mod) { ?>
+                                            <option value="<?php echo $mod['id']; ?>"><?php echo htmlspecialchars($mod['name']); ?></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
 
@@ -115,7 +118,7 @@
                                 <div class="row">
                                     <?php
                                     foreach ($variationCatg as $variationCat) {
-                                        //var_dump($variationCat); 
+                                        // var_dump($variationCat);
                                     ?>
                                         <div class="col-md-6">
                                             <?php

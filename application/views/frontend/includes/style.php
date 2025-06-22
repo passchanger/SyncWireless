@@ -19,9 +19,9 @@
 <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- =======================================================
-* Template Name: Twin Wireless
+* Template Name: Sync Wireless
 * Template URL: 
 * Updated: 
-* Author: TechnoGripper Solutions Private Limited
+* Author: VIVEK VERMA 
 * License: #
 ======================================================== -->

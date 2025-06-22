@@ -11,7 +11,7 @@ class Index extends CI_Controller
 
     public function index()
     {
-        $runFunction = checkLogin();
+       $runFunction = checkLogin();
         $data['title'] = "Dashboard";
         $this->load->view('frontend/index', $data);
     }

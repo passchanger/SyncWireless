@@ -18,8 +18,8 @@ class CustRIcart extends CI_Controller
         $query = $this->db->select('cr.id, c.name as customer_name, b.name as brand_name, m.name as model_name, ri.issue_name as ri_name, cr.est_price, cr.status, cr.date_added')
             ->from('cust_ricart cr')
             ->join('customers c', 'cr.id = c.id', 'left')
-            ->join('brands b', 'cr.id = b.id', 'left')
-            ->join('models m', 'cr.id = m.id', 'left')
+            ->join('brands b', 'cr.brand_id = b.id', 'left')
+            ->join('models m', 'cr.model_id = m.id', 'left')
             ->join('repairing_issues ri', 'cr.id = ri.id', 'left')
             ->where('cr.status', 'active')
             ->get();

@@ -63,4 +63,46 @@ class Customer_model extends CI_Model
         $query = $this->db->get('customers');
         return $query->row();
     }
+
+    public function insertOrder($data)
+    {
+        return $this->db->insert('cust_riorders', $data); // Adjust table name as needed
+    }
+
+
+    public function updateOrder($order_id, $data)
+    {
+        // Ensure order_id and data are provided
+        if (empty($order_id) || empty($data)) {
+            return false;
+        }
+
+        // Update the order record
+        $this->db->where('id', $order_id);
+        return $this->db->update('cust_riorders', $data); // Adjust table name as needed
+    }
+
+    public function deleteCartItem($customer_id, $cart_id)
+    {
+        // Check if parameters are provided
+        if (empty($customer_id) || empty($cart_id)) {
+            return false;
+        }
+
+        // Perform deletion
+        $this->db->where('customer_id', $customer_id);
+        $this->db->where('id', $cart_id);
+        return $this->db->delete('cust_ricart'); // Adjust the table name as needed
+    }
+    public function deleteCartItemsByCustomerID($customer_id)
+    {
+        // Check if parameter is provided
+        if (empty($customer_id)) {
+            return false;
+        }
+
+        // Perform deletion
+        $this->db->where('customer_id', $customer_id);
+        return $this->db->delete('cust_ricart'); // Adjust the table name as needed
+    }
 }

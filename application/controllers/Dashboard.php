@@ -13,8 +13,8 @@ class Dashboard extends CI_Controller
 
         $data['title'] = 'Dashboard';
 
-        // $this->load->view('include/header');
+        $this->load->view('include/header');
         $this->load->view('index');
-        // $this->load->view('include/footer');
+        $this->load->view('include/footer');
     }
 }

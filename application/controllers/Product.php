@@ -113,7 +113,7 @@ class Product extends CI_Controller
         $data['singleproduct'] = $singleProduct;
         $data['brands'] = $this->db->query("SELECT * FROM brands WHERE status = 'active'")->result_array();
         $data['models'] = $this->db->query("SELECT * FROM models WHERE status = 'active'")->result_array();
-        $data['variationCatg'] = $variationCatg;
+        $data['variationCatg'] = !empty($result) ? $result : [];
 
         $this->load->view('frontend/add-edit-product', $data);
     }
@@ -122,6 +122,7 @@ class Product extends CI_Controller
     {
         $data = $this->input->post();
         $data_files = $_FILES;
+
         // Set validation rules
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('brand_id', 'Brand ID', 'trim|required');
@@ -144,7 +145,7 @@ class Product extends CI_Controller
 
         // Handle file upload
         $config = array(
-            'upload_path' => '../assets/products/', // Verify this path
+            'upload_path' => FCPATH . 'assets/products/', // Absolute path
             'allowed_types' => 'jpg|jpeg|png|gif',
             'overwrite' => TRUE,
             'max_size' => "204800", // Max size in KB
@@ -155,6 +156,7 @@ class Product extends CI_Controller
         if (!$this->upload->do_upload('image')) {
             // File upload failed, set error message and redirect back
             $error = $this->upload->display_errors();
+
             $this->session->set_flashdata('error', $error);
             echo $error; // Print the error for debugging
             exit;
@@ -171,7 +173,7 @@ class Product extends CI_Controller
             'model_id' => $data['model_id'],
             'name' => $data['name'],
             'price' => $data['price'],
-            'image' => '../assets/products/' . $image,
+            'image' => 'assets/products/' . $image, // Store relative path in DB
             'description' => $data['description'],
             'key_specification' => $data['key_specification'],
             'refund_policy' => $data['refund_policy'],

@@ -89,4 +89,20 @@ class RepairingIssue_model extends CI_Model
             return [];
         }
     }
+    public function insert_into_cust_ricart($data)
+    {
+        return $this->db->insert('cust_ricart', $data);
+    }
+    public function get_cart_by_customer_id($customer_id)
+    {
+        $this->db->where('customer_id', $customer_id);
+        $query = $this->db->get('cust_ricart');
+
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return false;
+        }
+    }
+    
 }
