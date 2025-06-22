@@ -110,7 +110,6 @@ SyncWireless/
 - [ ] Role-based Access Control (RBAC)
 - [ ] Email Notifications for Repair Status
 - [ ] API for mobile app integration
-- [ ] Dark Mode support
 
 ---
 
